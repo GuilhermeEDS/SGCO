@@ -1,22 +1,29 @@
 <!doctype html>
-<html lang="pt_BR">
+<html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Login</title>
 </head>
 <body>
-    <form>
-        <p>
-            <label for="cpf">CPF:</label>
-            <input id="cpf" name="cpf" type="text">
-        </p>
-        <p>
-            <label for="senha">Senha:</label>
-            <input id="senha" name="senha" type="password">
-        </p>
-    </form>
+<form method="POST" th:action="@{/login}">
+    <p>
+        <label for="cpf">CPF:</label>
+        <input id="cpf" name="cpf" type="text">
+    </p>
+    <p>
+        <label for="senha">Senha:</label>
+        <input id="senha" name="senha" type="password">
+    </p>
+
+    <p>
+        <input type="submit" value="Entrar"/>
+        <input id="lembrar-login" name="lembrar-login" type="checkbox"> <label for="lembrar-login">Lembrar
+        login?</label>
+    </p>
+</form>
+<span>Não possui um cadastro? <a href="/registro">Registre-se</a></span>
 </body>
 </html>

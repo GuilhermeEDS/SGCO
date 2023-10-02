@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Registro de Paciente</title>
+
+    <script type="text/javascript" src="/js/htmx.min.js"></script>
+</head>
+<body>
+
+<h1>Registro de Paciente</h1>
+
+<form action="/registro" method="POST" enctype="utf8" th:object="${registroPacienteDto}">
+    <h2>Informações gerais</h2>
+    <div hx-target="this" th:fragment="nome">
+        <label for="nome">Nome completo:</label>
+        <input id="nome" placeholder="João da Silva" th:field="*{nome}">
+        <ul th:if="${#fields.hasErrors('nome')}">
+            <li class="error" th:each="err : ${#fields.errors('nome')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div th:fragment="cpf">
+        <label for="cpf">CPF:</label>
+        <input id="cpf" placeholder="123.456.789-09" th:field="*{cpf}">
+        <ul th:if="${#fields.hasErrors('cpf')}">
+            <li class="error" th:each="err : ${#fields.errors('cpf')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div th:fragment="rg">
+        <label for="identidade">RG:</label>
+        <input id="identidade" placeholder="12.345.678-9" th:field="*{rg}">
+        <ul th:if="${#fields.hasErrors('rg')}">
+            <li class="error" th:each="err : ${#fields.errors('rg')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div th:fragment="dataNascimento">
+        <label for="dataNascimento">Data de Nascimento:</label>
+        <input id="dataNascimento" placeholder="01/01/1970" th:field="*{dataNascimento}" type="date">
+        <ul th:if="${#fields.hasErrors('dataNascimento')}">
+            <li class="error" th:each="err : ${#fields.errors('dataNascimento')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div th:fragment="genero">
+        <label for="genero">Genero:</label>
+        <span id="genero" th:field="*{genero}">Colocar select de gênero aqui</span>
+        <ul th:if="${#fields.hasErrors('genero')}">
+            <li class="error" th:each="err : ${#fields.errors('genero')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div th:fragment="senha">
+        <label for="senha">Senha:</label>
+        <input id="senha" placeholder="Senha secreta" th:field="*{senha}" type="password">
+        <ul th:if="${#fields.hasErrors('senha')}">
+            <li class="error" th:each="err : ${#fields.errors('senha')}" th:text="${err}"/>
+        </ul>
+    </div>
+
+    <h2>Contato</h2>
+    <div>
+        <label for="celular">Celular:</label>
+        <input id="celular" placeholder="(84) 9 1234-5678" th:field="*{celular}" type="tel">
+        <ul th:if="${#fields.hasErrors('celular')}">
+            <li class="error" th:each="err : ${#fields.errors('celular')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div>
+        <label for="email">E-mail:</label>
+        <input id="email" placeholder="joao.silva@email.com" th:field="*{email}" type="email">
+        <ul th:if="${#fields.hasErrors('email')}">
+            <li class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"/>
+        </ul>
+    </div>
+
+    <h2>Endereço</h2>
+    <div>
+        <label for="cep">CEP:</label>
+        <input id="cep" placeholder="59078-900" th:field="*{cep}">
+        <ul th:if="${#fields.hasErrors('cep')}">
+            <li class="error" th:each="err : ${#fields.errors('cep')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div>
+        <label for="numero">Número:</label>
+        <input id="numero" placeholder="01" th:field="*{numero}">
+        <ul th:if="${#fields.hasErrors('numero')}">
+            <li class="error" th:each="err : ${#fields.errors('numero')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div>
+        <label for="logradouro">Logradouro:</label>
+        <input id="logradouro" placeholder="Av. Cap. Mor Gouveia" th:field="*{logradouro}">
+        <ul th:if="${#fields.hasErrors('logradouro')}">
+            <li class="error" th:each="err : ${#fields.errors('logradouro')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div>
+        <label for="bairro">Bairro:</label>
+        <input id="bairro" placeholder="Lagoa Nova" th:field="*{bairro}">
+        <ul th:if="${#fields.hasErrors('bairro')}">
+            <li class="error" th:each="err : ${#fields.errors('bairro')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div>
+        <label for="cidade">Cidade:</label>
+        <input id="cidade" placeholder="Natal" th:field="*{cidade}">
+        <ul th:if="${#fields.hasErrors('cidade')}">
+            <li class="error" th:each="err : ${#fields.errors('cidade')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div>
+        <label for="UF">UF:</label>
+        <input id="UF" placeholder="RN" th:field="*{uf}">
+        <ul th:if="${#fields.hasErrors('uf')}">
+            <li class="error" th:each="err : ${#fields.errors('uf')}" th:text="${err}"/>
+        </ul>
+    </div>
+    <div>
+        <button type="submit">Registrar</button>
+    </div>
+</form>
+
+<span>Já possui um cadastro? <a href="/login">Logar</a></span>
+
+</body>
+</html>

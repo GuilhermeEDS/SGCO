@@ -1,15 +1,17 @@
-package dgn.com.br.sgco.model.entity;
+package dgn.com.br.sgco.entity;
 
 import dgn.com.br.sgco.arq.Entidade;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.Duration;
 import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode
 public class Agendamento extends Entidade {
     @ManyToOne
     private TipoAgendamento tipo;
