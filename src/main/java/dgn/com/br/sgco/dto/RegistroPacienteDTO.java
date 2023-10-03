@@ -1,0 +1,32 @@
+package dgn.com.br.sgco.dto;
+
+import dgn.com.br.sgco.entity.Paciente;
+import dgn.com.br.sgco.entity.Pessoa;
+import dgn.com.br.sgco.entity.Usuario;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
+
+@Data
+public class RegistroPacienteDTO {
+    @Valid
+    private PessoaDTO pessoaDTO;
+
+    @NotEmpty(message = "Senha não pode ser vazia")
+    private String senha;
+
+    public Usuario toUsuario() {
+        Pessoa pessoa = getPessoaDTO().toPessoa();
+
+        Paciente paciente = new Paciente();
+        paciente.setPessoa(pessoa);
+
+        Usuario usuario = new Usuario();
+        usuario.setSenha(getSenha());
+        usuario.setPessoa(pessoa);
+        usuario.setDentista(null);
+        usuario.setPaciente(paciente);
+
+        return usuario;
+    }
+}

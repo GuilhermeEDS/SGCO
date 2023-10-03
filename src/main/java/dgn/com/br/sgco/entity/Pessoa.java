@@ -2,7 +2,8 @@ package dgn.com.br.sgco.entity;
 
 import dgn.com.br.sgco.arq.Entidade;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +26,7 @@ public class Pessoa extends Entidade {
 
     private Date dataNascimento;
 
-    @ManyToOne
+    @Enumerated(EnumType.ORDINAL)
     private Genero genero;
 
     @OneToOne
