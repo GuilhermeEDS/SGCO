@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,6 +17,7 @@ public class PessoaDTO {
     private String nome;
 
     @NotEmpty(message = "CPF não pode ser vazio")
+    @Pattern(regexp = "^$|^\\d{3}\\.\\d{3}\\.\\d{3}0\\d{2}$", message = "CPF deve estar no formato 000.000.00-00")
     private String cpf;
 
     @NotEmpty(message = "RG não pode ser vazio")

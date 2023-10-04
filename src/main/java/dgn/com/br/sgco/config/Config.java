@@ -1,5 +1,13 @@
 package dgn.com.br.sgco.config;
 
+import dgn.com.br.sgco.entity.Dentista;
+import dgn.com.br.sgco.entity.Paciente;
+import dgn.com.br.sgco.entity.Pessoa;
+import dgn.com.br.sgco.entity.Usuario;
+import dgn.com.br.sgco.repository.DentistaRepository;
+import dgn.com.br.sgco.repository.PacienteRepository;
+import dgn.com.br.sgco.repository.PessoaRepository;
+import dgn.com.br.sgco.repository.UsuarioRepository;
 import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -16,7 +24,19 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SpringSecurity {
+public class Config {
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @Autowired
+    PessoaRepository pessoaRepository;
+
+    @Autowired
+    DentistaRepository dentistaRepository;
+
+    @Autowired
+    PacienteRepository pacienteRepository;
+
     @Autowired
     private AuthProvider authProvider;
 
@@ -52,6 +72,36 @@ public class SpringSecurity {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authProvider);
-        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("123"));
+        criarUsuariosPadrao();
+    }
+
+    public void criarUsuariosPadrao() {
+        Usuario admin = new Usuario();
+        admin.setSenha("123");
+        Pessoa pessoaAdmin = new Pessoa();
+        pessoaAdmin.setCpf("admin");
+        admin.setPessoa(pessoaAdmin);
+        pessoaRepository.save(admin.getPessoa());
+        usuarioRepository.save(admin);
+
+        Usuario dentista = new Usuario();
+        dentista.setSenha("123");
+        Pessoa pessoaDentista = new Pessoa();
+        pessoaDentista.setCpf("123.456.789-09");
+        dentista.setPessoa(pessoaDentista);
+        dentista.setDentista(new Dentista());
+        dentistaRepository.save(dentista.getDentista());
+        pessoaRepository.save(pessoaDentista);
+        usuarioRepository.save(dentista);
+
+        Usuario paciente = new Usuario();
+        paciente.setSenha("123");
+        Pessoa pessoaPaciente = new Pessoa();
+        pessoaPaciente.setCpf("135.477.713-15");
+        paciente.setPessoa(pessoaPaciente);
+        paciente.setPaciente(new Paciente());
+        pacienteRepository.save(paciente.getPaciente());
+        pessoaRepository.save(pessoaPaciente);
+        usuarioRepository.save(paciente);
     }
 }

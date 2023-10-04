@@ -47,7 +47,7 @@ public class CadastroController {
             return "/cadastroDentista";
         }
 
-        return "/login";
+        return "/";
     }
 
     @GetMapping("/cadastro/paciente")
