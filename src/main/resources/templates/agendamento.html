@@ -15,57 +15,46 @@
 <body>
 	<div id="central">
 		<title>Cadastrar Agendamento</title>
-		<form method="POST" action="/agendamento">
+		<form method="POST" action="/agendamento" enctype="utf8" th:object="${agendamentoDTO}">
 			<div class="mb-3">
-				<label for="SelectAgendamento" class="form-label">Tipo de Agendamento</label>
-				<select class="form-select" aria-label="Default select example" name="tipo">
-					<option selected>Selecionar um tipo de agendamento</option>
-					<option value="Acompanhamento">Acompanhamento</option>
-					<option value="Cirurgia">Cirurgia</option>
-					<option value="Consulta">Consulta</option>
+				<label for="tipoAgendamento" class="form-label">Tipo de Agendamento</label>
+				<select class="form-select" th:field="*{tipo.id}" aria-label="Default select example" id="tipoAgendamento">
+					<option value="-1">Selecionar um tipo de agendamento</option>
+					<option th:each="tipoAgendamento : ${tiposAgendamento}" th:text="${tipoAgendamento.getDescricao()}"
+							th:value="${tipoAgendamento.ordinal()}"></option>
 				</select>
+				<div th:replace="~{fragments :: listaErros('tipo.id')}"></div>
 			</div>
 			<title>Dados gerais da consulta</title>
 			<div class="mb-3">
-				<label for="InputPaciente" class="form-label">Paciente</label>
-				<input type="text" class="form-control" id="InputPaciente" name="paciente">
-			</div>
-			<div class="mb-3">
-				<label for="SelectDentista" class="form-label">Dentista</label>
-				<select class="form-select" aria-label="Default select example" name="dentista">
-					<option selected>Selecionar um profissional</option>
-					<option value="Padrao">Dentista Padrão</option>
+				<label for="dentista" class="form-label">Dentista</label>
+				<select class="form-select" th:field="*{idDentista}" aria-label="Default select example" id="dentista">
+					<option value="-1">Selecionar um profissional</option>
+					<option th:each="dentista : ${dentistas}" th:text="${dentista.getPessoa().getNome()}"
+							th:value="${dentista.getId()}"></option>
 				</select>
+				<div th:replace="~{fragments :: listaErros('idDentista')}"></div>
 			</div>
-			<div>
+			<div class="row">
 				<div class="col-md-4">
-					<label for="inputDataConsulta" class="form-label">Data da Consulta</label>
-					<input type="date" class="form-control" id="inputDataConsulta" name="dataConsulta">
-				</div>
-				<div class="col-md-4">
-					<label for="inputHoraInicio" class="form-label">Hora de Início</label>
-					<input type="time" class="form-control" id="inputHoraInicio" name="horaInicio">
-				</div>
-				<div class="col-md-4">
-					<label for="inputTempoEstimado" class="form-label">Tempo Estimado</label>
-					<input type="time" class="form-control" id="inputTempoEstimado" value="00:00" name="tempoEstimado">
+					<label for="dataConsulta" class="form-label">Data da Consulta</label>
+					<input type="date" th:field="*{dataConsulta}" class="form-control" id="dataConsulta" name="dataConsulta">
+					<div th:replace="~{fragments :: listaErros('dataConsulta')}"></div>
 				</div>
 			</div>
 			<div class="mb-3">
 				<label for="inputObservacoes" class="form-label">Observações</label>
-				<input type="text" class="form-control" id="inputObservacoes" name="observacoes">
+				<input type="text" th:field="*{observacoesPaciente}" class="form-control" id="inputObservacoes" name="observacoes">
 			</div>
 			<title>Pagamento</title>
 			<div class="mb-3">
-				<label for="SelectFormaPagamento" class="form-label">Forma de Pagamento</label>
-				<select class="form-select" aria-label="Default select example" name="formaPagamento">
-					<option selected>Selecionar um tipo de Pagamento</option>
-					<option value="Dinheiro">Dinheiro</option>
-					<option value="Debito">Cartão de Débito</option>
-					<option value="Credito">Cartão de Crédito</option>
-					<option value="Boleto">Boleto</option>
-					<option value="Pix">Pix</option>
+				<label for="formaPagamento" class="form-label">Forma de Pagamento</label>
+				<select class="form-select" th:field="*{formaPagamento.id}" aria-label="Default select example" id="formaPagamento">
+					<option value="-1">Selecionar um tipo de Pagamento</option>
+					<option th:each="formaPagamento : ${formasPagamento}" th:text="${formaPagamento.getDescricao()}"
+							th:value="${formaPagamento.ordinal()}"></option>
 				</select>
+				<div th:replace="~{fragments :: listaErros('formaPagamento.id')}"></div>
 			</div>
 			<div class="mb-3">
 				<button type="submit" class="btn btn-primary">Cadastrar Agendamento</button>

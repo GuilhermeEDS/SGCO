@@ -1,6 +1,8 @@
 package dgn.com.br.sgco.entity;
 
 import dgn.com.br.sgco.arq.Entidade;
+import dgn.com.br.sgco.enumeration.FormaPagamento;
+import dgn.com.br.sgco.enumeration.TipoAgendamento;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
@@ -13,8 +15,6 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode
 public class Agendamento extends Entidade {
-    @ManyToOne
-    private TipoAgendamento tipo;
 
     @ManyToOne
     private Paciente paciente;
@@ -22,12 +22,15 @@ public class Agendamento extends Entidade {
     @ManyToOne
     private Dentista dentista;
 
+    private TipoAgendamento tipo;
+
     private Date dataConsulta;
 
     private Duration tempoEstimado;
 
-    private String observacoes;
+    private String observacoesPaciente;
 
-    @ManyToOne
+    private String observacoesDentista;
+
     private FormaPagamento formaPagamento;
 }
