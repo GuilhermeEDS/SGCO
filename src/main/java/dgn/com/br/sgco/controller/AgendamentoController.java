@@ -5,6 +5,7 @@ import dgn.com.br.sgco.entity.Agendamento;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.enumeration.FormaPagamento;
 import dgn.com.br.sgco.enumeration.TipoAgendamento;
+import dgn.com.br.sgco.repository.AgendamentoRepository;
 import dgn.com.br.sgco.repository.DentistaRepository;
 import dgn.com.br.sgco.repository.UsuarioRepository;
 import dgn.com.br.sgco.service.AgendamentoService;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -28,6 +30,12 @@ public class AgendamentoController {
     private DentistaRepository dentistaRepository;
 
     @Autowired
+    private AgendamentoRepository agendamentoRepository;
+
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
     @GetMapping("/agendamento")
@@ -37,6 +45,18 @@ public class AgendamentoController {
         model.addAttribute("formasPagamento", FormaPagamento.values());
         model.addAttribute("tiposAgendamento", TipoAgendamento.values());
         model.addAttribute("dentistas", dentistaRepository.findAll());
+        return "agendamento";
+    }
+
+    @GetMapping("/agendamento/{id}")
+    public String paginaAgendamento(@PathVariable("id") long id, @NonNull Model model) {
+        AgendamentoDTO agendamentoDTO  = new AgendamentoDTO();
+        model.addAttribute("agendamentoDTO", agendamentoDTO);
+        model.addAttribute("agendamento", agendamentoRepository.findByPacienteId(id));
+        model.addAttribute("formasPagamento", FormaPagamento.values());
+        model.addAttribute("tiposAgendamento", TipoAgendamento.values());
+        model.addAttribute("dentistas", dentistaRepository.findAll());
+        model.addAttribute("paciente", pacienteRepository.findById(id));
         return "agendamento";
     }
 
@@ -55,6 +75,6 @@ public class AgendamentoController {
         }
 
         Agendamento agendamento = agendamentoService.agendar(agendamentoDto, usuario);
-        return "/";
+        return "redirect:/";
     }
 }

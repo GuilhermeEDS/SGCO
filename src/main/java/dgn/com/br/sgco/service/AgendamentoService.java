@@ -31,6 +31,7 @@ public class AgendamentoService {
         agendamento.setDentista(dentista.get());
         agendamento.setTipo(agendamentoDto.getTipo().toTipoAgendamento());
         agendamento.setDataConsulta(agendamentoDto.getDataConsulta());
+        agendamento.setHoraConsulta(agendamentoDto.getHoraConsulta());
         agendamento.setTempoEstimado(agendamentoDto.getTempoEstimado());
         agendamento.setObservacoesPaciente(agendamentoDto.getObservacoesPaciente());
         agendamento.setObservacoesDentista(agendamentoDto.getObservacoesDentista());

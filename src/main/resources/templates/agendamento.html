@@ -42,6 +42,45 @@
 					<div th:replace="~{fragments :: listaErros('dataConsulta')}"></div>
 				</div>
 			</div>
+			<div>
+				<div class="form-check">
+					<input class="form-check-input" th:field="*{horaConsulta}" value="9:00" type="radio" name="horaConsulta" id="radioHora1">
+					<label class="form-check-label" for="radioHora1">
+						9:00
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" th:field="*{horaConsulta}" value="10:00" type="radio" name="horaConsulta" id="radioHora2">
+					<label class="form-check-label" for="radioHora1">
+						10:00
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" th:field="*{horaConsulta}" value="11:00" type="radio" name="horaConsulta" id="radioHora3">
+					<label class="form-check-label" for="radioHora1">
+						11:00
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" th:field="*{horaConsulta}" value="13:00" type="radio" name="horaConsulta" id="radioHora4">
+					<label class="form-check-label" for="radioHora1">
+						13:00
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" th:field="*{horaConsulta}" value="14:00" type="radio" name="horaConsulta" id="radioHora5">
+					<label class="form-check-label" for="radioHora1">
+						14:00
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" th:field="*{horaConsulta}" value="15:00" type="radio" name="horaConsulta" id="radioHora6">
+					<label class="form-check-label" for="radioHora1">
+						15:00
+					</label>
+				</div>
+				<div th:replace="~{fragments :: listaErros('horaConsulta')}"></div>
+			</div>
 			<div class="mb-3">
 				<label for="inputObservacoes" class="form-label">Observações</label>
 				<input type="text" th:field="*{observacoesPaciente}" class="form-control" id="inputObservacoes" name="observacoes">

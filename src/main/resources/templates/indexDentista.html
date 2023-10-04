@@ -11,5 +11,24 @@
 <a href="/logout">Sair</a>
 <h1 th:text="${usuario.pessoa.nome}"></h1>
 <p>Você agora está logado. (Dentista)</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Horário</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  th:each="agendamento : ${agendamentos}"   class="list-group-item">
+        <td th:text="${agendamento.getPaciente().getPessoa().getNome()}"></td>
+        <td th:text="${#dates.format(agendamento.getDataConsulta(),'dd/MM/yyyy') + ' ' + #dates.format(agendamento.getHoraConsulta(),'HH:mm')}"></td>
+        <td><a th:href="@{/agendamento/{id}(id=${agendamento.getId()})}">✓</a></td>
+    </tr>
+    <li></li>
+    </tbody>
+</table>
+
 </body>
 </html>

@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Duration;
 import java.util.Date;
@@ -22,9 +23,15 @@ public class Agendamento extends Entidade {
     @ManyToOne
     private Dentista dentista;
 
+    private Boolean confirmacao;
+
     private TipoAgendamento tipo;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataConsulta;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date horaConsulta;
 
     private Duration tempoEstimado;
 

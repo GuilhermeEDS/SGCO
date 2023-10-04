@@ -81,6 +81,7 @@ public class Config {
         admin.setSenha("123");
         Pessoa pessoaAdmin = new Pessoa();
         pessoaAdmin.setCpf("admin");
+        pessoaAdmin.setNome("Admin");
         admin.setPessoa(pessoaAdmin);
         admin.setPapel(Papel.ADMIN);
         pessoaRepository.save(admin.getPessoa());
@@ -90,22 +91,28 @@ public class Config {
         dentista.setSenha("123");
         Pessoa pessoaDentista = new Pessoa();
         pessoaDentista.setCpf("123.456.789-09");
+        pessoaDentista.setNome("Dentista");
         dentista.setPessoa(pessoaDentista);
-        dentista.setDentista(new Dentista());
+        Dentista dentistaAux = new Dentista();
+        dentistaAux.setPessoa(pessoaDentista);
+        dentista.setDentista(dentistaAux);
         dentista.setPapel(Papel.DENTISTA);
-        dentistaRepository.save(dentista.getDentista());
         pessoaRepository.save(pessoaDentista);
+        dentistaRepository.save(dentistaAux);
         usuarioRepository.save(dentista);
 
         Usuario paciente = new Usuario();
         paciente.setSenha("123");
         Pessoa pessoaPaciente = new Pessoa();
         pessoaPaciente.setCpf("135.477.713-15");
+        pessoaPaciente.setNome("Paciente");
         paciente.setPessoa(pessoaPaciente);
-        paciente.setPaciente(new Paciente());
+        Paciente pacienteAux = new Paciente();
+        pacienteAux.setPessoa(pessoaPaciente);
+        paciente.setPaciente(pacienteAux);
         paciente.setPapel(Papel.PACIENTE);
-        pacienteRepository.save(paciente.getPaciente());
         pessoaRepository.save(pessoaPaciente);
+        pacienteRepository.save(pacienteAux);
         usuarioRepository.save(paciente);
     }
 }

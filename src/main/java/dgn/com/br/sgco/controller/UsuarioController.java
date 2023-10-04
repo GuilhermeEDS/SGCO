@@ -1,6 +1,7 @@
 package dgn.com.br.sgco.controller;
 
 import dgn.com.br.sgco.entity.Usuario;
+import dgn.com.br.sgco.repository.AgendamentoRepository;
 import dgn.com.br.sgco.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UsuarioController {
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    AgendamentoRepository agendamentoRepository;
 
     @GetMapping("/login")
     public String paginaLogin(@RequestParam(required = false) String error, Model model) {
@@ -35,6 +39,7 @@ public class UsuarioController {
                 return "indexAdmin";
             }
             case DENTISTA -> {
+                model.addAttribute("agendamentos", agendamentoRepository.findAllAgendamentoNotConfirmedByDentista(usuario.getDentista()));
                 return "indexDentista";
             }
             default -> {

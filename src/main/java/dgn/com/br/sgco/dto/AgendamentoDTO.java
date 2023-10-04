@@ -18,10 +18,16 @@ public class AgendamentoDTO {
     @Valid
     private TipoAgendamentoDTO tipo;
 
+    private Boolean confirmacao;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future
     @NotNull(message = "Data do agendamento não pode ser vazia.")
     private Date dataConsulta;
+
+    @DateTimeFormat(pattern = "HH:mm")
+    @NotNull(message = "Hora do agendamento deve ser selecionado.")
+    private Date horaConsulta;
 
     private Duration tempoEstimado;
 
