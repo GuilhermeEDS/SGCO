@@ -8,6 +8,7 @@
     <title>Login</title>
 </head>
 <body>
+<span th:if="${error == true}">Erro ao logar, tente novamente.</span>
 <form method="POST" th:action="@{/login}">
     <p>
         <label for="cpf">CPF:</label>

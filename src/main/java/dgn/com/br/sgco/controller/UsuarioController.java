@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UsuarioController {
@@ -15,7 +16,9 @@ public class UsuarioController {
     UsuarioRepository usuarioRepository;
 
     @GetMapping("/login")
-    public String paginaLogin() {
+    public String paginaLogin(@RequestParam(required = false) String error, Model model) {
+        model.addAttribute("error", error != null);
+
         return "login";
     }
 
