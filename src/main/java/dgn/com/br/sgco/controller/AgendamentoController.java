@@ -7,6 +7,7 @@ import dgn.com.br.sgco.enumeration.FormaPagamento;
 import dgn.com.br.sgco.enumeration.TipoAgendamento;
 import dgn.com.br.sgco.repository.AgendamentoRepository;
 import dgn.com.br.sgco.repository.DentistaRepository;
+import dgn.com.br.sgco.repository.PacienteRepository;
 import dgn.com.br.sgco.repository.UsuarioRepository;
 import dgn.com.br.sgco.service.AgendamentoService;
 import jakarta.validation.Valid;
