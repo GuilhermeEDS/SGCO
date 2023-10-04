@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt_BR">
+<html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
@@ -9,7 +9,7 @@
 </head>
 <body>
 <a href="/logout">Sair</a>
-<h1>Olá, usuário Admin</h1>
-<p>Como você chegou aqui?</p>
+<h1 th:text="${usuario.pessoa.nome}"></h1>
+<p>Você agora está logado. (Dentista)</p>
 </body>
 </html>

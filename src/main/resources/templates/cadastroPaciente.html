@@ -7,22 +7,22 @@
     <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
 
     <link href="css/global.css" rel="stylesheet"/>
-    <link href="css/registro.css" rel="stylesheet"/>
+    <link href="css/cadastro.css" rel="stylesheet"/>
 
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet"/>
 
-    <title>Registro de Paciente</title>
+    <title>Cadastro de Paciente</title>
 </head>
 
 <body>
 <header>
-    <h1>Registro de Paciente</h1>
+    <h1>Cadastro de Paciente</h1>
     <span>Já possui um cadastro? <a href="/login">Logar</a></span>
 </header>
 
-<form action="/registro" enctype="utf8" method="POST" th:object="${registroPacienteDTO}">
+<form action="/cadastro/paciente" enctype="utf8" method="POST" th:object="${cadastroPacienteDTO}">
     <div class="form-section">
         <h2>Informações gerais</h2>
         <div>

@@ -32,8 +32,8 @@ public class SpringSecurity {
             authorize.requestMatchers("/dentista**").hasRole("dentista");
             authorize.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
             authorize.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll();
-            authorize.requestMatchers("/login**", "/registro**", "/registro/**", "/js**", "/css**", "/images**").permitAll();
-            authorize.requestMatchers(HttpMethod.POST, "/registro**").permitAll();
+            authorize.requestMatchers("/login**", "/cadastro/paciente", "/cadastro/paciente", "/js**", "/css**", "/images**").permitAll();
+            authorize.requestMatchers(HttpMethod.POST, "/cadastro/paciente").permitAll();
             authorize.anyRequest().authenticated();
         });
         http.formLogin(form -> {
