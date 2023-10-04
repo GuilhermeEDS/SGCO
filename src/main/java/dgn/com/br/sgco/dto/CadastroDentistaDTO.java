@@ -10,13 +10,13 @@ import lombok.Data;
 @Data
 public class CadastroDentistaDTO {
     @Valid
-    private PessoaDentistaDTO pessoaDentistaDTO;
+    private PessoaDTO pessoaDTO;
 
     @NotEmpty(message = "Senha não pode ser vazia")
     private String senha;
 
     public Usuario toUsuario() {
-        Pessoa pessoa = getPessoaDentistaDTO().toPessoa();
+        Pessoa pessoa = getPessoaDTO().toPessoa();
 
         Dentista dentista = new Dentista();
         dentista.setPessoa(pessoa);

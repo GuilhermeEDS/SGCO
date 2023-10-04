@@ -25,17 +25,21 @@ public class UsuarioController {
     @GetMapping("/")
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getName().equals("admin")) {
-            return "indexAdmin";
-        }
-
         String cpf = auth.getName();
         Usuario usuario = usuarioRepository.findByCpf(cpf).get();
+
         model.addAttribute("usuario", usuario);
 
-        if (usuario.getPaciente() != null) {
-            return "indexPaciente";
+        switch (usuario.getPapel()) {
+            case ADMIN -> {
+                return "indexAdmin";
+            }
+            case DENTISTA -> {
+                return "indexDentista";
+            }
+            default -> {
+                return "indexPaciente";
+            }
         }
-        return "indexDentista";
     }
 }

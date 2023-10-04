@@ -3,8 +3,9 @@ package dgn.com.br.sgco.controller;
 import dgn.com.br.sgco.arq.ValidacaoEntidadeException;
 import dgn.com.br.sgco.dto.CadastroDentistaDTO;
 import dgn.com.br.sgco.dto.CadastroPacienteDTO;
-import dgn.com.br.sgco.entity.Genero;
 import dgn.com.br.sgco.entity.Usuario;
+import dgn.com.br.sgco.enumeration.Genero;
+import dgn.com.br.sgco.enumeration.Papel;
 import dgn.com.br.sgco.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.NonNull;
@@ -38,6 +39,7 @@ public class CadastroController {
 
         try {
             Usuario usuario = cadastroDentistaDTO.toUsuario();
+            usuario.setPapel(Papel.DENTISTA);
             usuarioService.registrarUsuario(usuario);
         } catch (ValidacaoEntidadeException e) {
             result.rejectValue(e.getCampo(), "", e.getMessage());
@@ -47,7 +49,7 @@ public class CadastroController {
             return "/cadastroDentista";
         }
 
-        return "/";
+        return "redirect:/";
     }
 
     @GetMapping("/cadastro/paciente")
@@ -68,6 +70,7 @@ public class CadastroController {
 
         try {
             Usuario usuario = cadastroPacienteDTO.toUsuario();
+            usuario.setPapel(Papel.PACIENTE);
             usuarioService.registrarUsuario(usuario);
         } catch (ValidacaoEntidadeException e) {
             result.rejectValue(e.getCampo(), "", e.getMessage());

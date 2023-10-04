@@ -1,6 +1,7 @@
 package dgn.com.br.sgco.entity;
 
 import dgn.com.br.sgco.arq.Entidade;
+import dgn.com.br.sgco.enumeration.Genero;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

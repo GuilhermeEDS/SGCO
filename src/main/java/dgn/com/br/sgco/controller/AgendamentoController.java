@@ -6,7 +6,6 @@ import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.enumeration.FormaPagamento;
 import dgn.com.br.sgco.enumeration.TipoAgendamento;
 import dgn.com.br.sgco.repository.DentistaRepository;
-import dgn.com.br.sgco.repository.PacienteRepository;
 import dgn.com.br.sgco.repository.UsuarioRepository;
 import dgn.com.br.sgco.service.AgendamentoService;
 import jakarta.validation.Valid;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AgendamentoController {
-
     @Autowired
     private AgendamentoService agendamentoService;
 
@@ -34,7 +32,7 @@ public class AgendamentoController {
 
     @GetMapping("/agendamento")
     public String paginaAgendamento(@NonNull Model model) {
-        AgendamentoDTO agendamentoDTO  = new AgendamentoDTO();
+        AgendamentoDTO agendamentoDTO = new AgendamentoDTO();
         model.addAttribute("agendamentoDTO", agendamentoDTO);
         model.addAttribute("formasPagamento", FormaPagamento.values());
         model.addAttribute("tiposAgendamento", TipoAgendamento.values());

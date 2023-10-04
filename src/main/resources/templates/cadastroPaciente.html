@@ -32,7 +32,9 @@
         </div>
         <div>
             <label for="cpf">CPF:</label>
-            <input id="cpf" placeholder="123.456.789-09" th:field="*{pessoaDTO.cpf}" type="text"/>
+            <input id="cpf"
+                   onkeydown="formatarCpf(this)"
+                   placeholder="123.456.789-09" th:field="*{pessoaDTO.cpf}" type="text"/>
             <div th:replace="~{fragments :: listaErros('pessoaDTO.cpf')}"></div>
         </div>
         <div>
@@ -115,4 +117,5 @@
     </div>
 </form>
 </body>
+
 </html>

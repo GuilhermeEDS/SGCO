@@ -1,6 +1,7 @@
 package dgn.com.br.sgco.service;
 
 import dgn.com.br.sgco.arq.ValidacaoEntidadeException;
+import dgn.com.br.sgco.entity.Endereco;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +37,20 @@ public class UsuarioService {
             throw new ValidacaoEntidadeException("pessoaDTO.cpf", "CPF já existe");
         }
 
-        if (usuario.getPessoa().getEndereco() != null) {
-            enderecoRepository.save(usuario.getPessoa().getEndereco());
+        Endereco endereco = usuario.getPessoa().getEndereco();
+        if (endereco != null) {
+            enderecoRepository.save(endereco);
         }
+
         pessoaRepository.save(usuario.getPessoa());
 
-        if (usuario.getPaciente() != null) {
-            pacienteRepository.save(usuario.getPaciente());
-        }
-        if (usuario.getDentista() != null) {
-            dentistaRepository.save(usuario.getDentista());
+        switch (usuario.getPapel()) {
+            case DENTISTA -> {
+                dentistaRepository.save(usuario.getDentista());
+            }
+            case PACIENTE -> {
+                pacienteRepository.save(usuario.getPaciente());
+            }
         }
 
         return usuarioRepository.save(usuario);

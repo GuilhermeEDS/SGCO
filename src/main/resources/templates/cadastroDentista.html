@@ -27,33 +27,33 @@
         <h2>Informações gerais</h2>
         <div>
             <label for="nome">Nome completo:</label>
-            <input id="nome" placeholder="João da Silva" th:field="*{pessoaDentistaDTO.nome}" type="text"/>
-            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.nome')}"></div>
+            <input id="nome" placeholder="João da Silva" th:field="*{pessoaDTO.nome}" type="text"/>
+            <div th:replace="~{fragments :: listaErros('pessoaDTO.nome')}"></div>
         </div>
         <div>
             <label for="cpf">CPF:</label>
-            <input id="cpf" placeholder="123.456.789-09" th:field="*{pessoaDentistaDTO.cpf}" type="text"/>
-            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.cpf')}"></div>
+            <input id="cpf" placeholder="123.456.789-09" th:field="*{pessoaDTO.cpf}" type="text"/>
+            <div th:replace="~{fragments :: listaErros('pessoaDTO.cpf')}"></div>
         </div>
         <div>
             <label for="identidade">RG:</label>
-            <input id="identidade" placeholder="12.345.678-9" th:field="*{pessoaDentistaDTO.rg}" type="text"/>
-            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.rg')}"></div>
+            <input id="identidade" placeholder="12.345.678-9" th:field="*{pessoaDTO.rg}" type="text"/>
+            <div th:replace="~{fragments :: listaErros('pessoaDTO.rg')}"></div>
         </div>
         <div>
             <label for="dataNascimento">Data de Nascimento:</label>
-            <input id="dataNascimento" placeholder="01/01/1970" th:field="*{pessoaDentistaDTO.dataNascimento}"
+            <input id="dataNascimento" placeholder="01/01/1970" th:field="*{pessoaDTO.dataNascimento}"
                    type="date"/>
-            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.dataNascimento')}"></div>
+            <div th:replace="~{fragments :: listaErros('pessoaDTO.dataNascimento')}"></div>
         </div>
         <div>
             <label for="genero">Gênero:</label>
-            <select id="genero" th:field="*{pessoaDentistaDTO.generoDTO.id}">
+            <select id="genero" th:field="*{pessoaDTO.generoDTO.id}">
                 <option value="-1">-- Selecione a opção --</option>
                 <option th:each="genero : ${generos}" th:text="${genero.getDescricao()}"
                         th:value="${genero.ordinal()}"></option>
             </select>
-            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.generoDTO.id')}"></div>
+            <div th:replace="~{fragments :: listaErros('pessoaDTO.generoDTO.id')}"></div>
         </div>
         <div>
             <label for="senha">Senha:</label>
@@ -66,13 +66,13 @@
         <h2>Contato</h2>
         <div>
             <label for="celular">Celular:</label>
-            <input id="celular" placeholder="(84) 9 1234-5678" th:field="*{pessoaDentistaDTO.celular}" type="tel"/>
-            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.celular')}"></div>
+            <input id="celular" placeholder="(84) 9 1234-5678" th:field="*{pessoaDTO.celular}" type="tel"/>
+            <div th:replace="~{fragments :: listaErros('pessoaDTO.celular')}"></div>
         </div>
         <div>
             <label for="email">E-mail:</label>
-            <input id="email" placeholder="joao.silva@email.com" th:field="*{pessoaDentistaDTO.email}" type="email"/>
-            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.email')}"></div>
+            <input id="email" placeholder="joao.silva@email.com" th:field="*{pessoaDTO.email}" type="email"/>
+            <div th:replace="~{fragments :: listaErros('pessoaDTO.email')}"></div>
         </div>
     </div>
 

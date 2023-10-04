@@ -4,6 +4,7 @@ import dgn.com.br.sgco.entity.Dentista;
 import dgn.com.br.sgco.entity.Paciente;
 import dgn.com.br.sgco.entity.Pessoa;
 import dgn.com.br.sgco.entity.Usuario;
+import dgn.com.br.sgco.enumeration.Papel;
 import dgn.com.br.sgco.repository.DentistaRepository;
 import dgn.com.br.sgco.repository.PacienteRepository;
 import dgn.com.br.sgco.repository.PessoaRepository;
@@ -81,6 +82,7 @@ public class Config {
         Pessoa pessoaAdmin = new Pessoa();
         pessoaAdmin.setCpf("admin");
         admin.setPessoa(pessoaAdmin);
+        admin.setPapel(Papel.ADMIN);
         pessoaRepository.save(admin.getPessoa());
         usuarioRepository.save(admin);
 
@@ -90,6 +92,7 @@ public class Config {
         pessoaDentista.setCpf("123.456.789-09");
         dentista.setPessoa(pessoaDentista);
         dentista.setDentista(new Dentista());
+        dentista.setPapel(Papel.DENTISTA);
         dentistaRepository.save(dentista.getDentista());
         pessoaRepository.save(pessoaDentista);
         usuarioRepository.save(dentista);
@@ -100,6 +103,7 @@ public class Config {
         pessoaPaciente.setCpf("135.477.713-15");
         paciente.setPessoa(pessoaPaciente);
         paciente.setPaciente(new Paciente());
+        paciente.setPapel(Papel.PACIENTE);
         pacienteRepository.save(paciente.getPaciente());
         pessoaRepository.save(pessoaPaciente);
         usuarioRepository.save(paciente);

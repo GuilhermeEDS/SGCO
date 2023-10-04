@@ -3,7 +3,6 @@ package dgn.com.br.sgco.dto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +12,6 @@ import java.util.Date;
 
 @Data
 public class AgendamentoDTO {
-
     @Min(value = 0, message = "Selecione um dentista válido.")
     private Long idDentista;
 
@@ -33,5 +31,4 @@ public class AgendamentoDTO {
 
     @Valid
     private FormaPagamentoDTO formaPagamento;
-
 }

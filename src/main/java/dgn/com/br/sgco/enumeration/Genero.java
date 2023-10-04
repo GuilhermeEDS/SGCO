@@ -1,4 +1,4 @@
-package dgn.com.br.sgco.entity;
+package dgn.com.br.sgco.enumeration;
 
 import lombok.Getter;
 
