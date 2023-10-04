@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport"/>
+    <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+
+    <link href="css/global.css" rel="stylesheet"/>
+    <link href="css/cadastro.css" rel="stylesheet"/>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet"/>
+
+    <title>Cadastro de Paciente</title>
+</head>
+
+<body>
+<header>
+    <h1>Cadastro de Dentista</h1>
+    <a href="/">Voltar</a>
+</header>
+
+<form action="/cadastro/dentista" enctype="utf8" method="POST" th:object="${cadastroDentistaDTO}">
+    <div class="form-section">
+        <h2>Informações gerais</h2>
+        <div>
+            <label for="nome">Nome completo:</label>
+            <input id="nome" placeholder="João da Silva" th:field="*{pessoaDentistaDTO.nome}" type="text"/>
+            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.nome')}"></div>
+        </div>
+        <div>
+            <label for="cpf">CPF:</label>
+            <input id="cpf" placeholder="123.456.789-09" th:field="*{pessoaDentistaDTO.cpf}" type="text"/>
+            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.cpf')}"></div>
+        </div>
+        <div>
+            <label for="identidade">RG:</label>
+            <input id="identidade" placeholder="12.345.678-9" th:field="*{pessoaDentistaDTO.rg}" type="text"/>
+            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.rg')}"></div>
+        </div>
+        <div>
+            <label for="dataNascimento">Data de Nascimento:</label>
+            <input id="dataNascimento" placeholder="01/01/1970" th:field="*{pessoaDentistaDTO.dataNascimento}"
+                   type="date"/>
+            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.dataNascimento')}"></div>
+        </div>
+        <div>
+            <label for="genero">Gênero:</label>
+            <select id="genero" th:field="*{pessoaDentistaDTO.generoDTO.id}">
+                <option value="-1">-- Selecione a opção --</option>
+                <option th:each="genero : ${generos}" th:text="${genero.getDescricao()}"
+                        th:value="${genero.ordinal()}"></option>
+            </select>
+            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.generoDTO.id')}"></div>
+        </div>
+        <div>
+            <label for="senha">Senha:</label>
+            <input id="senha" placeholder="Senha secreta" th:field="*{senha}" type="password"/>
+            <div th:replace="~{fragments :: listaErros('senha')}"></div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2>Contato</h2>
+        <div>
+            <label for="celular">Celular:</label>
+            <input id="celular" placeholder="(84) 9 1234-5678" th:field="*{pessoaDentistaDTO.celular}" type="tel"/>
+            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.celular')}"></div>
+        </div>
+        <div>
+            <label for="email">E-mail:</label>
+            <input id="email" placeholder="joao.silva@email.com" th:field="*{pessoaDentistaDTO.email}" type="email"/>
+            <div th:replace="~{fragments :: listaErros('pessoaDentistaDTO.email')}"></div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <button type="submit">Registrar</button>
+    </div>
+</form>
+</body>
+</html>

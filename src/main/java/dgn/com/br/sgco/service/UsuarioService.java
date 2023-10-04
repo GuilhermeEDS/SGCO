@@ -1,12 +1,8 @@
 package dgn.com.br.sgco.service;
 
 import dgn.com.br.sgco.arq.ValidacaoEntidadeException;
-import dgn.com.br.sgco.dto.RegistroPacienteDTO;
 import dgn.com.br.sgco.entity.Usuario;
-import dgn.com.br.sgco.repository.EnderecoRepository;
-import dgn.com.br.sgco.repository.PacienteRepository;
-import dgn.com.br.sgco.repository.PessoaRepository;
-import dgn.com.br.sgco.repository.UsuarioRepository;
+import dgn.com.br.sgco.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,24 +20,34 @@ public class UsuarioService {
     PacienteRepository pacienteRepository;
 
     @Autowired
+    DentistaRepository dentistaRepository;
+
+    @Autowired
     EnderecoRepository enderecoRepository;
 
-    public Usuario registrarPaciente(RegistroPacienteDTO registroPacienteDto) {
-        Optional<Usuario> u = usuarioRepository.findByEmail(registroPacienteDto.getPessoaDTO().getEmail());
+    public Usuario registrarUsuario(Usuario usuario) {
+        Optional<Usuario> u = usuarioRepository.findByEmail(usuario.getPessoa().getEmail());
         if (u.isPresent()) {
             throw new ValidacaoEntidadeException("pessoaDTO.email", "E-mail já existe");
         }
 
-        u = usuarioRepository.findByCpf(registroPacienteDto.getPessoaDTO().getCpf());
+        u = usuarioRepository.findByCpf(usuario.getPessoa().getCpf());
         if (u.isPresent()) {
             throw new ValidacaoEntidadeException("pessoaDTO.cpf", "CPF já existe");
         }
 
-        Usuario usuario = registroPacienteDto.toUsuario();
-
-        enderecoRepository.save(usuario.getPessoa().getEndereco());
+        if (usuario.getPessoa().getEndereco() != null) {
+            enderecoRepository.save(usuario.getPessoa().getEndereco());
+        }
         pessoaRepository.save(usuario.getPessoa());
-        pacienteRepository.save(usuario.getPaciente());
+
+        if (usuario.getPaciente() != null) {
+            pacienteRepository.save(usuario.getPaciente());
+        }
+        if (usuario.getDentista() != null) {
+            dentistaRepository.save(usuario.getDentista());
+        }
+
         return usuarioRepository.save(usuario);
     }
 }

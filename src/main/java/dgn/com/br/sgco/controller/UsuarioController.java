@@ -23,13 +23,16 @@ public class UsuarioController {
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getName().equals("admin")) {
-            return "admin";
+            return "indexAdmin";
         }
 
         String cpf = auth.getName();
         Usuario usuario = usuarioRepository.findByCpf(cpf).get();
         model.addAttribute("usuario", usuario);
 
-        return "index";
+        if (usuario.getPaciente() != null) {
+            return "indexPaciente";
+        }
+        return "indexDentista";
     }
 }
