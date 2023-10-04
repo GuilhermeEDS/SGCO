@@ -1,9 +1,7 @@
 package dgn.com.br.sgco.service;
 
-import dgn.com.br.sgco.dto.RegistroPacienteDto;
-import dgn.com.br.sgco.entity.Endereco;
-import dgn.com.br.sgco.entity.Paciente;
-import dgn.com.br.sgco.entity.Pessoa;
+import dgn.com.br.sgco.arq.ValidacaoEntidadeException;
+import dgn.com.br.sgco.dto.RegistroPacienteDTO;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.repository.EnderecoRepository;
 import dgn.com.br.sgco.repository.PacienteRepository;
@@ -11,6 +9,8 @@ import dgn.com.br.sgco.repository.PessoaRepository;
 import dgn.com.br.sgco.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -26,43 +26,22 @@ public class UsuarioService {
     @Autowired
     EnderecoRepository enderecoRepository;
 
-    public Usuario registrarPaciente(RegistroPacienteDto registroPacienteDto) {
-        /*
-        Checar se:
-            - E-mail já é usado
-            - Cpf já é usado
-            - Rg já é usado
-         */
+    public Usuario registrarPaciente(RegistroPacienteDTO registroPacienteDto) {
+        Optional<Usuario> u = usuarioRepository.findByEmail(registroPacienteDto.getPessoaDTO().getEmail());
+        if (u.isPresent()) {
+            throw new ValidacaoEntidadeException("pessoaDTO.email", "E-mail já existe");
+        }
 
-        Endereco endereco = new Endereco();
-        endereco.setCep(registroPacienteDto.getCep());
-        endereco.setNumero(registroPacienteDto.getNumero());
-        endereco.setLogradouro(registroPacienteDto.getLogradouro());
-        endereco.setBairro(registroPacienteDto.getBairro());
-        endereco.setCidade(registroPacienteDto.getCidade());
-        endereco.setUf(registroPacienteDto.getUf());
-        endereco = enderecoRepository.save(endereco);
+        u = usuarioRepository.findByCpf(registroPacienteDto.getPessoaDTO().getCpf());
+        if (u.isPresent()) {
+            throw new ValidacaoEntidadeException("pessoaDTO.cpf", "CPF já existe");
+        }
 
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome(registroPacienteDto.getNome());
-        pessoa.setEmail(registroPacienteDto.getEmail());
-        pessoa.setCpf(registroPacienteDto.getCpf());
-        pessoa.setRg(registroPacienteDto.getRg());
-        pessoa.setDataNascimento(registroPacienteDto.getDataNascimento());
-        pessoa.setGenero(registroPacienteDto.getGenero());
-        pessoa.setEndereco(endereco);
-        pessoa = pessoaRepository.save(pessoa);
+        Usuario usuario = registroPacienteDto.toUsuario();
 
-        Paciente paciente = new Paciente();
-        paciente.setPessoa(pessoa);
-        paciente = pacienteRepository.save(paciente);
-
-        Usuario usuario = new Usuario();
-        usuario.setSenha(registroPacienteDto.getSenha());
-        usuario.setPessoa(pessoa);
-        usuario.setDentista(null);
-        usuario.setPaciente(paciente);
-
+        enderecoRepository.save(usuario.getPessoa().getEndereco());
+        pessoaRepository.save(usuario.getPessoa());
+        pacienteRepository.save(usuario.getPaciente());
         return usuarioRepository.save(usuario);
     }
 }

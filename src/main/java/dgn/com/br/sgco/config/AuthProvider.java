@@ -10,6 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Component
 public class AuthProvider implements AuthenticationProvider {
@@ -20,8 +21,8 @@ public class AuthProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String cpf = authentication.getName();
         String senha = authentication.getCredentials().toString();
-        Usuario usuario = usuarioRepository.findByCpf(cpf);
-        if (usuario == null || !usuario.getSenha().equals(senha)) {
+        Optional<Usuario> usuario = usuarioRepository.findByCpf(cpf);
+        if (usuario.isEmpty() || !usuario.get().getSenha().equals(senha)) {
             return null;
         }
 

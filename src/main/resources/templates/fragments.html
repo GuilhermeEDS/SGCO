@@ -1,0 +1,5 @@
+<div xmlns:th="http://www.w3.org/1999/xhtml">
+    <ul th:fragment="listaErros(campo)" th:if="${#fields.hasErrors(campo)}">
+        <li class="error" th:each="err : ${#fields.errors(campo)}" th:text="${err}"/>
+    </ul>
+</div>

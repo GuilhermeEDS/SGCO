@@ -1,6 +1,8 @@
 package dgn.com.br.sgco.config;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,8 +30,10 @@ public class SpringSecurity {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests((authorize) -> {
             authorize.requestMatchers("/dentista**").hasRole("dentista");
-            authorize.requestMatchers("/login**", "/registro**", "/js/**").permitAll();
-            authorize.requestMatchers(HttpMethod.POST, "/registro**", "/registro/**").permitAll();
+            authorize.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
+            authorize.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll();
+            authorize.requestMatchers("/login**", "/registro**", "/registro/**", "/js**", "/css**", "/images**").permitAll();
+            authorize.requestMatchers(HttpMethod.POST, "/registro**").permitAll();
             authorize.anyRequest().authenticated();
         });
         http.formLogin(form -> {

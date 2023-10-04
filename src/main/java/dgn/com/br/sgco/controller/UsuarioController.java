@@ -1,9 +1,7 @@
 package dgn.com.br.sgco.controller;
 
-import dgn.com.br.sgco.dto.RegistroPacienteDto;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.repository.UsuarioRepository;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,16 +27,9 @@ public class UsuarioController {
         }
 
         String cpf = auth.getName();
-        Usuario usuario = usuarioRepository.findByCpf(cpf);
+        Usuario usuario = usuarioRepository.findByCpf(cpf).get();
         model.addAttribute("usuario", usuario);
 
         return "index";
-    }
-
-    @GetMapping("/registro")
-    public String paginaRegistro(@NonNull Model model) {
-        RegistroPacienteDto registroPacienteDto = new RegistroPacienteDto();
-        model.addAttribute("registroPacienteDto", registroPacienteDto);
-        return "registro";
     }
 }

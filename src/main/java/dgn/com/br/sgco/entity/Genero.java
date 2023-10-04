@@ -1,13 +1,14 @@
 package dgn.com.br.sgco.entity;
 
-import dgn.com.br.sgco.arq.Entidade;
-import jakarta.persistence.Entity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Entity
-@Data
-@EqualsAndHashCode
-public class Genero extends Entidade {
-    private String descricao;
+public enum Genero {
+    NAO_INFORMADO("Não informado"), Feminino("Feminino"), Masculino("Masculino"), Outro("Outro");
+
+    @Getter
+    private final String descricao;
+
+    Genero(String descricao) {
+        this.descricao = descricao;
+    }
 }
