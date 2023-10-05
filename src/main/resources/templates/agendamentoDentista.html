@@ -16,7 +16,7 @@
 <div id="central">
     <a href="/">Voltar</a>
     <title>Agendamento</title>
-    <form method="POST" th:action="@{/agendamento/__${agendamento.getId()}__}" enctype="utf8">
+    <form method="POST" th:action="@{/agendamento/__${agendamento.getId()}__}" enctype="utf8" th:object="${agendamentoDTO}">
         <div class="mb-3">
             <label for="tipoAgendamento" class="form-label">Tipo de Agendamento</label>
             <select class="form-select" aria-label="Default select example" id="tipoAgendamento">
@@ -60,11 +60,11 @@
         <title>Informações de Confirmação</title>
         <div class="mb-3">
             <label for="inputObservacoes" class="form-label">Observações</label>
-            <input type="textarea" class="form-control" id="inputObservacoesDentista" name="observacoesDentista">
+            <input type="textarea" th:field="*{observacoesDentista}" class="form-control" id="inputObservacoesDentista" name="observacoesDentista">
         </div>
         <div class="mb-3">
             <label for="duracao" class="form-label">Duração do Procedimento (Tempo Estimado)</label>
-            <input type="time" class="form-control" id="duracao" name="dataConsulta">
+            <input type="time" th:field="*{horaFim}" class="form-control" id="duracao" name="dataConsulta">
         </div>
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Confirmar Agendamento</button>

@@ -1,6 +1,7 @@
 package dgn.com.br.sgco.controller;
 
 import dgn.com.br.sgco.dto.AgendamentoDTO;
+import dgn.com.br.sgco.dto.AgendamentoDentistaDTO;
 import dgn.com.br.sgco.entity.Agendamento;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.enumeration.FormaPagamento;
@@ -72,16 +73,24 @@ public class AgendamentoController {
 
     @GetMapping("/agendamento/{id}")
     public String paginaConfirmarAgendamento(@PathVariable("id") long id, @NonNull Model model) {
-        AgendamentoDTO agendamentoDTO  = new AgendamentoDTO();
+        AgendamentoDentistaDTO agendamentoDTO = new AgendamentoDentistaDTO();
         model.addAttribute("agendamentoDTO", agendamentoDTO);
         model.addAttribute("agendamento", agendamentoRepository.findById(id).get());
         return "agendamentoDentista";
     }
 
     @PostMapping("/agendamento/{id}")
-    public String confirmarAgendamento(@PathVariable("id") long id, @RequestParam(value = "inputObservacoesDentista", required=false) String observacoesDentista, @RequestParam(value = "duracao", required=false) Date duracao, @NonNull Model model) {
+    public String confirmarAgendamento(@PathVariable("id") long id,final @Valid AgendamentoDentistaDTO agendamentoDto, @NonNull BindingResult result, Model model) {
 
-        Agendamento agendamento = agendamentoService.confirmarAgendamento(id, observacoesDentista, duracao);
+        if (result.hasErrors()) {
+            model.addAttribute("agendamentoDto", agendamentoDto);
+            model.addAttribute("formasPagamento", FormaPagamento.values());
+            model.addAttribute("tiposAgendamento", TipoAgendamento.values());
+            model.addAttribute("dentistas", dentistaRepository.findAll());
+            return "agendamento";
+        }
+
+        Agendamento agendamento = agendamentoService.confirmarAgendamento(id, agendamentoDto.getObservacoesDentista(), agendamentoDto.getHoraFim());
         return "redirect:/";
     }
 

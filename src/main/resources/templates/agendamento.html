@@ -2,105 +2,112 @@
 <html lang="pt_BR">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Agendamento</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Agendamento</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
-	<div id="central">
-		<title>Cadastrar Agendamento</title>
-		<form method="POST" action="/agendamento" enctype="utf8" th:object="${agendamentoDTO}">
-			<div class="mb-3">
-				<label for="tipoAgendamento" class="form-label">Tipo de Agendamento</label>
-				<select class="form-select" th:field="*{tipo.id}" aria-label="Default select example" id="tipoAgendamento">
-					<option value="-1">Selecionar um tipo de agendamento</option>
-					<option th:each="tipoAgendamento : ${tiposAgendamento}" th:text="${tipoAgendamento.getDescricao()}"
-							th:value="${tipoAgendamento.ordinal()}"></option>
-				</select>
-				<div th:replace="~{fragments :: listaErros('tipo.id')}"></div>
-			</div>
-			<title>Dados gerais da consulta</title>
-			<div class="mb-3">
-				<label for="dentista" class="form-label">Dentista</label>
-				<select class="form-select" th:field="*{idDentista}" aria-label="Default select example" id="dentista">
-					<option value="-1">Selecionar um profissional</option>
-					<option th:each="dentista : ${dentistas}" th:text="${dentista.getPessoa().getNome()}"
-							th:value="${dentista.getId()}"></option>
-				</select>
-				<div th:replace="~{fragments :: listaErros('idDentista')}"></div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<label for="dataConsulta" class="form-label">Data da Consulta</label>
-					<input type="date" th:field="*{dataConsulta}" class="form-control" id="dataConsulta" name="dataConsulta">
-					<div th:replace="~{fragments :: listaErros('dataConsulta')}"></div>
-				</div>
-			</div>
-			<div>
-				<div class="form-check">
-					<input class="form-check-input" th:field="*{horaConsulta}" value="9:00" type="radio" name="horaConsulta" id="radioHora1">
-					<label class="form-check-label" for="radioHora1">
-						9:00
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" th:field="*{horaConsulta}" value="10:00" type="radio" name="horaConsulta" id="radioHora2">
-					<label class="form-check-label" for="radioHora1">
-						10:00
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" th:field="*{horaConsulta}" value="11:00" type="radio" name="horaConsulta" id="radioHora3">
-					<label class="form-check-label" for="radioHora1">
-						11:00
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" th:field="*{horaConsulta}" value="13:00" type="radio" name="horaConsulta" id="radioHora4">
-					<label class="form-check-label" for="radioHora1">
-						13:00
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" th:field="*{horaConsulta}" value="14:00" type="radio" name="horaConsulta" id="radioHora5">
-					<label class="form-check-label" for="radioHora1">
-						14:00
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" th:field="*{horaConsulta}" value="15:00" type="radio" name="horaConsulta" id="radioHora6">
-					<label class="form-check-label" for="radioHora1">
-						15:00
-					</label>
-				</div>
-				<div th:replace="~{fragments :: listaErros('horaConsulta')}"></div>
-			</div>
-			<div class="mb-3">
-				<label for="inputObservacoes" class="form-label">Observações</label>
-				<input type="text" th:field="*{observacoesPaciente}" class="form-control" id="inputObservacoes" name="observacoes">
-			</div>
-			<title>Pagamento</title>
-			<div class="mb-3">
-				<label for="formaPagamento" class="form-label">Forma de Pagamento</label>
-				<select class="form-select" th:field="*{formaPagamento.id}" aria-label="Default select example" id="formaPagamento">
-					<option value="-1">Selecionar um tipo de Pagamento</option>
-					<option th:each="formaPagamento : ${formasPagamento}" th:text="${formaPagamento.getDescricao()}"
-							th:value="${formaPagamento.ordinal()}"></option>
-				</select>
-				<div th:replace="~{fragments :: listaErros('formaPagamento.id')}"></div>
-			</div>
-			<div class="mb-3">
-				<button type="submit" class="btn btn-primary">Cadastrar Agendamento</button>
-				<button type="submit" class="btn btn-primary">Cancelar</button>
-			</div>
-		</form>
-	</div>
+<div id="central">
+    <title>Cadastrar Agendamento</title>
+    <form action="/agendamento" enctype="utf8" method="POST" th:object="${agendamentoDTO}">
+        <div class="mb-3">
+            <label class="form-label" for="tipoAgendamento">Tipo de Agendamento</label>
+            <select aria-label="Default select example" class="form-select" id="tipoAgendamento" th:field="*{tipo.id}">
+                <option value="-1">Selecionar um tipo de agendamento</option>
+                <option th:each="tipoAgendamento : ${tiposAgendamento}" th:text="${tipoAgendamento.getDescricao()}"
+                        th:value="${tipoAgendamento.ordinal()}"></option>
+            </select>
+            <div th:replace="~{fragments :: listaErros('tipo.id')}"></div>
+        </div>
+        <title>Dados gerais da consulta</title>
+        <div class="mb-3">
+            <label class="form-label" for="dentista">Dentista</label>
+            <select aria-label="Default select example" class="form-select" id="dentista" th:field="*{idDentista}">
+                <option value="-1">Selecionar um profissional</option>
+                <option th:each="dentista : ${dentistas}" th:text="${dentista.getPessoa().getNome()}"
+                        th:value="${dentista.getId()}"></option>
+            </select>
+            <div th:replace="~{fragments :: listaErros('idDentista')}"></div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="dataConsulta">Data da Consulta</label>
+            <input class="form-control" id="dataConsulta" name="dataConsulta" th:field="*{dataConsulta}" type="date">
+            <div th:replace="~{fragments :: listaErros('dataConsulta')}"></div>
+        </div>
+        <div class="mb-3">
+			<label class="form-label">Hora da Consulta</label>
+            <div class="form-check">
+                <input class="form-check-input" id="radioHora1" name="horaConsulta" th:field="*{horaConsulta}" type="radio"
+                       value="9:00">
+                <label class="form-check-label" for="radioHora1">
+                    9:00
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="radioHora2" name="horaConsulta" th:field="*{horaConsulta}"
+                       type="radio" value="10:00">
+                <label class="form-check-label" for="radioHora1">
+                    10:00
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="radioHora3" name="horaConsulta" th:field="*{horaConsulta}"
+                       type="radio" value="11:00">
+                <label class="form-check-label" for="radioHora1">
+                    11:00
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="radioHora4" name="horaConsulta" th:field="*{horaConsulta}"
+                       type="radio" value="13:00">
+                <label class="form-check-label" for="radioHora1">
+                    13:00
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="radioHora5" name="horaConsulta" th:field="*{horaConsulta}"
+                       type="radio" value="14:00">
+                <label class="form-check-label" for="radioHora1">
+                    14:00
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="radioHora6" name="horaConsulta" th:field="*{horaConsulta}"
+                       type="radio" value="15:00">
+                <label class="form-check-label" for="radioHora1">
+                    15:00
+                </label>
+            </div>
+            <div th:replace="~{fragments :: listaErros('horaConsulta')}"></div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="inputObservacoes">Observações</label>
+            <input class="form-control" id="inputObservacoes" name="observacoes" th:field="*{observacoesPaciente}"
+                   type="text">
+        </div>
+        <title>Pagamento</title>
+        <div class="mb-3">
+            <label class="form-label" for="formaPagamento">Forma de Pagamento</label>
+            <select aria-label="Default select example" class="form-select" id="formaPagamento"
+                    th:field="*{formaPagamento.id}">
+                <option value="-1">Selecionar um tipo de Pagamento</option>
+                <option th:each="formaPagamento : ${formasPagamento}" th:text="${formaPagamento.getDescricao()}"
+                        th:value="${formaPagamento.ordinal()}"></option>
+            </select>
+            <div th:replace="~{fragments :: listaErros('formaPagamento.id')}"></div>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Cadastrar Agendamento</button>
+            <button class="btn btn-primary" type="submit">Cancelar</button>
+        </div>
+    </form>
+</div>
 </body>
 
 </html>

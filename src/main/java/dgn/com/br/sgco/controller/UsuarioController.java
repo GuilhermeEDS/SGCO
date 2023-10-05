@@ -49,7 +49,7 @@ public class UsuarioController {
                 SimpleDateFormat sdt = new SimpleDateFormat("HH:mm");
                 String jason = "[";
                 for(Agendamento agendamento : agendamentos){
-                    jason += "{\"day\": " + agendamento.getWeek() + ", \"start\": \"" + sdt.format(agendamento.getHoraConsulta()) + "\", \"end\": \"13:00\", \"title\" : \"" + agendamento.getPaciente().getPessoa().getNome() + "\" , \"color\": \"#779ECB\"},";
+                    jason += "{\"day\": " + agendamento.getWeek() + ", \"start\": \"" + sdt.format(agendamento.getHoraConsulta()) + "\", \"end\": \""+ sdt.format(agendamento.getHoraFim()) +"\", \"title\" : \"" + agendamento.getPaciente().getPessoa().getNome() + "\" , \"color\": \"#779ECB\"},";
                 }
                 if(!agendamentos.isEmpty()){
                     jason = jason.substring(0, jason.length() - 1);
