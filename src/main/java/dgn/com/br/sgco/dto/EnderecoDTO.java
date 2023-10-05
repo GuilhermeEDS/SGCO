@@ -18,10 +18,10 @@ public class EnderecoDTO {
     @NotEmpty(message = "Bairro não pode ser vazio")
     private String bairro;
 
-    @NotEmpty(message = "Cidade não pode ser vazio")
+    @NotEmpty(message = "Cidade não pode ser vazia")
     private String cidade;
 
-    @NotEmpty(message = "UF não pode ser vazio")
+    @NotEmpty(message = "UF não pode ser vazia")
     private String uf;
 
     public Endereco toEndereco() {

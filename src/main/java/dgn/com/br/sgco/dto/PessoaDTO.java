@@ -2,10 +2,7 @@ package dgn.com.br.sgco.dto;
 
 import dgn.com.br.sgco.entity.Pessoa;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -27,10 +24,11 @@ public class PessoaDTO {
     private String celular;
 
     @NotEmpty(message = "E-mail não pode ser vazio")
+    @Email(message = "E-mail deve ser válido")
     private String email;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Past
+    @Past(message = "Data de nascimento não pode ser no futuro")
     @NotNull(message = "Data de nascimento não pode ser vazia")
     private Date dataNascimento;
 
