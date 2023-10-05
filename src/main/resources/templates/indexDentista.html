@@ -11,35 +11,41 @@
     <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@2.3.3/event-calendar.min.js"></script>
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
 </head>
 <body>
 <div id="central">
-<a href="/logout">Sair</a>
-<h1 th:text="${usuario.pessoa.nome}"></h1>
-<p>Você agora está logado. (Dentista)</p>
+    <a href="/logout">Sair</a>
+    <h1 th:text="${usuario.pessoa.nome}"></h1>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Horário</th>
-        <th scope="col"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="list-group-item" th:each="agendamento : ${agendamentos}">
-        <td th:text="${agendamento.getPaciente().getPessoa().getNome()}"></td>
-        <td th:text="${#dates.format(agendamento.getDataConsulta(),'dd/MM/yyyy') + ' ' + #dates.format(agendamento.getHoraConsulta(),'HH:mm')}"></td>
-        <td><a th:href="@{/agendamento/{id}(id=${agendamento.getId()})}">✓</a></td>
-    </tr>
-    <li></li>
-    </tbody>
-</table>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Agendamentos</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Horário</th>
+                    <th scope="col">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="agendamento : ${agendamentos}">
+                    <th scope="row">1</th>
+                    <td th:text="${agendamento.getPaciente().getPessoa().getNome()}"></td>
+                    <td th:text="${#dates.format(agendamento.getDataConsulta(),'dd/MM/yyyy') + ' ' + #dates.format(agendamento.getHoraConsulta(),'HH:mm')}"></td>
+                    <td><a class="btn" alt="confirmarAgendamento" th:href="@{/agendamento/{id}(id=${agendamento.getId()})}">✓</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <div id="calendario-agendamentos"></div>
+        </div>
+    </div>
 </div>
-
-<div id="calendario-agendamentos"></div>
 </body>
 
 <script th:inline="javascript">
@@ -81,15 +87,20 @@
             let day = new Date();
             let diff = i - day.getDay();
             day.setDate(day.getDate() + diff);
-            days[i] = day.getFullYear() + "-" + _pad(day.getMonth()+1) + "-" + _pad(day.getDate());
+            days[i] = day.getFullYear() + "-" + _pad(day.getMonth() + 1) + "-" + _pad(day.getDate());
         }
 
         var cons = JSON.parse(/*[[${consultas}]]*/);
         console.log(cons);
         var consultas = []
-        for(let i=0;i < cons.length; i++){
+        for (let i = 0; i < cons.length; i++) {
             let con = cons[i];
-            consultas[i] = {start: days[con.day] + ' ' + con.start, end: days[con.day] + ' ' + con.end, title: con.title, color:con.color}
+            consultas[i] = {
+                start: days[con.day] + ' ' + con.start,
+                end: days[con.day] + ' ' + con.end,
+                title: con.title,
+                color: con.color
+            }
         }
         console.log(consultas);
         return consultas;
