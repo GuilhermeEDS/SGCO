@@ -21,6 +21,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Date;
 
 @Controller
 public class AgendamentoController {
@@ -49,18 +52,6 @@ public class AgendamentoController {
         return "agendamento";
     }
 
-    @GetMapping("/agendamento/{id}")
-    public String paginaAgendamento(@PathVariable("id") long id, @NonNull Model model) {
-        AgendamentoDTO agendamentoDTO  = new AgendamentoDTO();
-        model.addAttribute("agendamentoDTO", agendamentoDTO);
-        model.addAttribute("agendamento", agendamentoRepository.findByPacienteId(id));
-        model.addAttribute("formasPagamento", FormaPagamento.values());
-        model.addAttribute("tiposAgendamento", TipoAgendamento.values());
-        model.addAttribute("dentistas", dentistaRepository.findAll());
-        model.addAttribute("paciente", pacienteRepository.findById(id));
-        return "agendamento";
-    }
-
     @PostMapping("/agendamento")
     public String agendar(final @Valid AgendamentoDTO agendamentoDto, @NonNull BindingResult result, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -75,7 +66,23 @@ public class AgendamentoController {
             return "agendamento";
         }
 
-        Agendamento agendamento = agendamentoService.agendar(agendamentoDto, usuario);
+        Agendamento agendamento = agendamentoService.agendar(agendamentoDto, usuario.getPaciente());
         return "redirect:/";
     }
+
+    @GetMapping("/agendamento/{id}")
+    public String paginaConfirmarAgendamento(@PathVariable("id") long id, @NonNull Model model) {
+        AgendamentoDTO agendamentoDTO  = new AgendamentoDTO();
+        model.addAttribute("agendamentoDTO", agendamentoDTO);
+        model.addAttribute("agendamento", agendamentoRepository.findById(id).get());
+        return "agendamentoDentista";
+    }
+
+    @PostMapping("/agendamento/{id}")
+    public String confirmarAgendamento(@PathVariable("id") long id, @RequestParam(value = "inputObservacoesDentista", required=false) String observacoesDentista, @RequestParam(value = "duracao", required=false) Date duracao, @NonNull Model model) {
+
+        Agendamento agendamento = agendamentoService.confirmarAgendamento(id, observacoesDentista, duracao);
+        return "redirect:/";
+    }
+
 }

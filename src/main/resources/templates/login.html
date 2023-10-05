@@ -6,8 +6,10 @@
           name="viewport"/>
     <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
     <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div id="central">
 <span th:if="${error}">Erro ao logar, tente novamente.</span>
 <form method="POST" th:action="@{/login}">
     <p>
@@ -24,5 +26,6 @@
     </p>
 </form>
 <span>Não possui um cadastro? <a href="/cadastro/paciente">Registre-se</a></span>
+</div>
 </body>
 </html>

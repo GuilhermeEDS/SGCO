@@ -6,8 +6,14 @@
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/@event-calendar/build@2.3.3/event-calendar.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@2.3.3/event-calendar.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div id="central">
 <a href="/logout">Sair</a>
 <h1 th:text="${usuario.pessoa.nome}"></h1>
 <p>Você agora está logado. (Dentista)</p>
@@ -21,7 +27,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr  th:each="agendamento : ${agendamentos}"   class="list-group-item">
+    <tr class="list-group-item" th:each="agendamento : ${agendamentos}">
         <td th:text="${agendamento.getPaciente().getPessoa().getNome()}"></td>
         <td th:text="${#dates.format(agendamento.getDataConsulta(),'dd/MM/yyyy') + ' ' + #dates.format(agendamento.getHoraConsulta(),'HH:mm')}"></td>
         <td><a th:href="@{/agendamento/{id}(id=${agendamento.getId()})}">✓</a></td>
@@ -29,6 +35,68 @@
     <li></li>
     </tbody>
 </table>
+</div>
 
+<div id="calendario-agendamentos"></div>
 </body>
+
+<script th:inline="javascript">
+    let ec = new EventCalendar(document.getElementById('calendario-agendamentos'), {
+        locale: 'pt-BR',
+        view: 'timeGridWeek',
+        headerToolbar: {
+            start: '',
+            center: 'title',
+            end: ''
+        },
+        buttonText: {
+            close: 'Close',
+            dayGridMonth: 'mês',
+            listDay: 'list',
+            listMonth: 'list',
+            listWeek: 'list',
+            listYear: 'list',
+            resourceTimeGridDay: 'day',
+            resourceTimeGridWeek: 'week',
+            timeGridDay: 'day',
+            timeGridWeek: 'week',
+            today: 'hoje'
+        },
+        allDaySlot: false,
+        scrollTime: '09:00:00',
+        slotDuration: '01:00',
+        events: createEvents(),
+        dayMaxEvents: true,
+        nowIndicator: true,
+        selectable: false,
+        editable: false,
+        height: '900px',
+    });
+
+    function createEvents() {
+        let days = [];
+        for (let i = 0; i < 7; ++i) {
+            let day = new Date();
+            let diff = i - day.getDay();
+            day.setDate(day.getDate() + diff);
+            days[i] = day.getFullYear() + "-" + _pad(day.getMonth()+1) + "-" + _pad(day.getDate());
+        }
+
+        var cons = JSON.parse(/*[[${consultas}]]*/);
+        console.log(cons);
+        var consultas = []
+        for(let i=0;i < cons.length; i++){
+            let con = cons[i];
+            consultas[i] = {start: days[con.day] + ' ' + con.start, end: days[con.day] + ' ' + con.end, title: con.title, color:con.color}
+        }
+        console.log(consultas);
+        return consultas;
+    }
+
+    function _pad(num) {
+        let norm = Math.floor(Math.abs(num));
+        return (norm < 10 ? '0' : '') + norm;
+    }
+
+</script>
 </html>

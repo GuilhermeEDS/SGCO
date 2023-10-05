@@ -6,11 +6,15 @@
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Dashboard</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div id="central">
 <a href="/logout">Sair</a>
 <a href="/agendamento">Agendamento</a>
 <h1 th:text="${usuario.pessoa.nome}"></h1>
 <p>Você agora está logado. (Paciente)</p>
+</div>
 </body>
 </html>
