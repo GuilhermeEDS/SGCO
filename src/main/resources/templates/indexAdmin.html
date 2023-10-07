@@ -1,37 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="~{fragments :: header('Dashboard')}"></head>
-<body>
+    <head th:replace="~{fragments :: header('Dashboard')}"></head>
 
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title">Página Admin</span>
+    <body class="bg-slate-50">
+        <header class="flex px-2 mb-4">
+            <span class="font-bold text-3xl text-center mt-1">
+                Página Administrativa
+            </span>
 
-            <div class="mdl-layout-spacer"></div>
+            <div class="grow"></div>
 
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="/logout">Sair</a>
-            </nav>
-        </div>
-    </header>
-    <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Página Admin</span>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-
-        </nav>
-    </div>
-    <main class="mdl-layout__content">
-        <div class="page-content">
-            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" href="/cadastro/dentista">
-                Cadastro de Dentista
+            <a href="/logout" class="text-blue-400 underline font-semibold">
+                Sair
             </a>
-        </div>
-    </main>
-</div>
+        </header>
 
-</body>
+        <div class="mx-2">
+            <a href="/cadastro/dentista" class="mb-4 bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"> Cadastro de Dentista </a>
+        </div>
+        
+    </body>
 </html>

@@ -9,8 +9,6 @@
 
         <div class="flex flex-col items-center mt-4 justify-center">
             <div class="w-full max-w-lg">
-                <span th:if="${error}">Erro ao logar, tente novamente.</span>
-
                 <form
                     action="/cadastro/paciente"
                     enctype="utf8"
@@ -60,7 +58,6 @@
                             <input
                                 id="cpf"
                                 class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                onkeydown="formatarCpf(this)"
                                 placeholder="123.456.789-09"
                                 th:field="*{pessoaDTO.cpf}"
                                 type="text"
