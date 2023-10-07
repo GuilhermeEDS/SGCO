@@ -1,113 +1,245 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt_BR">
+    <head th:replace="~{fragments :: header('Agendamento')}"></head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-          name="viewport">
-    <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>Agendamento</title>
-    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+    <body class="bg-slate-50">
+        <h1 class="font-bold text-3xl text-center mt-10">
+            Cadastro de Paciente
+        </h1>
 
-<body>
-<div id="central">
-    <title>Cadastrar Agendamento</title>
-    <form action="/agendamento" enctype="utf8" method="POST" th:object="${agendamentoDTO}">
-        <div class="mb-3">
-            <label class="form-label" for="tipoAgendamento">Tipo de Agendamento</label>
-            <select aria-label="Default select example" class="form-select" id="tipoAgendamento" th:field="*{tipo.id}">
-                <option value="-1">Selecionar um tipo de agendamento</option>
-                <option th:each="tipoAgendamento : ${tiposAgendamento}" th:text="${tipoAgendamento.getDescricao()}"
-                        th:value="${tipoAgendamento.ordinal()}"></option>
-            </select>
-            <div th:replace="~{fragments :: listaErros('tipo.id')}"></div>
-        </div>
-        <title>Dados gerais da consulta</title>
-        <div class="mb-3">
-            <label class="form-label" for="dentista">Dentista</label>
-            <select aria-label="Default select example" class="form-select" id="dentista" th:field="*{idDentista}">
-                <option value="-1">Selecionar um profissional</option>
-                <option th:each="dentista : ${dentistas}" th:text="${dentista.getPessoa().getNome()}"
-                        th:value="${dentista.getId()}"></option>
-            </select>
-            <div th:replace="~{fragments :: listaErros('idDentista')}"></div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="dataConsulta">Data da Consulta</label>
-            <input class="form-control" id="dataConsulta" name="dataConsulta" th:field="*{dataConsulta}" type="date">
-            <div th:replace="~{fragments :: listaErros('dataConsulta')}"></div>
-        </div>
-        <div class="mb-3">
-			<label class="form-label">Hora da Consulta</label>
-            <div class="form-check">
-                <input class="form-check-input" id="radioHora1" name="horaConsulta" th:field="*{horaConsulta}" type="radio"
-                       value="9:00">
-                <label class="form-check-label" for="radioHora1">
-                    9:00
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" id="radioHora2" name="horaConsulta" th:field="*{horaConsulta}"
-                       type="radio" value="10:00">
-                <label class="form-check-label" for="radioHora1">
-                    10:00
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" id="radioHora3" name="horaConsulta" th:field="*{horaConsulta}"
-                       type="radio" value="11:00">
-                <label class="form-check-label" for="radioHora1">
-                    11:00
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" id="radioHora4" name="horaConsulta" th:field="*{horaConsulta}"
-                       type="radio" value="13:00">
-                <label class="form-check-label" for="radioHora1">
-                    13:00
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" id="radioHora5" name="horaConsulta" th:field="*{horaConsulta}"
-                       type="radio" value="14:00">
-                <label class="form-check-label" for="radioHora1">
-                    14:00
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" id="radioHora6" name="horaConsulta" th:field="*{horaConsulta}"
-                       type="radio" value="15:00">
-                <label class="form-check-label" for="radioHora1">
-                    15:00
-                </label>
-            </div>
-            <div th:replace="~{fragments :: listaErros('horaConsulta')}"></div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="inputObservacoes">Observações</label>
-            <input class="form-control" id="inputObservacoes" name="observacoes" th:field="*{observacoesPaciente}"
-                   type="text">
-        </div>
-        <title>Pagamento</title>
-        <div class="mb-3">
-            <label class="form-label" for="formaPagamento">Forma de Pagamento</label>
-            <select aria-label="Default select example" class="form-select" id="formaPagamento"
-                    th:field="*{formaPagamento.id}">
-                <option value="-1">Selecionar um tipo de Pagamento</option>
-                <option th:each="formaPagamento : ${formasPagamento}" th:text="${formaPagamento.getDescricao()}"
-                        th:value="${formaPagamento.ordinal()}"></option>
-            </select>
-            <div th:replace="~{fragments :: listaErros('formaPagamento.id')}"></div>
-        </div>
-        <div class="mb-3">
-            <button class="btn btn-primary" type="submit">Cadastrar Agendamento</button>
-            <a class="btn btn-primary" href="/">Cancelar</a>
-        </div>
-    </form>
-</div>
-</body>
+        <div class="flex flex-col items-center mt-4 justify-center">
+            <div class="w-full max-w-lg">
+                <form
+                    action="/agendamento"
+                    enctype="utf8"
+                    method="POST"
+                    th:object="${agendamentoDTO}"
+                    class="bg-white shadow-md px-8 pt-6 pb-8 rounded w-full max-w-lg flex flex-col"
+                >
+                    <label
+                        class="font-medium text-gray-700 block"
+                        for="tipoAgendamento"
+                    >
+                        Tipo de Agendamento
+                    </label>
+                    <select
+                        id="tipoAgendamento"
+                        class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        th:field="*{tipo.id}"
+                    >
+                        <option value="-1">
+                            Selecionar um tipo de agendamento
+                        </option>
+                        <option
+                            th:each="tipoAgendamento : ${tiposAgendamento}"
+                            th:text="${tipoAgendamento.getDescricao()}"
+                            th:value="${tipoAgendamento.ordinal()}"
+                        ></option>
+                    </select>
+                    <div
+                        th:replace="~{fragments :: listaErros('tipo.id')}"
+                    ></div>
 
+                    <h2>Dados gerais da consulta</h2>
+                    <div>
+                        <label
+                            class="font-medium text-gray-700 block"
+                            for="dentista"
+                        >
+                            Dentista
+                        </label>
+                        <select
+                            id="dentista"
+                            class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            th:field="*{idDentista}"
+                        >
+                            <option value="-1">
+                                Selecionar um profissional
+                            </option>
+                            <option
+                                th:each="dentista : ${dentistas}"
+                                th:text="${dentista.getPessoa().getNome()}"
+                                th:value="${dentista.getId()}"
+                            ></option>
+                        </select>
+                        <div
+                            th:replace="~{fragments :: listaErros('idDentista')}"
+                        ></div>
+                    </div>
+                    <div>
+                        <label
+                            class="font-medium text-gray-700 block"
+                            for="dataConsulta"
+                        >
+                            Data da Consulta:
+                        </label>
+                        <input
+                            class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="dataConsulta"
+                            name="dataConsulta"
+                            th:field="*{dataConsulta}"
+                            type="date"
+                        />
+                        <div
+                            th:replace="~{fragments :: listaErros('dataConsulta')}"
+                        ></div>
+                    </div>
+                    <div>
+                        <label class="font-medium text-gray-700 block">
+                            Hora da Consulta:
+                        </label>
+                        <div>
+                            <input
+                                id="radioHora1"
+                                name="horaConsulta"
+                                th:field="*{horaConsulta}"
+                                type="radio"
+                                value="9:00"
+                            />
+                            <label
+                                class="font-medium text-gray-700"
+                                for="radioHora1"
+                            >
+                                9:00
+                            </label>
+                        </div>
+                        <div>
+                            <input
+                                id="radioHora2"
+                                name="horaConsulta"
+                                th:field="*{horaConsulta}"
+                                type="radio"
+                                value="10:00"
+                            />
+                            <label
+                                class="font-medium text-gray-700"
+                                for="radioHora1"
+                            >
+                                10:00
+                            </label>
+                        </div>
+                        <div>
+                            <input
+                                id="radioHora3"
+                                name="horaConsulta"
+                                th:field="*{horaConsulta}"
+                                type="radio"
+                                value="11:00"
+                            />
+                            <label
+                                class="font-medium text-gray-700"
+                                for="radioHora1"
+                            >
+                                11:00
+                            </label>
+                        </div>
+                        <div>
+                            <input
+                                id="radioHora4"
+                                name="horaConsulta"
+                                th:field="*{horaConsulta}"
+                                type="radio"
+                                value="13:00"
+                            />
+                            <label
+                                class="font-medium text-gray-700"
+                                for="radioHora1"
+                            >
+                                13:00
+                            </label>
+                        </div>
+                        <div>
+                            <input
+                                id="radioHora5"
+                                name="horaConsulta"
+                                th:field="*{horaConsulta}"
+                                type="radio"
+                                value="14:00"
+                            />
+                            <label
+                                class="font-medium text-gray-700"
+                                for="radioHora1"
+                            >
+                                14:00
+                            </label>
+                        </div>
+                        <div>
+                            <input
+                                id="radioHora6"
+                                name="horaConsulta"
+                                th:field="*{horaConsulta}"
+                                type="radio"
+                                value="15:00"
+                            />
+                            <label
+                                class="font-medium text-gray-700"
+                                for="radioHora1"
+                            >
+                                15:00
+                            </label>
+                        </div>
+                        <div
+                            th:replace="~{fragments :: listaErros('horaConsulta')}"
+                        ></div>
+                    </div>
+                    <div>
+                        <label
+                            class="font-medium text-gray-700 block"
+                            for="inputObservacoes"
+                        >
+                            Observações
+                        </label>
+                        <input
+                            id="inputObservacoes"
+                            class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            name="observacoes"
+                            th:field="*{observacoesPaciente}"
+                            type="text"
+                        />
+                    </div>
+                    <h2>Pagamento</h2>
+                    <div>
+                        <label
+                            class="font-medium text-gray-700 block"
+                            for="formaPagamento"
+                        >
+                            Forma de Pagamento
+                        </label>
+                        <select
+                            id="formaPagamento"
+                            th:field="*{formaPagamento.id}"
+                            class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        >
+                            <option value="-1">
+                                Selecionar um tipo de Pagamento
+                            </option>
+                            <option
+                                th:each="formaPagamento : ${formasPagamento}"
+                                th:text="${formaPagamento.getDescricao()}"
+                                th:value="${formaPagamento.ordinal()}"
+                            ></option>
+                        </select>
+                        <div
+                            th:replace="~{fragments :: listaErros('formaPagamento.id')}"
+                        ></div>
+                    </div>
+
+                    <div class="flex justify-around">
+                        <a
+                            class="text-blue-400 underline font-semibold align-middle"
+                            href="/"
+                        >
+                            Cancelar
+                        </a>
+
+                        <input
+                            type="submit"
+                            class="mb-4 bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"
+                            value="Cadastrar Agendamento"
+                        />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
 </html>
