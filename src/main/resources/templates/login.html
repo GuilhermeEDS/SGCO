@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
     <head th:replace="~{fragments :: header('Login')}"></head>
+
     <body class="bg-slate-50">
-        <h4 class="font-bold text-3xl text-center mt-10">
+        <h1 class="font-bold text-3xl text-center mt-10">
             Sistema Gerenciador de Consultório Odontológico
-        </h4>
+        </h1>
 
         <div class="flex flex-col items-center mt-40 justify-center">
             <div class="w-full max-w-xs">
@@ -16,9 +17,10 @@
                     class="bg-white shadow-md px-8 pt-6 pb-8 rounded"
                 >
                     <div class="font-bold mb-4">Login</div>
+
                     <div class="mb-4">
                         <label
-                            class="font-medium text-slate-700 block"
+                            class="font-medium text-gray-700 block"
                             for="cpf"
                         >
                             CPF:
@@ -33,15 +35,12 @@
                         />
                     </div>
 
-                    <!-- file:///home/nathan/Downloads/Refactoring%20UI%20--%20Steve%20Schoger,%20Adam%20Wathan%20--%202018%20--%20c0008a5b7285dd078c6afc3f5881b06d%20--%20Anna%E2%80%99s%20Archive.pdf
-                        https://tailwindcss.com/docs/font-family
-                        https://v1.tailwindcss.com/components/forms -->
-
                     <div class="mb-4">
                         <label
-                            class="block font-medium text-slate-700"
+                            class="block font-medium text-gray-700"
                             for="senha"
-                            >Senha:
+                        >
+                            Senha:
                         </label>
                         <input
                             class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -52,21 +51,20 @@
                         />
                     </div>
 
-                    <div class="mb-4">
-                        <input
-                            type="submit"
-                            class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            value="Entrar"
-                        />
-                    </div>
+                    <input
+                        type="submit"
+                        class="mb-4 bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        value="Entrar"
+                    />
 
-                    <div class="text-slate-500">
+                    <div class="text-gray-500">
                         Não possui um cadastro?
                         <a
                             class="text-blue-400 underline font-semibold"
                             href="/cadastro/paciente"
-                            >Registre-se</a
                         >
+                            Registre-se
+                        </a>
                     </div>
                 </form>
             </div>
