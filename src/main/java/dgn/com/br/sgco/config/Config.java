@@ -22,6 +22,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 @EnableWebSecurity
@@ -47,14 +50,20 @@ public class Config {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+        return new MvcRequestMatcher.Builder(introspector);
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests((authorize) -> {
-            authorize.requestMatchers("/dentista**").hasRole("dentista");
+            authorize.requestMatchers(mvc.pattern("/dentista**")).hasRole("dentista");
             authorize.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
             authorize.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll();
-            authorize.requestMatchers("/login**", "/cadastro/paciente", "/cadastro/paciente", "/js**", "/css**", "/images**").permitAll();
-            authorize.requestMatchers(HttpMethod.POST, "/cadastro/paciente").permitAll();
+            authorize.requestMatchers(mvc.pattern("/login**"), mvc.pattern("/cadastro/paciente"), mvc.pattern("/js**"), mvc.pattern("/css**"), mvc.pattern("/images**")).permitAll();
+            // authorize.requestMatchers("/login**", "/cadastro/paciente", "/cadastro/paciente", "/js**", "/css**", "/images**").permitAll();
+            // authorize.requestMatchers(HttpMethod.POST, "/cadastro/paciente").permitAll();
             authorize.anyRequest().authenticated();
         });
         http.formLogin(form -> {

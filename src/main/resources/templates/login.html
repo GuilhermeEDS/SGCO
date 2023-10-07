@@ -1,59 +1,75 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-          name="viewport"/>
-    <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
-    <title>Login</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
-</head>
-<body style="background-color: #112255;">
-<div>
-    <section class="h-100 gradient-form">
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-xl-6">
-                    <div class="card rounded-3 text-black">
-                        <div class="row g-0">
-                            <div class="col-lg-12">
-                                <div class="card-body text-center">
-                                    <h4 class="mt-1 mb-5 pb-1">Sistema Gerenciador de Consultório Odontológico</h4>
-                                    <span th:if="${error}">Erro ao logar, tente novamente.</span>
-                                    <form method="POST" th:action="@{/login}">
-                                        <!-- Email input -->
-                                        <div class="form-outline text-left mb-4">
-                                            <label class="form-label" for="cpf">CPF:</label>
-                                            <input class="form-control" id="cpf" name="cpf" type="text"/>
-                                        </div>
+    <head th:replace="~{fragments :: header('Login')}"></head>
+    <body class="bg-slate-50">
+        <h4 class="font-bold text-3xl text-center mt-10">
+            Sistema Gerenciador de Consultório Odontológico
+        </h4>
 
-                                        <!-- Password input -->
-                                        <div class="form-outline mb-4">
-                                            <label class="form-label text-left" for="senha">Senha:</label>
-                                            <input class="form-control" id="senha" name="senha" type="password">
-                                        </div>
+        <div class="flex flex-col items-center mt-40 justify-center">
+            <div class="w-full max-w-xs">
+                <span th:if="${error}">Erro ao logar, tente novamente.</span>
 
-                                        <div class="row mb-4">
-                                            <div class="col">
-                                                <span>Não possui um cadastro? <a
-                                                        href="/cadastro/paciente">Registre-se</a></span>
-                                            </div>
-                                        </div>
-                                        <div class="align-items-right">
-                                            <input class="btn btn-primary btn-block mb-4" type="submit" value="Entrar"/>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                <form
+                    method="POST"
+                    th:action="@{/login}"
+                    class="bg-white shadow-md px-8 pt-6 pb-8 rounded"
+                >
+                    <div class="font-bold mb-4">Login</div>
+                    <div class="mb-4">
+                        <label
+                            class="font-medium text-slate-700 block"
+                            for="cpf"
+                        >
+                            CPF:
+                        </label>
+                        <input
+                            class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="cpf"
+                            maxlength="14"
+                            name="cpf"
+                            placeholder="000.000.000-00"
+                            type="text"
+                        />
                     </div>
-                </div>
+
+                    <!-- file:///home/nathan/Downloads/Refactoring%20UI%20--%20Steve%20Schoger,%20Adam%20Wathan%20--%202018%20--%20c0008a5b7285dd078c6afc3f5881b06d%20--%20Anna%E2%80%99s%20Archive.pdf
+                        https://tailwindcss.com/docs/font-family
+                        https://v1.tailwindcss.com/components/forms -->
+
+                    <div class="mb-4">
+                        <label
+                            class="block font-medium text-slate-700"
+                            for="senha"
+                            >Senha:
+                        </label>
+                        <input
+                            class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="senha"
+                            name="senha"
+                            placeholder="********"
+                            type="password"
+                        />
+                    </div>
+
+                    <div class="mb-4">
+                        <input
+                            type="submit"
+                            class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            value="Entrar"
+                        />
+                    </div>
+
+                    <div class="text-slate-500">
+                        Não possui um cadastro?
+                        <a
+                            class="text-blue-400 underline font-semibold"
+                            href="/cadastro/paciente"
+                            >Registre-se</a
+                        >
+                    </div>
+                </form>
             </div>
         </div>
-    </section>
-    </form>
-</div>
-</body>
+    </body>
 </html>
