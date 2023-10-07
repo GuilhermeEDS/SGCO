@@ -33,4 +33,4 @@ build/
 .vscode/
 
 src/main/frontend/node_modules
-src/resources/static/css/tailwind.css
+src/main/resources/static/css/tailwind.css
