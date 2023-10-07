@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #112255;
-}
-
 #central{
   display: flex;
   flex-direction: column;
