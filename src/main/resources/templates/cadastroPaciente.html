@@ -70,13 +70,13 @@
                                                         <div>
                                                             <label class="form-label" for="genero">Gênero:</label>
                                                             <select class="form-control" id="genero"
-                                                                    th:field="*{pessoaDTO.generoDTO.id}">
+                                                                    th:field="*{pessoaDTO.idGenero}">
                                                                 <option value="-1">-- Selecione a opção --</option>
                                                                 <option th:each="genero : ${generos}"
                                                                         th:text="${genero.getDescricao()}"
                                                                         th:value="${genero.ordinal()}"></option>
                                                             </select>
-                                                            <div th:replace="~{fragments :: listaErros('pessoaDTO.generoDTO.id')}"></div>
+                                                            <div th:replace="~{fragments :: listaErros('pessoaDTO.idGenero')}"></div>
                                                         </div>
                                                         <div>
                                                             <label class="form-label" for="senha">Senha:</label>

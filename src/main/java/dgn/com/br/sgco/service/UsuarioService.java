@@ -55,4 +55,8 @@ public class UsuarioService {
 
         return usuarioRepository.save(usuario);
     }
+
+    public Optional<Usuario> porCpf(String cpf) {
+        return usuarioRepository.findByCpf(cpf);
+    }
 }

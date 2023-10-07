@@ -2,10 +2,9 @@ package dgn.com.br.sgco.controller;
 
 import dgn.com.br.sgco.entity.Agendamento;
 import dgn.com.br.sgco.entity.Usuario;
-import dgn.com.br.sgco.repository.AgendamentoRepository;
-import dgn.com.br.sgco.repository.UsuarioRepository;
+import dgn.com.br.sgco.service.AgendamentoService;
+import dgn.com.br.sgco.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,16 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 @Controller
 public class UsuarioController {
     @Autowired
-    UsuarioRepository usuarioRepository;
+    UsuarioService usuarioService;
 
     @Autowired
-    AgendamentoRepository agendamentoRepository;
+    AgendamentoService agendamentoService;
 
     @GetMapping("/login")
     public String paginaLogin(@RequestParam(required = false) String error, Model model) {
@@ -36,7 +34,7 @@ public class UsuarioController {
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String cpf = auth.getName();
-        Usuario usuario = usuarioRepository.findByCpf(cpf).get();
+        Usuario usuario = usuarioService.porCpf(cpf).get();
 
         model.addAttribute("usuario", usuario);
 
@@ -45,19 +43,19 @@ public class UsuarioController {
                 return "indexAdmin";
             }
             case DENTISTA -> {
-                List<Agendamento> agendamentos =agendamentoRepository.findAllAgendamentoConfirmedByDentista(usuario.getDentista());
+                Iterable<Agendamento> agendamentos = agendamentoService.porDentistaConfirmados(usuario.getDentista());
                 SimpleDateFormat sdt = new SimpleDateFormat("HH:mm");
-                String jason = "[";
-                for(Agendamento agendamento : agendamentos){
-                    jason += "{\"day\": " + agendamento.getWeek() + ", \"start\": \"" + sdt.format(agendamento.getHoraConsulta()) + "\", \"end\": \""+ sdt.format(agendamento.getHoraFim()) +"\", \"title\" : \"" + agendamento.getPaciente().getPessoa().getNome() + "\" , \"color\": \"#779ECB\"},";
+                StringBuilder jason = new StringBuilder("[");
+                for (Agendamento agendamento : agendamentos) {
+                    jason.append("{\"day\": ").append(agendamento.getWeek()).append(", \"start\": \"").append(sdt.format(agendamento.getHoraConsulta())).append("\", \"end\": \"").append(sdt.format(agendamento.getHoraFim())).append("\", \"title\" : \"").append(agendamento.getPaciente().getPessoa().getNome()).append("\" , \"color\": \"#779ECB\"},");
                 }
-                if(!agendamentos.isEmpty()){
-                    jason = jason.substring(0, jason.length() - 1);
+                if (!((Collection<Agendamento>) agendamentos).isEmpty()) {
+                    jason = new StringBuilder(jason.substring(0, jason.length() - 1));
                 }
-                jason += "]";
+                jason.append("]");
                 System.out.println(jason);
-                model.addAttribute("consultas", jason);
-                model.addAttribute("agendamentos", agendamentoRepository.findAllAgendamentoNotConfirmedByDentista(usuario.getDentista()));
+                model.addAttribute("consultas", jason.toString());
+                model.addAttribute("agendamentos", agendamentoService.porDentistaNaoConfirmados(usuario.getDentista()));
                 return "indexDentista";
             }
             default -> {

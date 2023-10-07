@@ -6,11 +6,9 @@ import dgn.com.br.sgco.entity.Agendamento;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.enumeration.FormaPagamento;
 import dgn.com.br.sgco.enumeration.TipoAgendamento;
-import dgn.com.br.sgco.repository.AgendamentoRepository;
-import dgn.com.br.sgco.repository.DentistaRepository;
-import dgn.com.br.sgco.repository.PacienteRepository;
-import dgn.com.br.sgco.repository.UsuarioRepository;
 import dgn.com.br.sgco.service.AgendamentoService;
+import dgn.com.br.sgco.service.DentistaService;
+import dgn.com.br.sgco.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +20,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Date;
 
 @Controller
 public class AgendamentoController {
@@ -32,16 +27,10 @@ public class AgendamentoController {
     private AgendamentoService agendamentoService;
 
     @Autowired
-    private DentistaRepository dentistaRepository;
+    private UsuarioService usuarioService;
 
     @Autowired
-    private AgendamentoRepository agendamentoRepository;
-
-    @Autowired
-    private PacienteRepository pacienteRepository;
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private DentistaService dentistaService;
 
     @GetMapping("/agendamento")
     public String paginaAgendamento(@NonNull Model model) {
@@ -49,7 +38,7 @@ public class AgendamentoController {
         model.addAttribute("agendamentoDTO", agendamentoDTO);
         model.addAttribute("formasPagamento", FormaPagamento.values());
         model.addAttribute("tiposAgendamento", TipoAgendamento.values());
-        model.addAttribute("dentistas", dentistaRepository.findAll());
+        model.addAttribute("dentistas", dentistaService.todos());
         return "agendamento";
     }
 
@@ -57,13 +46,13 @@ public class AgendamentoController {
     public String agendar(final @Valid AgendamentoDTO agendamentoDto, @NonNull BindingResult result, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String cpf = auth.getName();
-        Usuario usuario = usuarioRepository.findByCpf(cpf).get();
+        Usuario usuario = usuarioService.porCpf(cpf).get();
 
         if (result.hasErrors()) {
             model.addAttribute("agendamentoDto", agendamentoDto);
             model.addAttribute("formasPagamento", FormaPagamento.values());
             model.addAttribute("tiposAgendamento", TipoAgendamento.values());
-            model.addAttribute("dentistas", dentistaRepository.findAll());
+            model.addAttribute("dentistas", dentistaService.todos());
             return "agendamento";
         }
 
@@ -75,18 +64,18 @@ public class AgendamentoController {
     public String paginaConfirmarAgendamento(@PathVariable("id") long id, @NonNull Model model) {
         AgendamentoDentistaDTO agendamentoDTO = new AgendamentoDentistaDTO();
         model.addAttribute("agendamentoDTO", agendamentoDTO);
-        model.addAttribute("agendamento", agendamentoRepository.findById(id).get());
+        model.addAttribute("agendamento", agendamentoService.porId(id).get());
         return "agendamentoDentista";
     }
 
     @PostMapping("/agendamento/{id}")
-    public String confirmarAgendamento(@PathVariable("id") long id,final @Valid AgendamentoDentistaDTO agendamentoDto, @NonNull BindingResult result, Model model) {
+    public String confirmarAgendamento(@PathVariable("id") long id, final @Valid AgendamentoDentistaDTO agendamentoDto, @NonNull BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             model.addAttribute("agendamentoDto", agendamentoDto);
             model.addAttribute("formasPagamento", FormaPagamento.values());
             model.addAttribute("tiposAgendamento", TipoAgendamento.values());
-            model.addAttribute("dentistas", dentistaRepository.findAll());
+            model.addAttribute("dentistas", dentistaService.todos());
             return "agendamento";
         }
 

@@ -11,7 +11,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -20,7 +19,6 @@ import java.util.GregorianCalendar;
 @Data
 @EqualsAndHashCode
 public class Agendamento extends Entidade {
-
     @ManyToOne
     private Paciente paciente;
 
@@ -45,7 +43,7 @@ public class Agendamento extends Entidade {
 
     private FormaPagamento formaPagamento;
 
-    public int getWeek(){
+    public int getWeek() {
         int dayWeek = 0;
         GregorianCalendar gc = new GregorianCalendar();
         try {

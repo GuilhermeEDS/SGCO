@@ -11,4 +11,8 @@ public enum Genero {
     Genero(String descricao) {
         this.descricao = descricao;
     }
+
+    public static Genero porId(int id) {
+        return Genero.values()[id];
+    }
 }

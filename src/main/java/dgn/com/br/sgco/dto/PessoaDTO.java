@@ -1,6 +1,7 @@
 package dgn.com.br.sgco.dto;
 
 import dgn.com.br.sgco.entity.Pessoa;
+import dgn.com.br.sgco.enumeration.Genero;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -32,8 +33,8 @@ public class PessoaDTO {
     @NotNull(message = "Data de nascimento não pode ser vazia")
     private Date dataNascimento;
 
-    @Valid
-    private GeneroDTO generoDTO;
+    @NotNull(message = "Gênero não pode ser vazio")
+    private Integer idGenero;
 
     @Valid
     private EnderecoDTO enderecoDTO;
@@ -47,7 +48,7 @@ public class PessoaDTO {
         pessoa.setCelular(getCelular());
         pessoa.setEmail(getEmail());
         pessoa.setDataNascimento(getDataNascimento());
-        pessoa.setGenero(getGeneroDTO().toGenero());
+        pessoa.setGenero(Genero.porId(getIdGenero()));
         if (getEnderecoDTO() != null) {
             pessoa.setEndereco(getEnderecoDTO().toEndereco());
         }
