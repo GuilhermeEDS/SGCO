@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.text.ParseException;
+
 @Controller
 public class AgendamentoController {
     @Autowired
@@ -69,17 +71,15 @@ public class AgendamentoController {
     }
 
     @PostMapping("/agendamento/{id}")
-    public String confirmarAgendamento(@PathVariable("id") long id, final @Valid AgendamentoDentistaDTO agendamentoDto, @NonNull BindingResult result, Model model) {
+    public String confirmarAgendamento(@PathVariable("id") long id, final @Valid AgendamentoDentistaDTO agendamentoDto, @NonNull BindingResult result, Model model) throws ParseException {
 
         if (result.hasErrors()) {
-            model.addAttribute("agendamentoDto", agendamentoDto);
-            model.addAttribute("formasPagamento", FormaPagamento.values());
-            model.addAttribute("tiposAgendamento", TipoAgendamento.values());
-            model.addAttribute("dentistas", dentistaService.todos());
-            return "agendamento";
+            model.addAttribute("agendamentoDTO", agendamentoDto);
+            model.addAttribute("agendamento", agendamentoService.porId(id).get());
+            return "agendamentoDentista";
         }
 
-        Agendamento agendamento = agendamentoService.confirmarAgendamento(id, agendamentoDto.getObservacoesDentista(), agendamentoDto.getHoraFim());
+        Agendamento agendamento = agendamentoService.confirmarAgendamento(id, agendamentoDto);
         return "redirect:/";
     }
 

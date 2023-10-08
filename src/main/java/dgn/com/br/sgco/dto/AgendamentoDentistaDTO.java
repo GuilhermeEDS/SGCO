@@ -1,16 +1,15 @@
 package dgn.com.br.sgco.dto;
 
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
 @Data
 public class AgendamentoDentistaDTO {
+
     @DateTimeFormat(pattern = "HH:mm")
-    @NotNull(message = "Hora do agendamento deve ser selecionado.")
-    private Date horaFim;
+    @NotEmpty(message = "Adicione a hora do agendamento.")
+    private String horaFim;
 
     private String observacoesDentista;
 }
