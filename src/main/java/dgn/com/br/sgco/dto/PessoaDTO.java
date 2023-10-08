@@ -11,29 +11,30 @@ import java.util.Date;
 
 @Data
 public class PessoaDTO {
-    @NotEmpty(message = "Nome não pode ser vazio")
+    @NotEmpty(message = "Campo não pode ser vazio")
     private String nome;
 
-    @NotEmpty(message = "CPF não pode ser vazio")
+    @NotEmpty(message = "Campo não pode ser vazio")
     @Pattern(regexp = "^$|^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$", message = "CPF deve estar no formato 000.000.000-00")
     private String cpf;
 
-    @NotEmpty(message = "RG não pode ser vazio")
+    @NotEmpty(message = "Campo não pode ser vazio")
     private String rg;
 
-    @NotEmpty(message = "Número de celular não pode ser vazio")
+    @NotEmpty(message = "Campo não pode ser vazio")
     private String celular;
 
     @NotEmpty(message = "E-mail não pode ser vazio")
-    @Email(message = "E-mail deve ser válido")
+    @Email(message = "Campo não pode ser vazio")
     private String email;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past(message = "Data de nascimento não pode ser no futuro")
-    @NotNull(message = "Data de nascimento não pode ser vazia")
+    @NotNull(message = "Campo não pode ser vazio")
     private Date dataNascimento;
 
     @NotNull(message = "Gênero não pode ser vazio")
+    @Min(value = 0, message = "Campo não pode ser vazio")
     private Integer idGenero;
 
     @Valid

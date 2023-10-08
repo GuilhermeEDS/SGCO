@@ -12,7 +12,7 @@ public class CadastroPacienteDTO {
     @Valid
     private PessoaDTO pessoaDTO;
 
-    @NotEmpty(message = "Senha não pode ser vazia")
+    @NotEmpty(message = "Campo não pode ser vazio")
     private String senha;
 
     public Usuario toUsuario() {

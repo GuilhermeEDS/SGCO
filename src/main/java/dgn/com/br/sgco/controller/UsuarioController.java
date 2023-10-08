@@ -26,6 +26,14 @@ public class UsuarioController {
         return "login";
     }
 
+    @GetMapping("/listagem/usuario")
+    public String paginaListagemUsuarios(Model model) {
+        Iterable<Usuario> usuarios = usuarioService.todos();
+        model.addAttribute("usuarios", usuarios);
+
+        return "listagemUsuarios";
+    }
+
     @GetMapping("/")
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

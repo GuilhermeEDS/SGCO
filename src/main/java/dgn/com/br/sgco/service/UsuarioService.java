@@ -59,4 +59,8 @@ public class UsuarioService {
     public Optional<Usuario> porCpf(String cpf) {
         return usuarioRepository.findByCpf(cpf);
     }
+
+    public Iterable<Usuario> todos() {
+        return usuarioRepository.findAll();
+    }
 }

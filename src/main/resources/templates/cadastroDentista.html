@@ -21,24 +21,21 @@
                     <h2 class="text-gray-700 font-bold mt-5 mb-1 uppercase">
                         Informações gerais
                     </h2>
-                    <div>
-                        <label
-                            class="font-medium text-gray-700 block"
-                            for="nome"
-                        >
-                            Nome completo:
-                        </label>
-                        <input
-                            id="nome"
-                            class="form-input bg-slate-100 text-gray-700 outline-blue-400"
-                            placeholder="João da Silva"
-                            th:field="*{pessoaDTO.nome}"
-                            type="text"
-                        />
-                        <div
-                            th:replace="~{fragments :: listaErros('pessoaDTO.nome')}"
-                        ></div>
-                    </div>
+
+                    <label class="font-medium text-gray-700 block" for="nome">
+                        Nome completo:
+                    </label>
+                    <input
+                        id="nome"
+                        class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                        placeholder="João da Silva"
+                        th:field="*{pessoaDTO.nome}"
+                        type="text"
+                    />
+                    <div
+                        th:replace="~{fragments :: listaErros('pessoaDTO.nome')}"
+                    ></div>
+
                     <div class="flex -mx-2 mt-2">
                         <div class="w-1/2 px-2">
                             <label

@@ -6,22 +6,22 @@ import lombok.Data;
 
 @Data
 public class EnderecoDTO {
-    @NotEmpty(message = "CEP não pode ser vazio")
+    @NotEmpty(message = "Campo não pode ser vazio")
     private String cep;
 
-    @NotEmpty(message = "Número não pode ser vazio")
+    @NotEmpty(message = "Campo não pode ser vazio")
     private String numero;
 
-    @NotEmpty(message = "Logradouro não pode ser vazio")
+    @NotEmpty(message = "Campo não pode ser vazio")
     private String logradouro;
 
-    @NotEmpty(message = "Bairro não pode ser vazio")
+    @NotEmpty(message = "Campo não pode ser vazio")
     private String bairro;
 
-    @NotEmpty(message = "Cidade não pode ser vazia")
+    @NotEmpty(message = "Campo não pode ser vazio")
     private String cidade;
 
-    @NotEmpty(message = "UF não pode ser vazia")
+    @NotEmpty(message = "Campo não pode ser vazio")
     private String uf;
 
     public Endereco toEndereco() {

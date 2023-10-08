@@ -4,9 +4,9 @@
 
     <body class="bg-sky-100">
         <div class="flex h-screen flex-col items-center justify-center">
-            <img class="mb-10 max-w-md" th:src="@{/images/logoSGCO.png}"/>
+            <img class="mb-10 max-w-md" th:src="@{/images/logoSGCO.png}" />
 
-            <div class="w-full max-w-xs">
+            <div class="w-full max-w-sm">
                 <form
                     method="POST"
                     th:action="@{/login}"
@@ -35,25 +35,24 @@
                         type="password"
                     />
 
-                    <div class="text-rose-500 mb-4" th:if="${error}">
-                        Usuário e/ou senha incorreto
+                    <div class="text-rose-500 mb-4 self-center" th:if="${error}">
+                        Usuário e/ou senha incorreto.
                     </div>
 
                     <input
                         type="submit"
-                        class="self-center mb-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        class="self-end mb-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         value="Entrar"
                     />
-
-                    <div class="text-slate-500">
+                    <span class="text-slate-500 self-end">
                         Não possui um cadastro?
-                        <a
-                            class="text-blue-400 hover:text-blue-500 underline font-semibold"
-                            href="/cadastro/paciente"
-                        >
-                            Registre-se
-                        </a>
-                    </div>
+                    </span>
+                    <a
+                        class="self-end text-blue-400 hover:text-blue-500 underline font-semibold"
+                        href="/cadastro/paciente"
+                    >
+                        Registre-se
+                    </a>
                 </form>
             </div>
         </div>
