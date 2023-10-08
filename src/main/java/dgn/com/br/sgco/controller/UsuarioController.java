@@ -1,6 +1,5 @@
 package dgn.com.br.sgco.controller;
 
-import dgn.com.br.sgco.entity.Agendamento;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.service.AgendamentoService;
 import dgn.com.br.sgco.service.UsuarioService;
@@ -11,9 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.text.SimpleDateFormat;
-import java.util.Collection;
 
 @Controller
 public class UsuarioController {

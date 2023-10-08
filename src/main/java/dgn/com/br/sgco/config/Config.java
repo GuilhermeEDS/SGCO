@@ -62,8 +62,6 @@ public class Config {
             authorize.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
             authorize.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll();
             authorize.requestMatchers(mvc.pattern("/login**"), mvc.pattern("/cadastro/paciente"), mvc.pattern("/js**"), mvc.pattern("/css**"), mvc.pattern("/images**")).permitAll();
-            // authorize.requestMatchers("/login**", "/cadastro/paciente", "/cadastro/paciente", "/js**", "/css**", "/images**").permitAll();
-            // authorize.requestMatchers(HttpMethod.POST, "/cadastro/paciente").permitAll();
             authorize.anyRequest().authenticated();
         });
         http.formLogin(form -> {

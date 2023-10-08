@@ -1,16 +1,22 @@
 <div xmlns:th="http://www.w3.org/1999/xhtml">
     <ul th:fragment="listaErros(campo)" th:if="${#fields.hasErrors(campo)}">
-        <li class="text-rose-500 mb-4" th:each="err : ${#fields.errors(campo)}" th:text="${err}"></li>
+        <li
+            class="text-rose-500 mb-4"
+            th:each="err : ${#fields.errors(campo)}"
+            th:text="${err}"
+        ></li>
     </ul>
 
     <head th:fragment="header(titulo)">
-        <meta charset="UTF-8"/>
-        <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-              name="viewport"/>
-        <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+        <meta charset="UTF-8" />
+        <meta
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+            name="viewport"
+        />
+        <meta content="ie=edge" http-equiv="X-UA-Compatible" />
         <title th:text="${titulo}"></title>
 
-        <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}">
+        <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" />
         <link th:href="@{/css/tailwind.css}" rel="stylesheet" />
     </head>
 </div>
