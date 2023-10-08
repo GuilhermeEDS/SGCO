@@ -178,113 +178,9 @@
                         </div>
                     </div>
 
-                    <h2 class="text-gray-700 font-bold mt-5 mb-1 uppercase">
-                        Endereço
-                    </h2>
-
-                    <label
-                        class="font-medium text-gray-700 block mt-2"
-                        for="logradouro"
-                        >Logradouro:</label
-                    >
-                    <input
-                        id="logradouro"
-                        class="form-input bg-slate-100 text-gray-700 outline-blue-400"
-                        placeholder="Av. Cap. Mor Gouveia"
-                        th:field="*{pessoaDTO.enderecoDTO.logradouro}"
-                        type="text"
-                    />
-                    <div
-                        th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.logradouro')}"
-                    ></div>
-
-                    <label
-                        class="font-medium text-gray-700 block mt-2"
-                        for="bairro"
-                        >Bairro:</label
-                    >
-                    <input
-                        id="bairro"
-                        class="form-input bg-slate-100 text-gray-700 outline-blue-400"
-                        placeholder="Lagoa Nova"
-                        th:field="*{pessoaDTO.enderecoDTO.bairro}"
-                        type="text"
-                    />
-                    <div
-                        th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.bairro')}"
-                    ></div>
-
-                    <label class="font-medium text-gray-700 block" for="cidade"
-                        >Cidade:</label
-                    >
-                    <input
-                        id="cidade"
-                        class="form-input bg-slate-100 text-gray-700 outline-blue-400 mt-2"
-                        placeholder="Natal"
-                        th:field="*{pessoaDTO.enderecoDTO.cidade}"
-                        type="text"
-                    />
-                    <div
-                        th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.cidade')}"
-                    ></div>
-
-                    <div class="flex -mx-2">
-                        <div class="w-1/3 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="cep"
-                                >CEP:</label
-                            >
-                            <input
-                                id="cep"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
-                                placeholder="59078-900"
-                                th:field="*{pessoaDTO.enderecoDTO.cep}"
-                                type="text"
-                            />
-                            <div
-                                th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.cep')}"
-                            ></div>
-                        </div>
-                        <div class="w-1/3 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="numero"
-                                >Número:</label
-                            >
-                            <input
-                                id="numero"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
-                                placeholder="01"
-                                th:field="*{pessoaDTO.enderecoDTO.numero}"
-                                type="text"
-                            />
-                            <div
-                                th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.numero')}"
-                            ></div>
-                        </div>
-                        <div class="w-1/3 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="UF"
-                                >UF:</label
-                            >
-                            <input
-                                id="UF"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
-                                placeholder="RN"
-                                th:field="*{pessoaDTO.enderecoDTO.uf}"
-                                type="text"
-                            />
-                            <div
-                                th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.uf')}"
-                            ></div>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-around mt-4">
+                    <div class="flex justify-around mt-6 mb-4">
                         <a
-                            class="mb-4 border border-blue-400  text-blue-400 hover:text-blue-500 hover:border-blue-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"
+                            class="border border-blue-400 text-blue-400 hover:text-blue-500 hover:border-blue-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"
                             href="/"
                         >
                             Voltar
@@ -292,8 +188,8 @@
 
                         <input
                             type="submit"
-                            class="mb-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"
-                            value="Registrar"
+                            class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"
+                            value="Cadastrar"
                         />
                     </div>
                 </form>
