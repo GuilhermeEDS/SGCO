@@ -2,8 +2,8 @@
   "name": "frontend",
   "private": true,
   "scripts": {
-    "build": "tailwindcss -i ./main.css -o ../resources/static/css/tailwind.css",
-    "watch": "tailwindcss -i ./main.css --watch"
+    "build": "tailwindcss -i ./tailwind.css -o ../resources/static/css/tailwind.css",
+    "watch": "tailwindcss -i ./tailwind.css --watch"
   },
   "devDependencies": {
     "tailwindcss": "^3.3.3"

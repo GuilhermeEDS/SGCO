@@ -2,23 +2,32 @@
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
     <head th:replace="~{fragments :: header('Dashboard')}"></head>
 
-    <body class="bg-slate-50">
-        <header class="flex px-2 mb-4 py-2 bg-blue-500">
-            <span class="font-bold text-3xl text-center text-white">
+    <body class="bg-sky-100">
+        <div class="mx-2"></div>
+    </body>
+
+    <body class="bg-sky-100">
+        <header
+            class="bg-white flex px-2 mb-16 py-2 border-b-2 border-b-blue-200 mx-20 shadow"
+        >
+            <span class="font-bold text-3xl text-center text-blue-400">
                 Portal do Paciente
             </span>
 
             <div class="grow"></div>
 
-            <a href="/logout" class="text-white underline font-semibold leading-loose">
+            <a
+                href="/logout"
+                class="text-blue-400 hover:text-blue-500 underline font-bold leading-loose p-0"
+            >
                 Sair
             </a>
         </header>
 
-        <div class="mx-2">
+        <div class="mx-20">
             <a
                 href="/agendamento"
-                class="mb-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"
+                class="mb-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"
             >
                 Agendamento
             </a>

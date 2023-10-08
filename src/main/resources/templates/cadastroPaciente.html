@@ -2,12 +2,8 @@
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
     <head th:replace="~{fragments :: header('Cadastro de Paciente')}"></head>
 
-    <body class="bg-slate-50">
-        <h1 class="font-bold text-3xl text-center mt-10">
-            Cadastro de Paciente
-        </h1>
-
-        <div class="flex flex-col items-center mt-4 justify-center">
+    <body class="bg-sky-100">
+        <div class="flex flex-col items-center my-4 justify-center">
             <div class="w-full max-w-lg">
                 <form
                     action="/cadastro/paciente"
@@ -16,17 +12,13 @@
                     th:object="${cadastroPacienteDTO}"
                     class="bg-white shadow-md px-8 pt-6 pb-8 rounded w-full max-w-lg flex flex-col"
                 >
-                    <div class="text-gray-500 text-right">
-                        Já possui um cadastro?
-                        <a
-                            href="/login"
-                            class="text-blue-400 underline font-semibold"
-                        >
-                            Entrar
-                        </a>
-                    </div>
+                    <h1
+                        class="font-bold text-3xl text-center mt-3 text-gray-800"
+                    >
+                        Cadastro de Paciente
+                    </h1>
 
-                    <h2 class="text-gray-700 font-bold mt-5 mb-1">
+                    <h2 class="text-gray-700 font-bold mt-5 mb-1 uppercase">
                         Informações gerais
                     </h2>
                     <div>
@@ -38,7 +30,7 @@
                         </label>
                         <input
                             id="nome"
-                            class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                             placeholder="João da Silva"
                             th:field="*{pessoaDTO.nome}"
                             type="text"
@@ -47,7 +39,7 @@
                             th:replace="~{fragments :: listaErros('pessoaDTO.nome')}"
                         ></div>
                     </div>
-                    <div class="flex mb-4 -mx-2">
+                    <div class="flex -mx-2 mt-2">
                         <div class="w-1/2 px-2">
                             <label
                                 class="font-medium text-gray-700 block"
@@ -57,7 +49,7 @@
                             </label>
                             <input
                                 id="cpf"
-                                class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                                 placeholder="123.456.789-09"
                                 th:field="*{pessoaDTO.cpf}"
                                 type="text"
@@ -76,7 +68,7 @@
                             </label>
                             <input
                                 id="identidade"
-                                class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                                 placeholder="123456789"
                                 th:field="*{pessoaDTO.rg}"
                                 type="text"
@@ -87,7 +79,7 @@
                         </div>
                     </div>
 
-                    <div class="flex mb-4 -mx-2">
+                    <div class="flex -mx-2 mt-2">
                         <div class="w-1/2 px-2">
                             <label
                                 class="font-medium text-gray-700 block"
@@ -96,7 +88,7 @@
                             >
                             <input
                                 id="dataNascimento"
-                                class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                                 placeholder="01/01/1970"
                                 th:field="*{pessoaDTO.dataNascimento}"
                                 type="date"
@@ -113,7 +105,7 @@
                             >
                             <select
                                 id="genero"
-                                class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                                 th:field="*{pessoaDTO.idGenero}"
                             >
                                 <option value="-1">
@@ -131,20 +123,25 @@
                         </div>
                     </div>
 
-                    <label class="font-medium text-gray-700 block" for="senha"
-                        >Senha:</label
+                    <label
+                        class="font-medium text-gray-700 block mt-2"
+                        for="senha"
                     >
+                        Senha:
+                    </label>
                     <input
                         id="senha"
-                        class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                         placeholder="********"
                         th:field="*{senha}"
                         type="password"
                     />
                     <div th:replace="~{fragments :: listaErros('senha')}"></div>
 
-                    <h2 class="text-gray-700 font-bold mt-5 mb-1">Contato</h2>
-                    <div class="flex mb-4 -mx-2">
+                    <h2 class="text-gray-700 font-bold mt-5 mb-1 uppercase">
+                        Contato
+                    </h2>
+                    <div class="flex -mx-2">
                         <div class="w-1/2 px-2">
                             <label
                                 class="font-medium text-gray-700 block"
@@ -153,7 +150,7 @@
                             >
                             <input
                                 id="celular"
-                                class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                                 placeholder="(84) 9 1234-5678"
                                 th:field="*{pessoaDTO.celular}"
                                 type="tel"
@@ -170,7 +167,7 @@
                             >
                             <input
                                 id="email"
-                                class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                                 placeholder="joao.silva@email.com"
                                 th:field="*{pessoaDTO.email}"
                                 type="email"
@@ -181,16 +178,18 @@
                         </div>
                     </div>
 
-                    <h2 class="text-gray-700 font-bold mt-5 mb-1">Endereço</h2>
+                    <h2 class="text-gray-700 font-bold mt-5 mb-1 uppercase">
+                        Endereço
+                    </h2>
 
                     <label
-                        class="font-medium text-gray-700 block"
+                        class="font-medium text-gray-700 block mt-2"
                         for="logradouro"
                         >Logradouro:</label
                     >
                     <input
                         id="logradouro"
-                        class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                         placeholder="Av. Cap. Mor Gouveia"
                         th:field="*{pessoaDTO.enderecoDTO.logradouro}"
                         type="text"
@@ -199,12 +198,14 @@
                         th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.logradouro')}"
                     ></div>
 
-                    <label class="font-medium text-gray-700 block" for="bairro"
+                    <label
+                        class="font-medium text-gray-700 block mt-2"
+                        for="bairro"
                         >Bairro:</label
                     >
                     <input
                         id="bairro"
-                        class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                         placeholder="Lagoa Nova"
                         th:field="*{pessoaDTO.enderecoDTO.bairro}"
                         type="text"
@@ -218,7 +219,7 @@
                     >
                     <input
                         id="cidade"
-                        class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        class="form-input bg-slate-100 text-gray-700 outline-blue-400 mt-2"
                         placeholder="Natal"
                         th:field="*{pessoaDTO.enderecoDTO.cidade}"
                         type="text"
@@ -227,7 +228,7 @@
                         th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.cidade')}"
                     ></div>
 
-                    <div class="flex mb-4 -mx-2">
+                    <div class="flex -mx-2">
                         <div class="w-1/3 px-2">
                             <label
                                 class="font-medium text-gray-700 block"
@@ -236,7 +237,7 @@
                             >
                             <input
                                 id="cep"
-                                class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                                 placeholder="59078-900"
                                 th:field="*{pessoaDTO.enderecoDTO.cep}"
                                 type="text"
@@ -253,7 +254,7 @@
                             >
                             <input
                                 id="numero"
-                                class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                                 placeholder="01"
                                 th:field="*{pessoaDTO.enderecoDTO.numero}"
                                 type="text"
@@ -270,7 +271,7 @@
                             >
                             <input
                                 id="UF"
-                                class="font-medium bg-slate-100 shadow-inner rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
                                 placeholder="RN"
                                 th:field="*{pessoaDTO.enderecoDTO.uf}"
                                 type="text"
@@ -281,9 +282,19 @@
                         </div>
                     </div>
 
+                    <div class="text-gray-500 self-center mb-3 mt-2">
+                        Já possui um cadastro?
+                        <a
+                            href="/login"
+                            class="text-blue-400 hover:text-blue-500 underline font-semibold"
+                        >
+                            Entrar
+                        </a>
+                    </div>
+
                     <input
                         type="submit"
-                        class="mb-4 bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"
+                        class="inline bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-center"
                         value="Registrar"
                     />
                 </form>

@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.form-input {
+    @apply py-2 px-3 font-medium shadow-inner rounded-md w-full leading-tight outline-2 focus:outline;
+}
