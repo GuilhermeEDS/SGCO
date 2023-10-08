@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head th:replace="~{fragments :: header('Cadastro de Dentista')}"></head>
+    <head th:replace="~{fragments :: mainHeader('Cadastro de Dentista')}"></head>
 
     <body class="bg-sky-100">
+    <header th:replace="~{fragments :: header('Agendamento')}"></header>
         <div class="flex flex-col items-center my-4 justify-center">
             <div class="w-full max-w-lg">
                 <form

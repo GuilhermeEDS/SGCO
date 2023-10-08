@@ -1,24 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head th:replace="~{fragments :: header('Dashboard')}"></head>
+    <head th:replace="~{fragments :: mainHeader('Dashboard')}"></head>
 
     <body class="bg-sky-100">
-        <header
-            class="bg-white flex px-2 mb-16 py-2 border-b-2 border-b-blue-200 mx-20 shadow"
-        >
-            <span class="font-bold text-3xl text-center text-blue-400">
-                Portal Administrativo
-            </span>
-
-            <div class="grow"></div>
-
-            <a
-                href="/logout"
-                class="text-blue-400 hover:text-blue-500 underline font-bold leading-loose p-0"
-            >
-                Sair
-            </a>
-        </header>
+    <header th:replace="~{fragments :: header('Agendamento')}"></header>
 
         <div class="mx-20 flex flex-col items-start">
             <a

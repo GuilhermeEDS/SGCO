@@ -7,7 +7,7 @@
         ></li>
     </ul>
 
-    <head th:fragment="header(titulo)">
+    <head th:fragment="mainHeader(titulo)">
         <meta charset="UTF-8" />
         <meta
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
@@ -19,4 +19,13 @@
         <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" />
         <link th:href="@{/css/tailwind.css}" rel="stylesheet" />
     </head>
+
+    <header th:fragment="header(pagina)" class="bg-white flex justify-between px-10 mb-16 py-2 border-b-2 border-b-blue-200 shadow">
+            <img class="max-h-10" th:src="@{/images/SGCO.png}"/>
+            <div>
+                <a href="/logout" class="text-blue-400 hover:text-blue-500 underline font-bold leading-loose p-0">
+                    Sair
+                </a>
+            </div>
+    </header>
 </div>
