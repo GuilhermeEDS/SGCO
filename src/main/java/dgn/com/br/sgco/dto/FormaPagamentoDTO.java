@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class FormaPagamentoDTO {
-    @Min(value = 0, message = "Selecione a forma de pagamento.")
+    @Min(value = 0, message = "Selecione uma forma de pagamento.")
     private Integer id;
 
     public FormaPagamento toFormaPagamento() {

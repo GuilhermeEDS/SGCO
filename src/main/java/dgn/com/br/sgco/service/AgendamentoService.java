@@ -2,6 +2,7 @@ package dgn.com.br.sgco.service;
 
 import dgn.com.br.sgco.arq.ValidacaoEntidadeException;
 import dgn.com.br.sgco.dto.AgendamentoDTO;
+import dgn.com.br.sgco.dto.AgendamentoDentistaDTO;
 import dgn.com.br.sgco.entity.Agendamento;
 import dgn.com.br.sgco.entity.Dentista;
 import dgn.com.br.sgco.entity.Paciente;
@@ -10,6 +11,7 @@ import dgn.com.br.sgco.repository.DentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -44,12 +46,15 @@ public class AgendamentoService {
         return agendamentoRepository.save(agendamento);
     }
 
-    public Agendamento confirmarAgendamento(Long id, String observacoesDentista, Date horaFim) {
+    public Agendamento confirmarAgendamento(Long id, AgendamentoDentistaDTO agendamentoDentista) throws ParseException {
 
         Agendamento agendamento = agendamentoRepository.findById(id).get();
 
-        agendamento.setObservacoesDentista(observacoesDentista);
-        agendamento.setHoraFim(horaFim);
+        agendamento.setObservacoesDentista(agendamentoDentista.getObservacoesDentista());
+
+        SimpleDateFormat formato = new SimpleDateFormat("HH:mm");
+        Date data = formato.parse(agendamentoDentista.getHoraFim());
+        agendamento.setHoraFim(data);
         agendamento.setConfirmacao(true);
 
         return agendamentoRepository.save(agendamento);
