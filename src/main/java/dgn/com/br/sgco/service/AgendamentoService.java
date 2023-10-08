@@ -4,9 +4,11 @@ import dgn.com.br.sgco.arq.ValidacaoEntidadeException;
 import dgn.com.br.sgco.dto.AgendamentoDTO;
 import dgn.com.br.sgco.dto.AgendamentoDentistaDTO;
 import dgn.com.br.sgco.entity.Agendamento;
+import dgn.com.br.sgco.entity.Consulta;
 import dgn.com.br.sgco.entity.Dentista;
 import dgn.com.br.sgco.entity.Paciente;
 import dgn.com.br.sgco.repository.AgendamentoRepository;
+import dgn.com.br.sgco.repository.ConsultaRepository;
 import dgn.com.br.sgco.repository.DentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ public class AgendamentoService {
 
     @Autowired
     AgendamentoRepository agendamentoRepository;
+
+    @Autowired
+    ConsultaRepository consultaRepository;
 
     public Agendamento agendar(AgendamentoDTO agendamentoDto, Paciente paciente) {
 
@@ -56,6 +61,11 @@ public class AgendamentoService {
         Date data = formato.parse(agendamentoDentista.getHoraFim());
         agendamento.setHoraFim(data);
         agendamento.setConfirmacao(true);
+        
+        Consulta consulta = new Consulta();
+        consultaRepository.save(consulta);
+        agendamento.setConsulta(consulta);
+
 
         return agendamentoRepository.save(agendamento);
     }

@@ -5,6 +5,7 @@ import dgn.com.br.sgco.enumeration.FormaPagamento;
 import dgn.com.br.sgco.enumeration.TipoAgendamento;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,6 +25,9 @@ public class Agendamento extends Entidade {
 
     @ManyToOne
     private Dentista dentista;
+
+    @OneToOne(mappedBy = "agendamento")
+    private Consulta consulta;
 
     private Boolean confirmacao;
 
