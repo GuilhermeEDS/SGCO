@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt_BR">
+
+<head th:replace="~{fragments :: header('Consulta')}"></head>
+
+<body class="bg-sky-100">
+    <div class="flex flex-col my-4 items-center">
+        <form class="border rounded max-w-lg w-full flex flex-col px-8 pt-3 pb-5 bg-white shadow-md"
+            th:action="@{/consulta/__${idConsulta}__}" enctype="utf8" method="POST" th:object="${consultaDTO}">
+            <h1 class="font-bold text-3xl text-center mt-3 text-gray-800">Consulta</h1>
+
+            <h2 class="text-gray-700 font-bold mt-5 mb-1 uppercase">
+                Informações do Agendamento
+            </h2>
+
+            <label class="text-gray-800 font-semibold">Tipo de Agendamento: <span class="font-normal text-gray-400 outline-blue-400 mb-4" th:text="${agendamento.getTipo().getDescricao()}"></span></label>
+            
+            <label class="text-gray-800 font-semibold">Dentista: <span class="font-normal text-gray-400 outline-blue-400 mb-4" th:text="${agendamento.getDentista().getPessoa().getNome()}"></span></label>
+            
+            <label class="text-gray-800 font-semibold">Paciente: <span class="font-normal text-gray-400 outline-blue-400 mb-4" th:text="${agendamento.getPaciente().getPessoa().getNome()}"></span></label>
+
+            <label class="text-gray-800 font-semibold">Data da Consulta: <span class="font-normal text-gray-400 outline-blue-400 mb-4" th:text="${#dates.format(agendamento.getDataConsulta(),'dd/MM/yyyy')}"></span></label>
+
+            <label class="text-gray-800 font-semibold">Hora da Consulta: <span class="font-normal text-gray-400 outline-blue-400 mb-4" th:text="${#dates.format(agendamento.getHoraConsulta(),'HH:mm')}"></span></label>
+
+            <label class="text-gray-800 font-semibold">Observações do Paciente: <span class="font-normal text-gray-400 outline-blue-400 mb-4" th:text="${agendamento.getObservacoesPaciente()}"></span></label>
+
+            <label class="text-gray-800 font-semibold">Forma de Pagamento: <span class="font-normal text-gray-400 outline-blue-400 mb-4" th:text="${agendamento.getFormaPagamento().getDescricao()}"></span></label>
+
+            <label class="font-medium text-gray-700 block" for="inputDescricao">Descrição</label>
+            <textarea class="form-input bg-slate-100 text-gray-700 outline-blue-400 mb-4 resize-none" rows="3"
+                id="inputDescricao" name="descricao" th:field="*{descricao}" type="textarea"></textarea>
+
+
+            <div class="mt-3 self-end">
+                <a class="self-center mb-4 border border-blue-400 bg-white text-blue-400 hover:text-blue-500 hover:border-blue-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    href="/">Cancelar</a>
+                <button
+                    class="self-center mb-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

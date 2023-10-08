@@ -30,20 +30,23 @@ public class ConsultaController {
     @Autowired
     private ConsultaService consultaService;
 
-    @GetMapping("/consulta/{idAgendamento}")
-    public String paginaConsulta(@PathVariable("idAgendamento") long idAgendamento, @NonNull Model model){
+    @GetMapping("/consulta/{idConsulta}")
+    public String paginaConsulta(@PathVariable("idConsulta") long idConsulta, @NonNull Model model){
         //checar se dentista que está acessando, é o mesmo do  agendamento
 
         ConsultaDTO consultaDTO = new ConsultaDTO();
         model.addAttribute("consultaDTO", consultaDTO);
-        model.addAttribute("idAgendamento", idAgendamento);
+        model.addAttribute("idConsulta", idConsulta);
+
+        
+        model.addAttribute("agendamento", consultaService.findConsulta(idConsulta).get().getAgendamento());
         return "consulta";
     }
 
-    @PostMapping("/consulta/{idAgendamento}")
-    public String finalizarConsulta(@PathVariable("idAgendamento") long idAgendamento, final @Valid ConsultaDTO consultaDTO, @NonNull BindingResult result, Model model){ 
+    @PostMapping("/consulta/{idConsulta}")
+    public String finalizarConsulta(@PathVariable("idConsulta") long idConsulta, final @Valid ConsultaDTO consultaDTO, @NonNull BindingResult result, Model model){ 
 
-        Consulta consulta = consultaService.salvar(consultaDTO, idAgendamento);
+        Consulta consulta = consultaService.salvar(consultaDTO, idConsulta);
         return "redirect:/";
     }
 }

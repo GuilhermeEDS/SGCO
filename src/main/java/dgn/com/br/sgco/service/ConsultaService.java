@@ -1,5 +1,7 @@
 package dgn.com.br.sgco.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,9 @@ public class ConsultaService {
         consulta.setDescricao(consultaDTO.getDescricao());
 
         return consultaRepository.save(consulta);
+    }
+
+    public Optional<Consulta> findConsulta(Long idConsulta) {
+        return consultaRepository.findById(idConsulta);
     }
 }
