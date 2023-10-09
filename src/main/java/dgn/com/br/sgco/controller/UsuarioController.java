@@ -35,7 +35,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String cpf = auth.getName();
         Usuario usuario = usuarioService.porCpf(cpf).get();
@@ -48,7 +48,7 @@ public class UsuarioController {
             }
             case DENTISTA -> {
                 model.addAttribute("consultas",
-                        agendamentoService.porDentistaConfirmadosJson(usuario.getDentista()).toString());
+                        agendamentoService.porDentistaConfirmadosJson(usuario.getDentista()));
                 model.addAttribute("agendamentos", agendamentoService.porDentistaNaoConfirmados(usuario.getDentista()));
                 return "indexDentista";
             }

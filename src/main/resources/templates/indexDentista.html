@@ -141,7 +141,6 @@
             }
 
             var cons = JSON.parse(/*[[${consultas}]]*/);
-            console.log(cons);
             var consultas = [];
             for (let i = 0; i < cons.length; i++) {
                 let con = cons[i];
@@ -152,7 +151,6 @@
                     color: con.color,
                 };
             }
-            console.log(consultas);
             return consultas;
         }
 
