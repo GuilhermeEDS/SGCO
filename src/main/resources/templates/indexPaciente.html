@@ -5,13 +5,20 @@
     <body class="bg-sky-100">
         <header th:replace="~{fragments :: header}"></header>
 
-        <div class="mx-20">
-            <a
-                href="/agendamento"
-                class="mb-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"
-            >
-                Agendamento
-            </a>
+        <div class="flex flex-col items-center m-4">
+            <div class="w-full max-w-lg">
+                <div
+                        class="flex justify-evenly bg-white shadow-md px-6 pt-8 pb-8 rounded w-full max-w-lg gap-1"
+                >
+                    <a
+                            href="/agendamento"
+                            class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-center"
+                    >
+                        Agendamento
+                    </a>
+                </div>
+            </div>
         </div>
+
     </body>
 </html>

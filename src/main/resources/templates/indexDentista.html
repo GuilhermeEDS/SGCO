@@ -55,6 +55,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr th:if="${agendamentos.isEmpty()}">
+                            <td colspan="3" class="p-2 text-gray-700 text-center font-semibold">
+                                Sem agendamentos precisando de confirmação.
+                            </td>
+                        </tr>
                         <tr
                             class="odd:bg-white even:bg-slate-100"
                             th:each="agendamento : ${agendamentos}"
