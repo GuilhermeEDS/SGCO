@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories("dgn.com.br.sgco.*")
-@ComponentScan(basePackages = {"dgn.com.br.sgco.*"})
+@ComponentScan(basePackages = { "dgn.com.br.sgco.*" })
 @EntityScan("dgn.com.br.sgco.*")
 public class SgcoApplication {
     public static void main(String[] args) {

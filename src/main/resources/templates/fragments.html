@@ -1,12 +1,4 @@
 <div xmlns:th="http://www.w3.org/1999/xhtml">
-    <ul th:fragment="listaErros(campo)" th:if="${#fields.hasErrors(campo)}">
-        <li
-            class="text-rose-500 mb-4"
-            th:each="err : ${#fields.errors(campo)}"
-            th:text="${err}"
-        ></li>
-    </ul>
-
     <head th:fragment="mainHeader(titulo)">
         <meta charset="UTF-8" />
         <meta
@@ -20,12 +12,21 @@
         <link th:href="@{/css/tailwind.css}" rel="stylesheet" />
     </head>
 
-    <header th:fragment="header(pagina)" class="bg-white flex justify-between px-10 mb-16 py-2 border-b-2 border-b-blue-200 shadow">
-            <img class="max-h-10" th:src="@{/images/SGCO.png}"/>
-            <div>
-                <a href="/logout" class="text-blue-400 hover:text-blue-500 underline font-bold leading-loose p-0">
-                    Sair
-                </a>
-            </div>
+    <header
+        th:fragment="header"
+        class="bg-white flex justify-between px-10 py-2 mb-10 border-b-4 border-b-blue-400 shadow-sm items-center"
+    >
+        <img class="max-h-10" th:src="@{/images/SGCO.png}" />
+        <a href="/logout" class="link">Sair</a>
     </header>
+
+    <ul
+        class="list-none list-inside"
+        th:fragment="listaErros(campo)"
+        th:if="${#fields.hasErrors(campo)}"
+    >
+        <li class="text-rose-500 mb-1" th:each="err : ${#fields.errors(campo)}">
+            <span th:text="${err}"></span>
+        </li>
+    </ul>
 </div>

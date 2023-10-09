@@ -13,4 +13,3 @@ public class FormaPagamentoDTO {
         return FormaPagamento.values()[id];
     }
 }
-

@@ -1,74 +1,79 @@
 <!DOCTYPE html>
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head th:replace="~{fragments :: mainHeader('Cadastro de Paciente')}"></head>
+    <head>
+        <th:block
+            th:replace="~{fragments :: mainHeader('Cadastro de Paciente')}"
+        />
+
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"
+        ></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+        ></script>
+
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        />
+    </head>
 
     <body class="bg-sky-100">
-        <div class="flex flex-col items-center my-4 justify-center">
+        <div class="flex flex-col items-center m-4">
             <div class="w-full max-w-lg">
                 <form
                     action="/cadastro/paciente"
                     enctype="utf8"
                     method="POST"
                     th:object="${cadastroPacienteDTO}"
-                    class="bg-white shadow-md px-8 pt-6 pb-8 rounded w-full max-w-lg flex flex-col"
+                    class="flex flex-col bg-white shadow-md px-6 pt-8 pb-8 rounded w-full max-w-lg gap-1"
                 >
                     <h1
-                        class="font-bold text-3xl text-center mt-3 text-gray-800"
+                        class="font-bold text-2xl text-center text-gray-700 uppercase tracking-wide mb-2"
                     >
                         Cadastro de Paciente
                     </h1>
 
-                    <h2 class="text-gray-700 font-bold mt-5 mb-1 uppercase">
+                    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">
                         Informações gerais
                     </h2>
-                    <div>
-                        <label
-                            class="font-medium text-gray-700 block"
-                            for="nome"
-                        >
-                            Nome completo:
-                        </label>
-                        <input
-                            id="nome"
-                            class="form-input bg-slate-100 text-gray-700 outline-blue-400"
-                            placeholder="João da Silva"
-                            th:field="*{pessoaDTO.nome}"
-                            type="text"
-                        />
-                        <div
-                            th:replace="~{fragments :: listaErros('pessoaDTO.nome')}"
-                        ></div>
-                    </div>
-                    <div class="flex -mx-2 mt-2">
-                        <div class="w-1/2 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="cpf"
-                            >
-                                CPF:
-                            </label>
+
+                    <label class="label" for="nome">Nome completo</label>
+                    <input
+                        id="nome"
+                        class="input"
+                        placeholder="João da Silva"
+                        th:field="*{pessoaDTO.nome}"
+                        type="text"
+                    />
+                    <div
+                        th:replace="~{fragments :: listaErros('pessoaDTO.nome')}"
+                    ></div>
+
+                    <div class="flex -mx-2 mt-3">
+                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                            <label class="label" for="cpf">CPF</label>
                             <input
                                 id="cpf"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="123.456.789-09"
                                 th:field="*{pessoaDTO.cpf}"
                                 type="text"
+                                x-data=""
+                                x-mask="999.999.999-99"
                             />
                             <div
                                 th:replace="~{fragments :: listaErros('pessoaDTO.cpf')}"
                             ></div>
                         </div>
 
-                        <div class="w-1/2 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="identidade"
-                            >
-                                RG:
-                            </label>
+                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                            <label class="label" for="identidade">RG</label>
                             <input
                                 id="identidade"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="123456789"
                                 th:field="*{pessoaDTO.rg}"
                                 type="text"
@@ -79,16 +84,14 @@
                         </div>
                     </div>
 
-                    <div class="flex -mx-2 mt-2">
-                        <div class="w-1/2 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="dataNascimento"
-                                >Data de Nascimento:</label
-                            >
+                    <div class="flex -mx-2 mt-3">
+                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                            <label class="label" for="dataNascimento">
+                                Data de Nascimento
+                            </label>
                             <input
                                 id="dataNascimento"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="01/01/1970"
                                 th:field="*{pessoaDTO.dataNascimento}"
                                 type="date"
@@ -97,15 +100,11 @@
                                 th:replace="~{fragments :: listaErros('pessoaDTO.dataNascimento')}"
                             ></div>
                         </div>
-                        <div class="w-1/2 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="genero"
-                                >Gênero:</label
-                            >
+                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                            <label class="label" for="genero">Gênero</label>
                             <select
                                 id="genero"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 th:field="*{pessoaDTO.idGenero}"
                             >
                                 <option value="-1">
@@ -123,51 +122,53 @@
                         </div>
                     </div>
 
-                    <label
-                        class="font-medium text-gray-700 block mt-2"
-                        for="senha"
-                    >
-                        Senha:
-                    </label>
-                    <input
-                        id="senha"
-                        class="form-input bg-slate-100 text-gray-700 outline-blue-400"
-                        placeholder="********"
-                        th:field="*{senha}"
-                        type="password"
-                    />
+                    <label class="label mt-3" for="senha">Senha</label>
+                    <div x-data="{ visivel: false }" class="relative">
+                        <input
+                            id="senha"
+                            autocomplete="off"
+                            class="input w-full"
+                            placeholder="********"
+                            th:field="*{senha}"
+                            :type="visivel ? 'text' : 'password'"
+                        />
+                        <div
+                            class="absolute top-1/2 right-4 cursor-pointer"
+                            style="transform: translateY(-50%)"
+                        >
+                            <i
+                                :class="visivel ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"
+                                class="text-slate-600 block"
+                                @click="visivel=!visivel"
+                            ></i>
+                        </div>
+                    </div>
                     <div th:replace="~{fragments :: listaErros('senha')}"></div>
 
-                    <h2 class="text-gray-700 font-bold mt-5 mb-1 uppercase">
+                    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">
                         Contato
                     </h2>
+
                     <div class="flex -mx-2">
-                        <div class="w-1/2 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="celular"
-                                >Celular:</label
-                            >
+                        <div class="w-1/2 px-2 flex flex-col">
+                            <label class="label" for="celular">Celular</label>
                             <input
                                 id="celular"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="(84) 9 1234-5678"
                                 th:field="*{pessoaDTO.celular}"
-                                type="tel"
+                                x-data=""
+                                x-mask="(99) 9 9999-9999"
                             />
                             <div
                                 th:replace="~{fragments :: listaErros('pessoaDTO.celular')}"
                             ></div>
                         </div>
-                        <div>
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="email"
-                                >E-mail:</label
-                            >
+                        <div class="w-1/2 px-2 flex flex-col">
+                            <label class="label" for="email">E-mail</label>
                             <input
                                 id="email"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="joao.silva@email.com"
                                 th:field="*{pessoaDTO.email}"
                                 type="email"
@@ -178,18 +179,14 @@
                         </div>
                     </div>
 
-                    <h2 class="text-gray-700 font-bold mt-5 mb-1 uppercase">
+                    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">
                         Endereço
                     </h2>
 
-                    <label
-                        class="font-medium text-gray-700 block mt-2"
-                        for="logradouro"
-                        >Logradouro:</label
-                    >
+                    <label class="label" for="logradouro">Logradouro</label>
                     <input
                         id="logradouro"
-                        class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                        class="input"
                         placeholder="Av. Cap. Mor Gouveia"
                         th:field="*{pessoaDTO.enderecoDTO.logradouro}"
                         type="text"
@@ -198,14 +195,10 @@
                         th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.logradouro')}"
                     ></div>
 
-                    <label
-                        class="font-medium text-gray-700 block mt-2"
-                        for="bairro"
-                        >Bairro:</label
-                    >
+                    <label class="label mt-3" for="bairro">Bairro</label>
                     <input
                         id="bairro"
-                        class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                        class="input"
                         placeholder="Lagoa Nova"
                         th:field="*{pessoaDTO.enderecoDTO.bairro}"
                         type="text"
@@ -214,12 +207,10 @@
                         th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.bairro')}"
                     ></div>
 
-                    <label class="font-medium text-gray-700 block" for="cidade"
-                        >Cidade:</label
-                    >
+                    <label class="label mt-3" for="cidade">Cidade</label>
                     <input
                         id="cidade"
-                        class="form-input bg-slate-100 text-gray-700 outline-blue-400 mt-2"
+                        class="input"
                         placeholder="Natal"
                         th:field="*{pessoaDTO.enderecoDTO.cidade}"
                         type="text"
@@ -228,33 +219,27 @@
                         th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.cidade')}"
                     ></div>
 
-                    <div class="flex -mx-2">
-                        <div class="w-1/3 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="cep"
-                                >CEP:</label
-                            >
+                    <div class="flex -mx-2 mt-3">
+                        <div class="w-1/3 px-2 flex flex-col gap-1">
+                            <label class="label" for="cep">CEP</label>
                             <input
                                 id="cep"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="59078-900"
                                 th:field="*{pessoaDTO.enderecoDTO.cep}"
                                 type="text"
+                                x-data=""
+                                x-mask="99999-999"
                             />
                             <div
                                 th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.cep')}"
                             ></div>
                         </div>
-                        <div class="w-1/3 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="numero"
-                                >Número:</label
-                            >
+                        <div class="w-1/3 px-2 flex flex-col gap-1">
+                            <label class="label" for="numero">Número</label>
                             <input
                                 id="numero"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="01"
                                 th:field="*{pessoaDTO.enderecoDTO.numero}"
                                 type="text"
@@ -263,15 +248,11 @@
                                 th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.numero')}"
                             ></div>
                         </div>
-                        <div class="w-1/3 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="UF"
-                                >UF:</label
-                            >
+                        <div class="w-1/3 px-2 flex flex-col gap-1">
+                            <label class="label" for="UF">UF</label>
                             <input
                                 id="UF"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="RN"
                                 th:field="*{pessoaDTO.enderecoDTO.uf}"
                                 type="text"
@@ -282,19 +263,14 @@
                         </div>
                     </div>
 
-                    <div class="text-gray-500 self-center mb-3 mt-2">
+                    <div class="text-gray-500 self-center mt-2">
                         Já possui um cadastro?
-                        <a
-                            href="/login"
-                            class="text-blue-400 hover:text-blue-500 underline font-semibold"
-                        >
-                            Entrar
-                        </a>
+                        <a href="/login" class="link">Entrar</a>
                     </div>
 
                     <input
                         type="submit"
-                        class="inline bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-center"
+                        class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-center"
                         value="Cadastrar"
                     />
                 </form>

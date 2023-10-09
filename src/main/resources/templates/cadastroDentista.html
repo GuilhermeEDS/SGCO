@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head th:replace="~{fragments :: mainHeader('Cadastro de Dentista')}"></head>
+    <head>
+        <th:block
+            th:replace="~{fragments :: mainHeader('Cadastro de Dentista')}"
+        />
+
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"
+        ></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+        ></script>
+
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        />
+    </head>
 
     <body class="bg-sky-100">
-    <header th:replace="~{fragments :: header('Agendamento')}"></header>
-        <div class="flex flex-col items-center my-4 justify-center">
+        <header th:replace="~{fragments :: header}"></header>
+        <div class="flex flex-col items-center m-4">
             <div class="w-full max-w-lg">
                 <form
                     action="/cadastro/dentista"
                     enctype="utf8"
                     method="POST"
                     th:object="${cadastroDentistaDTO}"
-                    class="bg-white shadow-md px-8 pt-6 pb-8 rounded w-full max-w-lg flex flex-col"
+                    class="flex flex-col bg-white shadow-md px-6 pt-8 pb-8 rounded w-full max-w-lg gap-1"
                 >
                     <h1
-                        class="font-bold text-3xl text-center mt-3 text-gray-800"
+                        class="font-bold text-2xl text-center text-gray-700 uppercase tracking-wide mb-2"
                     >
                         Cadastro de Dentista
                     </h1>
 
-                    <h2 class="text-gray-700 font-bold mt-5 mb-1 uppercase">
+                    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">
                         Informações gerais
                     </h2>
 
-                    <label class="font-medium text-gray-700 block" for="nome">
-                        Nome completo:
-                    </label>
+                    <label class="label" for="nome">Nome completo</label>
                     <input
                         id="nome"
-                        class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                        class="input"
                         placeholder="João da Silva"
                         th:field="*{pessoaDTO.nome}"
                         type="text"
@@ -37,36 +53,28 @@
                         th:replace="~{fragments :: listaErros('pessoaDTO.nome')}"
                     ></div>
 
-                    <div class="flex -mx-2 mt-2">
-                        <div class="w-1/2 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="cpf"
-                            >
-                                CPF:
-                            </label>
+                    <div class="flex -mx-2 mt-3">
+                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                            <label class="label" for="cpf">CPF</label>
                             <input
                                 id="cpf"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="123.456.789-09"
                                 th:field="*{pessoaDTO.cpf}"
                                 type="text"
+                                x-data=""
+                                x-mask="999.999.999-99"
                             />
                             <div
                                 th:replace="~{fragments :: listaErros('pessoaDTO.cpf')}"
                             ></div>
                         </div>
 
-                        <div class="w-1/2 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="identidade"
-                            >
-                                RG:
-                            </label>
+                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                            <label class="label" for="identidade">RG</label>
                             <input
                                 id="identidade"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="123456789"
                                 th:field="*{pessoaDTO.rg}"
                                 type="text"
@@ -77,16 +85,14 @@
                         </div>
                     </div>
 
-                    <div class="flex -mx-2 mt-2">
-                        <div class="w-1/2 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="dataNascimento"
-                                >Data de Nascimento:</label
-                            >
+                    <div class="flex -mx-2 mt-3">
+                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                            <label class="label" for="dataNascimento">
+                                Data de Nascimento
+                            </label>
                             <input
                                 id="dataNascimento"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="01/01/1970"
                                 th:field="*{pessoaDTO.dataNascimento}"
                                 type="date"
@@ -95,15 +101,11 @@
                                 th:replace="~{fragments :: listaErros('pessoaDTO.dataNascimento')}"
                             ></div>
                         </div>
-                        <div class="w-1/2 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="genero"
-                                >Gênero:</label
-                            >
+                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                            <label class="label" for="genero">Gênero</label>
                             <select
                                 id="genero"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 th:field="*{pessoaDTO.idGenero}"
                             >
                                 <option value="-1">
@@ -121,51 +123,52 @@
                         </div>
                     </div>
 
-                    <label
-                        class="font-medium text-gray-700 block mt-2"
-                        for="senha"
-                    >
-                        Senha:
-                    </label>
-                    <input
-                        id="senha"
-                        class="form-input bg-slate-100 text-gray-700 outline-blue-400"
-                        placeholder="********"
-                        th:field="*{senha}"
-                        type="password"
-                    />
+                    <label class="label mt-3" for="senha">Senha</label>
+                    <div x-data="{ visivel: false }" class="relative">
+                        <input
+                            id="senha"
+                            autocomplete="off"
+                            class="input w-full"
+                            placeholder="********"
+                            th:field="*{senha}"
+                            :type="visivel ? 'text' : 'password'"
+                        />
+                        <div
+                            class="absolute top-1/2 right-4 cursor-pointer"
+                            style="transform: translateY(-50%)"
+                        >
+                            <i
+                                :class="visivel ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"
+                                class="text-slate-600 block"
+                                @click="visivel=!visivel"
+                            ></i>
+                        </div>
+                    </div>
                     <div th:replace="~{fragments :: listaErros('senha')}"></div>
 
-                    <h2 class="text-gray-700 font-bold mt-5 mb-1 uppercase">
+                    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">
                         Contato
                     </h2>
                     <div class="flex -mx-2">
-                        <div class="w-1/2 px-2">
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="celular"
-                                >Celular:</label
-                            >
+                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                            <label class="label" for="celular">Celular</label>
                             <input
                                 id="celular"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="(84) 9 1234-5678"
                                 th:field="*{pessoaDTO.celular}"
-                                type="tel"
+                                x-data=""
+                                x-mask="(99) 9 9999-9999"
                             />
                             <div
                                 th:replace="~{fragments :: listaErros('pessoaDTO.celular')}"
                             ></div>
                         </div>
-                        <div>
-                            <label
-                                class="font-medium text-gray-700 block"
-                                for="email"
-                                >E-mail:</label
-                            >
+                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                            <label class="label" for="email">E-mail</label>
                             <input
                                 id="email"
-                                class="form-input bg-slate-100 text-gray-700 outline-blue-400"
+                                class="input"
                                 placeholder="joao.silva@email.com"
                                 th:field="*{pessoaDTO.email}"
                                 type="email"

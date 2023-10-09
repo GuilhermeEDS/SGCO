@@ -45,6 +45,8 @@ public class UsuarioService {
         pessoaRepository.save(usuario.getPessoa());
 
         switch (usuario.getPapel()) {
+            case ADMIN -> {
+            }
             case DENTISTA -> {
                 dentistaRepository.save(usuario.getDentista());
             }

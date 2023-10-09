@@ -47,7 +47,8 @@ public class UsuarioController {
                 return "indexAdmin";
             }
             case DENTISTA -> {
-                model.addAttribute("consultas", agendamentoService.porDentistaConfirmadosJson(usuario.getDentista()).toString());
+                model.addAttribute("consultas",
+                        agendamentoService.porDentistaConfirmadosJson(usuario.getDentista()).toString());
                 model.addAttribute("agendamentos", agendamentoService.porDentistaNaoConfirmados(usuario.getDentista()));
                 return "indexDentista";
             }

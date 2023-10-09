@@ -24,8 +24,8 @@ public class PessoaDTO {
     @NotEmpty(message = "Campo não pode ser vazio")
     private String celular;
 
-    @NotEmpty(message = "E-mail não pode ser vazio")
-    @Email(message = "Campo não pode ser vazio")
+    @NotEmpty(message = "Campo não pode ser vazio")
+    @Email(message = "Informe um e-mail válido")
     private String email;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -33,7 +33,7 @@ public class PessoaDTO {
     @NotNull(message = "Campo não pode ser vazio")
     private Date dataNascimento;
 
-    @NotNull(message = "Gênero não pode ser vazio")
+    @NotNull(message = "Campo não pode ser vazio")
     @Min(value = 0, message = "Campo não pode ser vazio")
     private Integer idGenero;
 

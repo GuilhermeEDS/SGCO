@@ -3,7 +3,6 @@ package dgn.com.br.sgco.dto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class AgendamentoDentistaDTO {

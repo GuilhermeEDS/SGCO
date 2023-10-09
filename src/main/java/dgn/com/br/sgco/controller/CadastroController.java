@@ -30,7 +30,8 @@ public class CadastroController {
     }
 
     @PostMapping("/cadastro/dentista")
-    public String cadastrarDentista(final @Valid CadastroDentistaDTO cadastroDentistaDTO, @NonNull BindingResult result, Model model) {
+    public String cadastrarDentista(final @Valid CadastroDentistaDTO cadastroDentistaDTO, @NonNull BindingResult result,
+            Model model) {
         if (result.hasErrors()) {
             model.addAttribute("cadastroDentistaDTO", cadastroDentistaDTO);
             model.addAttribute("generos", Genero.values());
@@ -61,7 +62,8 @@ public class CadastroController {
     }
 
     @PostMapping("/cadastro/paciente")
-    public String cadastrarPaciente(final @Valid CadastroPacienteDTO cadastroPacienteDTO, @NonNull BindingResult result, Model model) {
+    public String cadastrarPaciente(final @Valid CadastroPacienteDTO cadastroPacienteDTO, @NonNull BindingResult result,
+            Model model) {
         if (result.hasErrors()) {
             model.addAttribute("cadastroPacienteDTO", cadastroPacienteDTO);
             model.addAttribute("generos", Genero.values());

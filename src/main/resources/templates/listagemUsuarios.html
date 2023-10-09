@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head th:replace="~{fragments :: mainHeader('Cadastro de Paciente')}"></head>
+    <head
+        th:replace="~{fragments :: mainHeader('Cadastro de Paciente')}"
+    ></head>
 
     <body class="bg-sky-100">
-    <header th:replace="~{fragments :: header('Agendamento')}"></header>
+        <header th:replace="~{fragments :: header}"></header>
         <div class="flex flex-col items-center my-4 justify-center">
             <div
                 class="bg-white shadow-md px-8 pt-6 pb-8 flex flex-col items-center"
             >
-                <h1 class="font-bold text-xl text-center mt-3 mb-6 text-gray-700">
-                    Listagem de Usuários
+                <h1
+                    class="font-bold text-2xl text-center text-gray-700 uppercase tracking-wide mb-2"
+                >
+                    Usuários
                 </h1>
 
                 <table
@@ -113,12 +117,7 @@
                     </tfoot>
                 </table>
 
-                <a
-                    href="/"
-                    class="text-blue-400 hover:text-blue-500 underline font-semibold"
-                >
-                    Voltar
-                </a>
+                <a href="/" class="link"> Voltar </a>
             </div>
         </div>
     </body>

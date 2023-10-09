@@ -3,20 +3,18 @@
     <head th:replace="~{fragments :: mainHeader('Login')}"></head>
 
     <body class="bg-sky-100">
-        <div class="flex h-screen flex-col items-center justify-center">
-            <img class="mb-10 max-w-md" th:src="@{/images/logoSGCO.png}" />
+        <div class="h-screen flex flex-col items-center justify-center gap-10">
+            <img class="max-w-md" th:src="@{/images/logoSGCO.png}" />
 
             <div class="w-full max-w-sm">
                 <form
                     method="POST"
                     th:action="@{/login}"
-                    class="bg-white shadow-md px-8 pt-6 pb-8 rounded flex flex-col"
+                    class="bg-white shadow-md px-8 pt-8 pb-9 rounded flex flex-col gap-1"
                 >
-                    <label class="font-medium text-slate-700 block" for="cpf">
-                        CPF:
-                    </label>
+                    <label class="label" for="cpf"> CPF </label>
                     <input
-                        class="form-input bg-slate-100 text-gray-700 outline-blue-400 mb-4"
+                        class="input"
                         id="cpf"
                         maxlength="14"
                         name="cpf"
@@ -24,35 +22,39 @@
                         type="text"
                     />
 
-                    <label class="block font-medium text-slate-700" for="senha">
-                        Senha:
-                    </label>
+                    <label class="label mt-3" for="senha"> Senha </label>
                     <input
-                        class="form-input bg-slate-100 text-gray-700 outline-blue-400 mb-4"
+                        class="input"
                         id="senha"
                         name="senha"
                         placeholder="********"
                         type="password"
                     />
 
-                    <div class="text-rose-500 mb-4 self-center" th:if="${error}">
+                    <div
+                        class="text-rose-500 self-center mt-3"
+                        th:if="${error}"
+                    >
                         Usuário e/ou senha incorreto.
                     </div>
 
-                    <input
-                        type="submit"
-                        class="self-end mb-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        value="Entrar"
-                    />
-                    <span class="text-slate-500 self-end">
-                        Não possui um cadastro?
-                    </span>
-                    <a
-                        class="self-end text-blue-400 hover:text-blue-500 underline font-semibold"
-                        href="/cadastro/paciente"
-                    >
-                        Registre-se
-                    </a>
+                    <div class="flex justify-between mt-4">
+                        <span>
+                            <span class="text-slate-500">
+                                Não possui um cadastro?
+                            </span>
+                            <br />
+                            <a class="link" href="/cadastro/paciente">
+                                Registre-se
+                            </a>
+                        </span>
+
+                        <input
+                            type="submit"
+                            class="self-end mb-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            value="Entrar"
+                        />
+                    </div>
                 </form>
             </div>
         </div>

@@ -36,7 +36,8 @@ public class AgendamentoService {
         Optional<Dentista> dentista = dentistaRepository.findById(agendamentoDto.getIdDentista());
 
         if (agendamentoRepository.findByIdPaciente(paciente.getId()).isPresent()) {
-            throw new ValidacaoEntidadeException("agendamentoDTO.formaPagamento", "Você já tem um agendamento em processamento");
+            throw new ValidacaoEntidadeException("agendamentoDTO.formaPagamento",
+                    "Você já tem um agendamento em processamento");
         }
 
         Agendamento agendamento = new Agendamento();
@@ -61,11 +62,10 @@ public class AgendamentoService {
         Date data = formato.parse(agendamentoDentista.getHoraFim());
         agendamento.setHoraFim(data);
         agendamento.setConfirmacao(true);
-        
+
         Consulta consulta = new Consulta();
         consultaRepository.save(consulta);
         agendamento.setConsulta(consulta);
-
 
         return agendamentoRepository.save(agendamento);
     }
@@ -78,7 +78,6 @@ public class AgendamentoService {
         return agendamentoRepository.findByDentistaConfirmados(dentista);
     }
 
-
     public Iterable<Agendamento> porDentistaNaoConfirmados(Dentista dentista) {
         return agendamentoRepository.findByDentistaNaoConfirmados(dentista);
     }
@@ -90,7 +89,7 @@ public class AgendamentoService {
         StringBuilder json = new StringBuilder("[");
 
         for (Agendamento agendamento : agendamentos) {
-            if (semanaAtual(agendamento.getDataConsulta())){
+            if (semanaAtual(agendamento.getDataConsulta())) {
                 json.append("{\"day\": ").append(agendamento.getWeek())
                         .append(", \"start\": \"")
                         .append(sdt.format(agendamento.getHoraConsulta()))
