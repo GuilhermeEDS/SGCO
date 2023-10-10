@@ -72,7 +72,6 @@ public class UsuarioController {
     @GetMapping("/usuario/detalhes/{idUsuario}")
     public String paginaDetalhesUsuarioModal(@PathVariable Long idUsuario, Model model) {
         Optional<Usuario> usuario = usuarioService.porId(idUsuario);
-        System.out.println(usuario.get());
         model.addAttribute("usuario", usuario.get());
         return "detalhesUsuarioModal";
     }
