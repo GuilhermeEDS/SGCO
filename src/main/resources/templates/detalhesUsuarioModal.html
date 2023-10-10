@@ -1,0 +1,83 @@
+<div
+    class="flex flex-col bg-white shadow-lg px-6 pt-8 pb-8 rounded w-full max-w-lg gap-1"
+    th:object="${usuario}"
+>
+    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">
+        Informações gerais
+    </h2>
+
+    <div>
+        <label class="label">Nome:</label>
+        <label th:text="*{pessoa.nome}"></label>
+    </div>
+
+    <div>
+        <label class="label">CPF:</label>
+        <label th:text="*{pessoa.cpf}"></label>
+    </div>
+
+    <div>
+        <label class="label">RG:</label>
+        <label th:text="*{pessoa.rg}"></label>
+    </div>
+
+    <div>
+        <label class="label">Data de Nascimento:</label>
+        <label
+            th:text="${#dates.format(usuario.pessoa.dataNascimento,'dd/MM/yyyy')}"
+        ></label>
+    </div>
+
+    <div>
+        <label class="label">Gênero:</label>
+        <label th:text="*{pessoa.genero}"></label>
+    </div>
+
+    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">Contato</h2>
+
+    <div>
+        <label class="label">Celular:</label>
+        <label th:text="*{pessoa.celular}"></label>
+    </div>
+
+    <div>
+        <label class="label">E-mail:</label>
+        <label th:text="*{pessoa.email}"></label>
+    </div>
+
+    <th:block th:if="*{pessoa.endereco}">
+        <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">Endereço</h2>
+
+        <div>
+            <label class="label">CEP:</label>
+            <label th:text="*{pessoa.endereco.cep}"></label>
+        </div>
+
+        <div>
+            <label class="label">Número:</label>
+            <label th:text="*{pessoa.endereco.numero}"></label>
+        </div>
+
+        <div>
+            <label class="label">Logradouro:</label>
+            <label th:text="*{pessoa.endereco.logradouro}"></label>
+        </div>
+
+        <div>
+            <label class="label">Bairro:</label>
+            <label th:text="*{pessoa.endereco.bairro}"></label>
+        </div>
+
+        <div>
+            <label class="label">Cidade:</label>
+            <label th:text="*{pessoa.endereco.cidade}"></label>
+        </div>
+
+        <div>
+            <label class="label">UF:</label>
+            <label th:text="*{pessoa.endereco.cidade}"></label>
+        </div>
+    </th:block>
+
+    <button class="link mt-4" @click="modalVisivel=false">Voltar</button>
+</div>

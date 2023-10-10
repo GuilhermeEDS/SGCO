@@ -3,15 +3,18 @@ package dgn.com.br.sgco.controller;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.service.AgendamentoService;
 import dgn.com.br.sgco.service.UsuarioService;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.ArrayList;
 
 @Controller
 public class UsuarioController {
@@ -58,5 +61,29 @@ public class UsuarioController {
                 return "indexPaciente";
             }
         }
+    }
+
+    @GetMapping("/usuario/remover/{idUsuario}")
+    public String paginaRemoverUsuarioModal(@PathVariable Integer idUsuario, Model model) {
+        model.addAttribute("idUsuario", idUsuario);
+        return "removerUsuarioModal";
+    }
+
+    @GetMapping("/usuario/detalhes/{idUsuario}")
+    public String paginaDetalhesUsuarioModal(@PathVariable Long idUsuario, Model model) {
+        Optional<Usuario> usuario = usuarioService.porId(idUsuario);
+        System.out.println(usuario.get());
+        model.addAttribute("usuario", usuario.get());
+        return "detalhesUsuarioModal";
+    }
+
+    @PostMapping("/usuario/remover/{idUsuario}")
+    public String removerUsuario(@PathVariable Long idUsuario, Model model) {
+        usuarioService.removerUsuario(idUsuario);
+
+        Iterable<Usuario> usuarios = usuarioService.todos();
+        model.addAttribute("usuarios", usuarios);
+
+        return "tabelaUsuarios";
     }
 }

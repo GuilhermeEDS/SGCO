@@ -1,0 +1,82 @@
+<table
+    xmlns:th="http://www.w3.org/1999/xhtml"
+    th:fragment="tabela"
+    id="tabelaUsuarios"
+    class="min-w-full divide-y divide-slate-800"
+>
+    <thead>
+        <tr class="text-slate-500">
+            <th class="p-2 font-normal text-left uppercase">Nome</th>
+            <th class="p-2 font-normal text-left uppercase">CPF</th>
+            <th class="p-2 font-normal text-left uppercase">RG</th>
+            <th class="p-2 font-normal text-left uppercase">E-mail</th>
+            <th class="p-2 font-normal text-left uppercase">Celular</th>
+            <th class="p-2 font-normal text-left uppercase">
+                Data de Nascimento
+            </th>
+            <th class="p-2 font-normal text-left uppercase">Gênero</th>
+            <th class="p-2 font-normal text-left uppercase">Papel</th>
+            <th class="p-2 font-normal text-left uppercase">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+            class="odd:bg-white even:bg-slate-100"
+            th:each="usuario : ${usuarios}"
+        >
+            <td
+                class="p-2 text-gray-700 font-semibold"
+                th:text="${usuario.pessoa.nome}"
+            ></td>
+            <td class="p-2 text-gray-700" th:text="${usuario.pessoa.cpf}"></td>
+            <td class="p-2 text-gray-700" th:text="${usuario.pessoa.rg}"></td>
+            <td
+                class="p-2 text-gray-700"
+                th:text="${usuario.pessoa.email}"
+            ></td>
+            <td
+                class="p-2 text-gray-700"
+                th:text="${usuario.pessoa.celular}"
+            ></td>
+            <td
+                class="p-2 text-gray-700"
+                th:text="${usuario.pessoa.dataNascimento}"
+            ></td>
+            <td
+                class="p-2 text-gray-700"
+                th:text="${usuario.pessoa.genero}"
+            ></td>
+            <td class="p-2 text-gray-700" th:text="${usuario.papel}"></td>
+            <td class="p-2" hx-target="#modalContent">
+                <button
+                    class="link"
+                    th:attr="'@'+click=|modalVisivel=true|,hx-get='/usuario/detalhes/'+${usuario.id}"
+                >
+                    Detalhes
+                </button>
+                <button class="link">Editar</button>
+                <button
+                    class="link"
+                    th:attr="'@'+click=|modalVisivel=true|,hx-get='/usuario/remover/'+${usuario.id}"
+                >
+                    Remover
+                </button>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr class="text-slate-500">
+            <th class="p-2 font-normal text-left uppercase">Nome</th>
+            <th class="p-2 font-normal text-left uppercase">CPF</th>
+            <th class="p-2 font-normal text-left uppercase">RG</th>
+            <th class="p-2 font-normal text-left uppercase">E-mail</th>
+            <th class="p-2 font-normal text-left uppercase">Celular</th>
+            <th class="p-2 font-normal text-left uppercase">
+                Data de Nascimento
+            </th>
+            <th class="p-2 font-normal text-left uppercase">Gênero</th>
+            <th class="p-2 font-normal text-left uppercase">Papel</th>
+            <th class="p-2 font-normal text-left uppercase">Ações</th>
+        </tr>
+    </tfoot>
+</table>

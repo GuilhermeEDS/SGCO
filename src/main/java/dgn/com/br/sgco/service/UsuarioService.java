@@ -58,11 +58,19 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
+    public Optional<Usuario> porId(Long idUsuario) {
+        return usuarioRepository.findById(idUsuario);
+    }
+
     public Optional<Usuario> porCpf(String cpf) {
         return usuarioRepository.findByCpf(cpf);
     }
 
     public Iterable<Usuario> todos() {
         return usuarioRepository.findAll();
+    }
+
+    public void removerUsuario(Long idUsuario) {
+        usuarioRepository.deleteById(idUsuario);
     }
 }

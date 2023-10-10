@@ -88,6 +88,7 @@ public class Config {
         Pessoa pessoaAdmin = new Pessoa();
         pessoaAdmin.setCpf("admin");
         pessoaAdmin.setNome("Admin");
+        pessoaAdmin.setEndereco(null);
         admin.setPessoa(pessoaAdmin);
         admin.setPapel(Papel.ADMIN);
         pessoaRepository.save(admin.getPessoa());
@@ -98,6 +99,7 @@ public class Config {
         Pessoa pessoaDentista = new Pessoa();
         pessoaDentista.setCpf("123.456.789-09");
         pessoaDentista.setNome("Dentista");
+        pessoaDentista.setEndereco(null);
         dentista.setPessoa(pessoaDentista);
         Dentista dentistaAux = new Dentista();
         dentistaAux.setPessoa(pessoaDentista);
@@ -112,6 +114,7 @@ public class Config {
         Pessoa pessoaPaciente = new Pessoa();
         pessoaPaciente.setCpf("135.477.713-15");
         pessoaPaciente.setNome("Paciente");
+        pessoaPaciente.setEndereco(null);
         paciente.setPessoa(pessoaPaciente);
         Paciente pacienteAux = new Paciente();
         pacienteAux.setPessoa(pessoaPaciente);
