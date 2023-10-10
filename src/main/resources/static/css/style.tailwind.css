@@ -7,9 +7,13 @@
 }
 
 .label {
-    @apply font-medium text-slate-600;
+    @apply text-slate-600;
 }
 
 .link {
     @apply text-blue-400 hover:text-blue-500 hover:underline;
+}
+
+.primary-btn {
+    @apply bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded shadow-sm hover:shadow;
 }

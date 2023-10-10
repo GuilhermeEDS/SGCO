@@ -2,7 +2,7 @@
     xmlns:th="http://www.w3.org/1999/xhtml"
     th:fragment="tabela"
     id="tabelaUsuarios"
-    class="min-w-full divide-y divide-slate-800"
+    class="min-w-full divide-y divide-slate-500"
 >
     <thead>
         <tr class="text-slate-500">
@@ -46,7 +46,10 @@
                 class="p-2 text-gray-700"
                 th:text="${usuario.pessoa.genero}"
             ></td>
-            <td class="p-2 text-gray-700" th:text="${usuario.papel}"></td>
+            <td
+                class="p-2 text-gray-700"
+                th:text="${usuario.papel.descricao}"
+            ></td>
             <td class="p-2" hx-target="#modalContent">
                 <button
                     class="link"
@@ -64,6 +67,11 @@
         </tr>
     </tbody>
     <tfoot>
+        <tr th:if="${usuarios.isEmpty()}">
+            <td colspan="3" class="p-2 text-gray-700 text-center font-semibold">
+                Sem usuários cadastrados.
+            </td>
+        </tr>
         <tr class="text-slate-500">
             <th class="p-2 font-normal text-left uppercase">Nome</th>
             <th class="p-2 font-normal text-left uppercase">CPF</th>

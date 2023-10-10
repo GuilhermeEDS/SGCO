@@ -1,83 +1,101 @@
 <!DOCTYPE html>
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head th:replace="~{fragments :: mainHeader('Dashboard')}"></head>
 
-<head th:replace="~{fragments :: mainHeader('Dashboard')}">
-    <head>
+    <body class="bg-sky-100">
+        <header th:replace="~{fragments :: header}"></header>
 
-<body class="bg-sky-100">
-<header th:replace="~{fragments :: header}"></header>
-
-<div class="flex flex-col items-center m-4">
-    <div
-            class="border rounded max-w-3xl w-full flex flex-col px-8 pb-10 pt-3 bg-white shadow-md"
-    >
-        <h1
-                class="font-bold text-xl text-center mt-3 mb-6 text-gray-700"
-        >
-            Agendamentos
-        </h1>
-        <table class="min-w-full divide-y divide-slate-800">
-            <thead>
-            <tr class="text-slate-500">
-                <th
-                        class="p-2 font-normal text-left uppercase"
-                        scope="col"
-                >
-                    Dentista
-                </th>
-                <th
-                        class="p-2 font-normal text-left uppercase"
-                        scope="col"
-                >
-                    Horário
-                </th>
-                <th
-                        class="p-2 font-normal text-left uppercase"
-                        scope="col"
-                >
-                    Situação
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${agendamentos.isEmpty()}">
-                <td class="p-2 text-gray-700 text-center font-semibold" colspan="3">
-                    Sem agendamentos em andamento.
-                </td>
-            </tr>
-            <tr
-                    class="odd:bg-white even:bg-slate-100"
-                    th:each="agendamento : ${agendamentos}"
+        <div class="flex flex-col items-center m-4">
+            <div
+                class="border rounded max-w-3xl w-full flex flex-col px-8 pb-10 pt-3 bg-white shadow-md"
             >
-                <td
-                        class="p-2 text-gray-700 font-semibold"
-                        th:text="${agendamento.getDentista().getPessoa().getNome()}"
-                ></td>
-                <td
-                        class="p-2 text-gray-700"
-                        th:text="${#dates.format(agendamento.getDataConsulta(),'dd/MM/yyyy') + ' ' + #dates.format(agendamento.getHoraConsulta(),'HH:mm')}"
-                ></td>
-                <td class="p-2" th:switch="${agendamento.getConfirmacao()}">
-                    <p class="text-center p-1 text-green-800 rounded bg-green-200" th:case="true">Confirmado</p>
-                    <p class="text-center p-1 text-red-800 rounded bg-red-200" th:case="false">Recusado</p>
-                    <p class="text-center p-1 text-yellow-800 rounded bg-yellow-200" th:case="*">Em processo</p>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="3"></td>
-            </tr>
-            </tfoot>
-        </table>
-        <a
-                class="bg-blue-400 mt-6 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"
-                href="/agendamento"
-        >
-            Novo Agendamento
-        </a>
-    </div>
-</div>
-
-</body>
+                <h1
+                    class="font-bold text-xl text-center mt-3 mb-6 text-gray-700"
+                >
+                    Agendamentos
+                </h1>
+                <table class="min-w-full divide-y divide-slate-800">
+                    <thead>
+                        <tr class="text-slate-500">
+                            <th
+                                class="p-2 font-normal text-left uppercase"
+                                scope="col"
+                            >
+                                Dentista
+                            </th>
+                            <th
+                                class="p-2 font-normal text-left uppercase"
+                                scope="col"
+                            >
+                                Horário
+                            </th>
+                            <th
+                                class="p-2 font-normal text-left uppercase"
+                                scope="col"
+                            >
+                                Situação
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${agendamentos.isEmpty()}">
+                            <td
+                                class="p-2 text-gray-700 text-center font-semibold"
+                                colspan="3"
+                            >
+                                Sem agendamentos em andamento.
+                            </td>
+                        </tr>
+                        <tr
+                            class="odd:bg-white even:bg-slate-100"
+                            th:each="agendamento : ${agendamentos}"
+                        >
+                            <td
+                                class="p-2 text-gray-700 font-semibold"
+                                th:text="${agendamento.getDentista().getPessoa().getNome()}"
+                            ></td>
+                            <td
+                                class="p-2 text-gray-700"
+                                th:text="${#dates.format(agendamento.getDataConsulta(),'dd/MM/yyyy') + ' ' + #dates.format(agendamento.getHoraConsulta(),'HH:mm')}"
+                            ></td>
+                            <td
+                                class="p-2"
+                                th:switch="${agendamento.getConfirmacao()}"
+                            >
+                                <p
+                                    class="text-center p-1 text-green-800 rounded bg-green-200"
+                                    th:case="true"
+                                >
+                                    Confirmado
+                                </p>
+                                <p
+                                    class="text-center p-1 text-red-800 rounded bg-red-200"
+                                    th:case="false"
+                                >
+                                    Recusado
+                                </p>
+                                <p
+                                    class="text-center p-1 text-yellow-800 rounded bg-yellow-200"
+                                    th:case="*"
+                                >
+                                    Em processo
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <a
+                    class="bg-blue-400 mt-6 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-end"
+                    href="/agendamento"
+                >
+                    Novo Agendamento
+                </a>
+            </div>
+        </div>
+    </body>
 </html>

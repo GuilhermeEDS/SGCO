@@ -1,189 +1,193 @@
 <!DOCTYPE html>
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <th:block
+            th:replace="~{fragments :: mainHeader('Dashboard')}"
+        ></th:block>
 
-<head>
-    <th:block th:replace="~{fragments :: mainHeader('Dashboard')}"></th:block>
-
-    <link
+        <link
             href="https://cdn.jsdelivr.net/npm/@event-calendar/build@2.3.3/event-calendar.min.css"
             rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@2.3.3/event-calendar.min.js"></script>
-    <script
+        />
+        <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@2.3.3/event-calendar.min.js"></script>
+        <script
             defer
             src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-    ></script>
-    <script
+        ></script>
+        <script
             crossorigin="anonymous"
             defer
             integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
             src="https://unpkg.com/htmx.org@1.9.6"
-    ></script>
-</head>
+        ></script>
+    </head>
 
-<body class="bg-sky-100" x-data="{ modalVisivel: false }">
-<header th:replace="~{fragments :: header}"></header>
+    <body class="bg-sky-100" x-data="{ modalVisivel: false }">
+        <header th:replace="~{fragments :: header}"></header>
 
-<div class="flex items-start justify-evenly">
-    <div
-            class="border rounded max-w-xl w-full flex flex-col px-8 pb-10 pt-3 bg-white shadow-md"
-    >
-        <h1
-                class="font-bold text-xl text-center mt-3 mb-6 text-gray-700"
-        >
-            Agendamentos
-        </h1>
-        <table class="min-w-full divide-y divide-slate-800">
-            <thead>
-            <tr class="text-slate-500">
-                <th
-                        class="p-2 font-normal text-left uppercase"
-                        scope="col"
-                >
-                    Paciente
-                </th>
-                <th
-                        class="p-2 font-normal text-left uppercase"
-                        scope="col"
-                >
-                    Horário
-                </th>
-                <th
-                        class="p-2 font-normal text-left uppercase"
-                        scope="col"
-                >
-                    Ações
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${agendamentos.isEmpty()}">
-                <td class="p-2 text-gray-700 text-center font-semibold" colspan="3">
-                    Sem agendamentos precisando de confirmação.
-                </td>
-            </tr>
-            <tr
-                    class="odd:bg-white even:bg-slate-100"
-                    th:each="agendamento : ${agendamentos}"
+        <div class="flex items-start justify-evenly">
+            <div
+                class="border rounded max-w-xl w-full flex flex-col px-8 pb-10 pt-3 bg-white shadow-md"
             >
-                <td
-                        class="p-2 text-gray-700 font-semibold"
-                        th:text="${agendamento.getPaciente().getPessoa().getNome()}"
-                ></td>
-                <td
-                        class="p-2 text-gray-700"
-                        th:text="${#dates.format(agendamento.getDataConsulta(),'dd/MM/yyyy') + ' ' + #dates.format(agendamento.getHoraConsulta(),'HH:mm')}"
-                ></td>
-                <td class="p-2">
-                    <a
-                            alt="Confirmar Agendamento"
-                            class="link"
-                            th:href="@{/agendamento/{id}(id=${agendamento.getId()})}"
-                    >
-                        Confirmar
-                    </a>
-                    <a
-                            alt="Recusar Agendamento"
-                            class="link"
-                            hx-target="#modalContent"
-                            th:attr="'@'+click=|modalVisivel=true|,hx-get='/agendamento/recusar/'+${agendamento.getId()}"
-                    >
-                        Recusar
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div
-            class="border rounded max-w-5xl w-full flex flex-col px-8 pb-10 pt-3 bg-white shadow-md"
-    >
-        <h1 class="font-bold text-xl text-center mt-3 text-gray-700">
-            Consultas
-        </h1>
-        <div id="calendario-agendamentos"></div>
-    </div>
-</div>
+                <h1
+                    class="font-bold text-xl text-center mt-3 mb-6 text-gray-700"
+                >
+                    Agendamentos
+                </h1>
+                <table class="min-w-full divide-y divide-slate-800">
+                    <thead>
+                        <tr class="text-slate-500">
+                            <th
+                                class="p-2 font-normal text-left uppercase"
+                                scope="col"
+                            >
+                                Nome
+                            </th>
+                            <th
+                                class="p-2 font-normal text-left uppercase"
+                                scope="col"
+                            >
+                                Horário
+                            </th>
+                            <th
+                                class="p-2 font-normal text-left uppercase"
+                                scope="col"
+                            >
+                                Ações
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${agendamentos.isEmpty()}">
+                            <td
+                                colspan="3"
+                                class="p-2 text-gray-700 text-center font-semibold"
+                            >
+                                Sem agendamentos precisando de confirmação.
+                            </td>
+                        </tr>
+                        <tr
+                            class="odd:bg-white even:bg-slate-100"
+                            th:each="agendamento : ${agendamentos}"
+                        >
+                            <td
+                                class="p-2 text-gray-700 font-semibold"
+                                th:text="${agendamento.getPaciente().getPessoa().getNome()}"
+                            ></td>
+                            <td
+                                class="p-2 text-gray-700"
+                                th:text="${#dates.format(agendamento.getDataConsulta(),'dd/MM/yyyy') + ' ' + #dates.format(agendamento.getHoraConsulta(),'HH:mm')}"
+                            ></td>
+                            <td class="p-2">
+                                <a
+                                    class="link"
+                                    alt="confirmarAgendamento"
+                                    th:href="@{/agendamento/{id}(id=${agendamento.getId()})}"
+                                >
+                                    Confirmar
+                                </a>
+                                <a
+                                    alt="Recusar Agendamento"
+                                    class="link"
+                                    hx-target="#modalContent"
+                                    th:attr="'@'+click=|modalVisivel=true|,hx-get='/agendamento/recusar/'+${agendamento.getId()}"
+                                >
+                                    Recusar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div
+                class="border rounded max-w-5xl w-full flex flex-col px-8 pb-10 pt-3 bg-white shadow-md"
+            >
+                <h1 class="font-bold text-xl text-center mt-3 text-gray-700">
+                    Consultas
+                </h1>
+                <div id="calendario-agendamentos"></div>
+            </div>
+        </div>
 
-<div
-        class="fixed inset-0 w-full h-full flex flex-col items-center justify-center"
-        x-show="modalVisivel"
->
-    <div
-            @click="modalVisivel=false"
-            class="absolute left-0 top-0 bg-sky-50 bg-opacity-60 w-full h-full"
-    ></div>
+        <div
+            class="fixed inset-0 w-full h-full flex flex-col items-center justify-center"
+            x-show="modalVisivel"
+        >
+            <div
+                @click="modalVisivel=false"
+                class="absolute left-0 top-0 bg-sky-50 bg-opacity-60 w-full h-full"
+            ></div>
 
-    <div class="transform w-full max-w-sm" id="modalContent"></div>
-</div>
-</body>
+            <div class="transform w-full max-w-sm" id="modalContent"></div>
+        </div>
+    </body>
 
-<script th:inline="javascript">
-    let ec = new EventCalendar(
-        document.getElementById("calendario-agendamentos"),
-        {
-            locale: "pt-BR",
-            view: "timeGridWeek",
-            headerToolbar: {
-                start: "",
-                center: "title",
-                end: "",
-            },
-            buttonText: {
-                close: "Close",
-                dayGridMonth: "mês",
-                listDay: "list",
-                listMonth: "list",
-                listWeek: "list",
-                listYear: "list",
-                resourceTimeGridDay: "day",
-                resourceTimeGridWeek: "week",
-                timeGridDay: "day",
-                timeGridWeek: "week",
-                today: "hoje",
-            },
-            allDaySlot: false,
-            scrollTime: "09:00:00",
-            slotDuration: "01:00",
-            events: createEvents(),
-            dayMaxEvents: true,
-            nowIndicator: true,
-            selectable: false,
-            editable: false,
+    <script th:inline="javascript">
+        let ec = new EventCalendar(
+            document.getElementById("calendario-agendamentos"),
+            {
+                locale: "pt-BR",
+                view: "timeGridWeek",
+                headerToolbar: {
+                    start: "",
+                    center: "title",
+                    end: "",
+                },
+                buttonText: {
+                    close: "Close",
+                    dayGridMonth: "mês",
+                    listDay: "list",
+                    listMonth: "list",
+                    listWeek: "list",
+                    listYear: "list",
+                    resourceTimeGridDay: "day",
+                    resourceTimeGridWeek: "week",
+                    timeGridDay: "day",
+                    timeGridWeek: "week",
+                    today: "hoje",
+                },
+                allDaySlot: false,
+                scrollTime: "09:00:00",
+                slotDuration: "01:00",
+                events: createEvents(),
+                dayMaxEvents: true,
+                nowIndicator: true,
+                selectable: false,
+                editable: false,
+            }
+        );
+
+        function createEvents() {
+            let days = [];
+            for (let i = 0; i < 7; ++i) {
+                let day = new Date();
+                let diff = i - day.getDay();
+                day.setDate(day.getDate() + diff);
+                days[i] =
+                    day.getFullYear() +
+                    "-" +
+                    _pad(day.getMonth() + 1) +
+                    "-" +
+                    _pad(day.getDate());
+            }
+
+            var cons = JSON.parse(/*[[${consultas}]]*/);
+            var consultas = [];
+            for (let i = 0; i < cons.length; i++) {
+                let con = cons[i];
+                consultas[i] = {
+                    start: days[con.day] + " " + con.start,
+                    end: days[con.day] + " " + con.end,
+                    title: con.title,
+                    color: con.color,
+                };
+            }
+            return consultas;
         }
-    );
 
-    function createEvents() {
-        let days = [];
-        for (let i = 0; i < 7; ++i) {
-            let day = new Date();
-            let diff = i - day.getDay();
-            day.setDate(day.getDate() + diff);
-            days[i] =
-                day.getFullYear() +
-                "-" +
-                _pad(day.getMonth() + 1) +
-                "-" +
-                _pad(day.getDate());
+        function _pad(num) {
+            let norm = Math.floor(Math.abs(num));
+            return (norm < 10 ? "0" : "") + norm;
         }
-
-        var cons = JSON.parse(/*[[${consultas}]]*/);
-        var consultas = [];
-        for (let i = 0; i < cons.length; i++) {
-            let con = cons[i];
-            consultas[i] = {
-                start: days[con.day] + " " + con.start,
-                end: days[con.day] + " " + con.end,
-                title: con.title,
-                color: con.color,
-            };
-        }
-        return consultas;
-    }
-
-    function _pad(num) {
-        let norm = Math.floor(Math.abs(num));
-        return (norm < 10 ? "0" : "") + norm;
-    }
-</script>
+    </script>
 </html>
