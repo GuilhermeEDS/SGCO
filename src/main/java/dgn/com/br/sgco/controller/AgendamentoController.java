@@ -83,4 +83,17 @@ public class AgendamentoController {
         return "redirect:/";
     }
 
+    @GetMapping("/agendamento/recusar/{idAgendamento}")
+    public String paginaRecusarAgendamentoModal(@PathVariable Long idAgendamento, Model model) {
+        model.addAttribute("idAgendamento", idAgendamento);
+        return "recusarAgendamentoModal";
+    }
+
+    @PostMapping("/agendamento/recusar/{idAgendamento}")
+    public String removerAgendamento(@PathVariable Long idAgendamento, Model model) {
+
+        agendamentoService.recusarAgendamento(idAgendamento);
+
+        return "redirect:/";
+    }
 }

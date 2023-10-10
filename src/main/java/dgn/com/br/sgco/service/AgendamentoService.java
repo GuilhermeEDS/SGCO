@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class AgendamentoService {
@@ -28,11 +30,25 @@ public class AgendamentoService {
     @Autowired
     ConsultaRepository consultaRepository;
 
+    public static boolean semanaAtual(Date data) {
+        Calendar calendario = Calendar.getInstance();
+
+        int semana = calendario.get(Calendar.WEEK_OF_YEAR);
+        int ano = calendario.get(Calendar.YEAR);
+
+        calendario.setTime(data);
+
+        int semanaData = calendario.get(Calendar.WEEK_OF_YEAR);
+        int calendarioAno = calendario.get(Calendar.YEAR);
+
+        return semana == semanaData && ano == calendarioAno;
+    }
+
     public Agendamento agendar(AgendamentoDTO agendamentoDto, Paciente paciente) {
 
         Optional<Dentista> optDentista = dentistaRepository.findById(agendamentoDto.getIdDentista());
 
-        if (agendamentoRepository.findByIdPaciente(paciente.getId()).isPresent()) {
+        if (agendamentoRepository.findByIdPacienteNotConfirmed(paciente.getId()).isPresent()) {
             throw new ValidacaoEntidadeException("agendamentoDTO.formaPagamento",
                     "Você já tem um agendamento em processamento.");
         }
@@ -81,6 +97,21 @@ public class AgendamentoService {
         return agendamentoRepository.save(agendamento);
     }
 
+    public Agendamento recusarAgendamento(Long id) {
+
+        Optional<Agendamento> optAgendamento = agendamentoRepository.findById(id);
+
+        if (optAgendamento.isEmpty()) {
+            throw new ValidacaoEntidadeException("agendamentoDTO.observacoesDentista",
+                    "Agendamento não encontrado.");
+        }
+
+        Agendamento agendamento = optAgendamento.get();
+        agendamento.setConfirmacao(false);
+
+        return agendamentoRepository.save(agendamento);
+    }
+
     public Optional<Agendamento> porId(Long id) {
         return agendamentoRepository.findById(id);
     }
@@ -93,7 +124,11 @@ public class AgendamentoService {
         return agendamentoRepository.findByDentistaNaoConfirmados(dentista);
     }
 
-    public String porDentistaConfirmadosJson(Dentista dentista) throws Exception{
+    public Iterable<Agendamento> porIdPaciente(Long idPaciente) {
+        return agendamentoRepository.findByIdPaciente(idPaciente);
+    }
+
+    public String porDentistaConfirmadosJson(Dentista dentista) throws Exception {
         Iterable<Agendamento> agendamentos = porDentistaConfirmados(dentista);
 
         SimpleDateFormat sdt = new SimpleDateFormat("HH:mm");
@@ -112,26 +147,12 @@ public class AgendamentoService {
             }
         }
 
-        if (!json.toString().equals("[")){
+        if (!json.toString().equals("[")) {
             json = new StringBuilder(json.substring(0, json.length() - 1));
-        };
+        }
 
         json.append("]");
 
         return json.toString();
-    }
-
-    public static boolean semanaAtual(Date data) {
-        Calendar calendario = Calendar.getInstance();
-
-        int semana = calendario.get(Calendar.WEEK_OF_YEAR);
-        int ano = calendario.get(Calendar.YEAR);
-
-        calendario.setTime(data);
-
-        int semanaData = calendario.get(Calendar.WEEK_OF_YEAR);
-        int calendarioAno = calendario.get(Calendar.YEAR);
-
-        return semana == semanaData && ano == calendarioAno;
     }
 }

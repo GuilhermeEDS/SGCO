@@ -3,9 +3,6 @@ package dgn.com.br.sgco.controller;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.service.AgendamentoService;
 import dgn.com.br.sgco.service.UsuarioService;
-
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Controller
 public class UsuarioController {
@@ -58,6 +57,7 @@ public class UsuarioController {
                 return "indexDentista";
             }
             default -> {
+                model.addAttribute("agendamentos", agendamentoService.porIdPaciente(usuario.getPaciente().getId()));
                 return "indexPaciente";
             }
         }

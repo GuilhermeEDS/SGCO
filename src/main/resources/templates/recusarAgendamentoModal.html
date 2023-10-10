@@ -1,0 +1,28 @@
+<div
+        class="flex flex-col bg-white shadow-lg px-6 pt-8 pb-8 rounded w-full max-w-lg gap-8"
+>
+    <label class="label">Tem certeza que deseja recusar este agendamento?</label>
+
+    <div class="flex gap-4 self-end">
+        <button
+                @click="modalVisivel=false"
+                class="border border-rose-400 hover:border-rose-500 text-rose-400 hover:text-rose-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-center shadow-sm hover:shadow"
+                type="button"
+        >
+            Não
+        </button>
+        <form
+                class="bg-white shadow-md px-8 pt-8 pb-9 rounded flex flex-col gap-1"
+                method="POST"
+                th:action="'/agendamento/recusar/'+${idAgendamento}"
+        >
+            <button
+                    @click="modalVisivel=false"
+                    class="bg-rose-400 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-center shadow-sm hover:shadow"
+                    type="submit"
+            >
+                Sim
+            </button>
+        </form>
+    </div>
+</div>
