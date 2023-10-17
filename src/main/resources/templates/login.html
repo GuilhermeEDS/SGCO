@@ -1,62 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head th:replace="~{fragments :: mainHeader('Login')}"></head>
+  <head th:replace="~{fragments :: mainHeader('Login')}"></head>
+  <head>
+    <th:block th:replace="~{fragments :: mainHeader('Login')}" />
 
-    <body class="bg-sky-100">
-        <div class="h-screen flex flex-col items-center justify-center gap-10">
-            <img class="max-w-md" th:src="@{/images/logoSGCO.png}" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
 
-            <div class="w-full max-w-sm">
-                <form
-                    method="POST"
-                    th:action="@{/login}"
-                    class="bg-white shadow-md px-8 pt-10 pb-12 rounded flex flex-col gap-1"
-                >
-                    <label class="label" for="cpf"> CPF </label>
-                    <input
-                        class="input"
-                        id="cpf"
-                        maxlength="14"
-                        name="cpf"
-                        placeholder="000.000.000-00"
-                        type="text"
-                    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+  </head>
 
-                    <label class="label mt-3" for="senha"> Senha </label>
-                    <input
-                        class="input"
-                        id="senha"
-                        name="senha"
-                        placeholder="********"
-                        type="password"
-                    />
+  <body class="bg-sky-100">
+    <div class="h-screen flex flex-col items-center justify-center gap-10">
+      <img class="max-w-md" th:src="@{/images/logoSGCO.png}" />
 
-                    <div
-                        class="text-rose-500 self-center mt-3"
-                        th:if="${error}"
-                    >
-                        Usuário e/ou senha incorreto.
-                    </div>
+      <div class="w-full max-w-sm">
+        <form
+          method="POST"
+          th:action="@{/login}"
+          class="bg-white shadow-md px-8 pt-10 pb-12 rounded flex flex-col gap-1"
+        >
+          <label class="label" for="cpf"> CPF </label>
+          <input
+            class="input"
+            id="cpf"
+            maxlength="14"
+            name="cpf"
+            placeholder="000.000.000-00"
+            type="text"
+          />
 
-                    <div class="flex justify-between mt-4">
-                        <span>
-                            <span class="text-slate-500">
-                                Não possui um cadastro?
-                            </span>
-                            <br />
-                            <a class="link" href="/cadastro/paciente">
-                                Registre-se
-                            </a>
-                        </span>
-
-                        <input
-                            type="submit"
-                            class="primary-btn self-end"
-                            value="Entrar"
-                        />
-                    </div>
-                </form>
+          <label class="label mt-3" for="senha">Senha</label>
+          <div x-data="{ visivel: false }" class="relative">
+            <input
+              id="senha"
+              name="senha"
+              autocomplete="off"
+              class="input w-full"
+              placeholder="********"
+              :type="visivel ? 'text' : 'password'"
+            />
+            <div
+              class="absolute top-1/2 right-4 cursor-pointer"
+              style="transform: translateY(-50%)"
+            >
+              <i
+                :class="visivel ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"
+                class="text-slate-600 block"
+                @click="visivel=!visivel"
+              ></i>
             </div>
-        </div>
-    </body>
+          </div>
+
+          <div class="text-rose-500 self-center mt-3" th:if="${error}">
+            Usuário e/ou senha incorreto.
+          </div>
+
+          <div class="flex justify-between mt-4">
+            <span>
+              <span class="text-slate-500"> Não possui um cadastro? </span>
+              <br />
+              <a class="link" href="/cadastro/paciente"> Registre-se </a>
+            </span>
+
+            <input type="submit" class="primary-btn self-end" value="Entrar" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
