@@ -43,18 +43,7 @@ public class UsuarioController {
                 return "indexAdmin";
             }
             case DENTISTA -> {
-                Iterable<Agendamento> agendamentos = agendamentoService.porDentistaConfirmados(usuario.getDentista());
-                SimpleDateFormat sdt = new SimpleDateFormat("HH:mm");
-                StringBuilder jason = new StringBuilder("[");
-                for (Agendamento agendamento : agendamentos) {
-                    jason.append("{\"day\": ").append(agendamento.getWeek()).append(", \"start\": \"").append(sdt.format(agendamento.getHoraConsulta())).append("\", \"end\": \"").append(sdt.format(agendamento.getHoraFim())).append("\", \"title\" : \"").append(agendamento.getPaciente().getPessoa().getNome()).append("\" , \"color\": \"#779ECB\"},");
-                }
-                if (!((Collection<Agendamento>) agendamentos).isEmpty()) {
-                    jason = new StringBuilder(jason.substring(0, jason.length() - 1));
-                }
-                jason.append("]");
-                System.out.println(jason);
-                model.addAttribute("consultas", jason.toString());
+                model.addAttribute("consultas", agendamentoService.porDentistaConfirmadosJson(usuario.getDentista()).toString());
                 model.addAttribute("agendamentos", agendamentoService.porDentistaNaoConfirmados(usuario.getDentista()));
                 return "indexDentista";
             }

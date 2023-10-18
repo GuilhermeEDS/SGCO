@@ -10,6 +10,9 @@ import dgn.com.br.sgco.repository.DentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
@@ -60,7 +63,48 @@ public class AgendamentoService {
         return agendamentoRepository.findByDentistaConfirmados(dentista);
     }
 
+
     public Iterable<Agendamento> porDentistaNaoConfirmados(Dentista dentista) {
         return agendamentoRepository.findByDentistaNaoConfirmados(dentista);
+    }
+
+    public StringBuilder porDentistaConfirmadosJson(Dentista dentista) {
+        Iterable<Agendamento> agendamentos = porDentistaConfirmados(dentista);
+
+        SimpleDateFormat sdt = new SimpleDateFormat("HH:mm");
+        StringBuilder json = new StringBuilder("[");
+
+        for (Agendamento agendamento : agendamentos) {
+            if (semanaAtual(agendamento.getDataConsulta())){
+                json.append("{\"day\": ").append(agendamento.getWeek())
+                        .append(", \"start\": \"")
+                        .append(sdt.format(agendamento.getHoraConsulta()))
+                        .append("\", \"end\": \"")
+                        .append(sdt.format(agendamento.getHoraFim()))
+                        .append("\", \"title\" : \"")
+                        .append(agendamento.getPaciente().getPessoa().getNome())
+                        .append("\" , \"color\": \"#779ECB\"},");
+            }
+        }
+        if (!((Collection<Agendamento>) agendamentos).isEmpty()) {
+            json = new StringBuilder(json.substring(0, json.length() - 1));
+        }
+        json.append("]");
+
+        return json;
+    }
+
+    public static boolean semanaAtual(Date data) {
+        Calendar calendario = Calendar.getInstance();
+
+        int semana = calendario.get(Calendar.WEEK_OF_YEAR);
+        int ano = calendario.get(Calendar.YEAR);
+
+        calendario.setTime(data);
+
+        int semanaData = calendario.get(Calendar.WEEK_OF_YEAR);
+        int calendarioAno = calendario.get(Calendar.YEAR);
+
+        return semana == semanaData && ano == calendarioAno;
     }
 }

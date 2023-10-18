@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build:postcss": "NODE_ENV=production postcss main/resources/static/css/style.tailwind.css -o target/classes/static/css/tailwind.css",
-    "watch:postcss": "NODE_ENV=development postcss main/resources/static/css/style.tailwind.css -o main/resources/static/css/tailwind.css -w"
+    "watch:postcss": "npx postcss main/resources/static/css/style.tailwind.css -o main/resources/static/css/tailwind.css -w"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",

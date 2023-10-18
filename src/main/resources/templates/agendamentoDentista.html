@@ -61,6 +61,7 @@
         <div class="mb-3">
             <label for="inputObservacoes" class="form-label">Observações</label>
             <input type="textarea" th:field="*{observacoesDentista}" class="form-control" id="inputObservacoesDentista" name="observacoesDentista">
+            <div th:replace="~{fragments :: listaErros('horaFim')}"></div>
         </div>
         <div class="mb-3">
             <label for="duracao" class="form-label">Duração do Procedimento (Tempo Estimado)</label>
