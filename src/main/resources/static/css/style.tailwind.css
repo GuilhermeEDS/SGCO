@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .input {
-    @apply py-2 px-3 rounded-md shadow focus:shadow-md font-medium outline-1 focus:outline bg-slate-100 text-slate-700 outline-blue-500;
+    @apply py-2 px-3 rounded-md shadow focus:shadow-md font-medium outline-1 focus:outline bg-slate-50 text-slate-700 outline-blue-500;
 }
 
 .label {
@@ -15,5 +15,9 @@
 }
 
 .primary-btn {
-    @apply bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded shadow-sm hover:shadow;
+    @apply bg-blue-400 hover:bg-blue-500 text-center text-white font-bold px-8 sm:px-4 py-2 rounded shadow-sm hover:shadow;
+}
+
+.secondary-btn {
+    @apply border border-blue-400 hover:border-blue-500 text-center text-blue-400 hover:text-blue-500 font-bold px-8 sm:px-4 py-2 rounded shadow-sm hover:shadow;
 }

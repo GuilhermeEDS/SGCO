@@ -21,14 +21,14 @@
     </head>
 
     <body class="bg-sky-100">
-        <div class="flex flex-col items-center m-4">
+        <div class="flex flex-col items-center sm:m-4">
             <div class="w-full max-w-lg">
                 <form
                     action="/cadastro/paciente"
                     enctype="utf8"
                     method="POST"
                     th:object="${cadastroPacienteDTO}"
-                    class="flex flex-col bg-white shadow-md px-6 pt-8 pb-8 rounded w-full max-w-lg gap-1"
+                    class="flex flex-col sm:bg-white sm:shadow-md sm:rounded px-6 py-4 sm:py-8 w-full max-w-lg gap-1"
                 >
                     <h1
                         class="font-bold text-2xl text-center text-gray-700 uppercase tracking-wide mb-2"
@@ -36,7 +36,9 @@
                         Cadastro de Paciente
                     </h1>
 
-                    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">
+                    <h2
+                        class="text-gray-600 font-bold text-center uppercase mt-4 mb-1"
+                    >
                         Informações gerais
                     </h2>
 
@@ -84,8 +86,10 @@
                         </div>
                     </div>
 
-                    <div class="flex -mx-2 mt-3">
-                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                    <div
+                        class="flex flex-col gap-3 sm:gap-0 sm:flex-row -mx-2 mt-3"
+                    >
+                        <div class="sm:w-1/2 px-2 flex flex-col gap-1">
                             <label class="label" for="dataNascimento">
                                 Data de Nascimento
                             </label>
@@ -100,7 +104,7 @@
                                 th:replace="~{fragments :: listaErros('pessoaDTO.dataNascimento')}"
                             ></div>
                         </div>
-                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                        <div class="sm:w-1/2 px-2 flex flex-col gap-1">
                             <label class="label" for="genero">Gênero</label>
                             <select
                                 id="genero"
@@ -145,12 +149,14 @@
                     </div>
                     <div th:replace="~{fragments :: listaErros('senha')}"></div>
 
-                    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">
+                    <h2
+                        class="text-gray-600 font-bold text-center uppercase mt-4 mb-1"
+                    >
                         Contato
                     </h2>
 
-                    <div class="flex -mx-2">
-                        <div class="w-1/2 px-2 flex flex-col">
+                    <div class="flex flex-col gap-3 sm:flex-row sm:gap-0 -mx-2">
+                        <div class="sm:w-1/2 px-2 flex flex-col gap-1">
                             <label class="label" for="celular">Celular</label>
                             <input
                                 id="celular"
@@ -164,7 +170,7 @@
                                 th:replace="~{fragments :: listaErros('pessoaDTO.celular')}"
                             ></div>
                         </div>
-                        <div class="w-1/2 px-2 flex flex-col">
+                        <div class="sm:w-1/2 px-2 flex flex-col gap-1">
                             <label class="label" for="email">E-mail</label>
                             <input
                                 id="email"
@@ -179,7 +185,9 @@
                         </div>
                     </div>
 
-                    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">
+                    <h2
+                        class="text-gray-600 font-bold text-center uppercase mt-4 mb-1"
+                    >
                         Endereço
                     </h2>
 
@@ -220,7 +228,7 @@
                     ></div>
 
                     <div class="flex -mx-2 mt-3">
-                        <div class="w-1/3 px-2 flex flex-col gap-1">
+                        <div class="w-2/4 px-2 flex flex-col gap-1">
                             <label class="label" for="cep">CEP</label>
                             <input
                                 id="cep"
@@ -235,7 +243,7 @@
                                 th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.cep')}"
                             ></div>
                         </div>
-                        <div class="w-1/3 px-2 flex flex-col gap-1">
+                        <div class="w-1/4 px-2 flex flex-col gap-1">
                             <label class="label" for="numero">Número</label>
                             <input
                                 id="numero"
@@ -248,7 +256,7 @@
                                 th:replace="~{fragments :: listaErros('pessoaDTO.enderecoDTO.numero')}"
                             ></div>
                         </div>
-                        <div class="w-1/3 px-2 flex flex-col gap-1">
+                        <div class="w-1/4 px-2 flex flex-col gap-1">
                             <label class="label" for="UF">UF</label>
                             <input
                                 id="UF"

@@ -4,23 +4,25 @@
 
     <body class="bg-sky-100">
         <header th:replace="~{fragments :: header}"></header>
-        <div class="flex flex-col my-4 items-center">
+        <div class="flex flex-col items-center">
             <form
-                class="border rounded max-w-lg w-full flex flex-col px-8 pt-3 pb-5 bg-white shadow-md"
+                class="flex flex-col sm:bg-white sm:shadow-md sm:rounded px-6 py-0 sm:py-8 w-full max-w-lg gap-1"
                 action="/agendamento"
                 enctype="utf8"
                 method="POST"
                 th:object="${agendamentoDTO}"
             >
-                <h1 class="font-bold text-3xl text-center mt-3 text-gray-800">
-                    Cadastrar Atendimento
+                <h1
+                    class="font-bold text-2xl text-center text-gray-700 uppercase tracking-wide mb-2"
+                >
+                    Novo Agendamento
                 </h1>
 
                 <label class="label" for="tipoAgendamento">
                     Tipo de Agendamento
                 </label>
                 <select
-                    class="input appearance-none mb-4"
+                    class="input appearance-none"
                     id="tipoAgendamento"
                     th:field="*{tipo.id}"
                 >
@@ -35,9 +37,9 @@
                 </select>
                 <div th:replace="~{fragments :: listaErros('tipo.id')}"></div>
 
-                <label class="label" for="dentista"> Dentista </label>
+                <label class="label mt-3" for="dentista">Dentista</label>
                 <select
-                    class="input appearance-none mb-4"
+                    class="input appearance-none"
                     id="dentista"
                     th:field="*{idDentista}"
                 >
@@ -52,11 +54,11 @@
                     th:replace="~{fragments :: listaErros('idDentista')}"
                 ></div>
 
-                <label class="label" for="dataConsulta">
+                <label class="label mt-3" for="dataConsulta">
                     Data da Consulta
                 </label>
                 <input
-                    class="input mb-4"
+                    class="input"
                     id="dataConsulta"
                     name="dataConsulta"
                     th:field="*{dataConsulta}"
@@ -66,86 +68,83 @@
                     th:replace="~{fragments :: listaErros('dataConsulta')}"
                 ></div>
 
-                <label class="label"> Hora da Consulta </label>
-                <div class="flex justify-evenly">
-                    <div>
-                        <div>
-                            <input
-                                class="checked:bg-blue-400"
-                                id="radioHora1"
-                                name="horaConsulta"
-                                th:field="*{horaConsulta}"
-                                type="radio"
-                                value="9:00"
-                            />
-                            <label class="label" for="radioHora1">9:00</label>
-                        </div>
-                        <div>
-                            <input
-                                id="radioHora2"
-                                name="horaConsulta"
-                                th:field="*{horaConsulta}"
-                                type="radio"
-                                value="10:00"
-                            />
-                            <label class="label" for="radioHora2">10:00</label>
-                        </div>
-
-                        <div>
-                            <input
-                                id="radioHora3"
-                                name="horaConsulta"
-                                th:field="*{horaConsulta}"
-                                type="radio"
-                                value="11:00"
-                            />
-                            <label class="label" for="radioHora3">11:00</label>
-                        </div>
+                <label class="label mt-3">Hora da Consulta</label>
+                <div
+                    class="grid grid-cols-2 justify-items-center bg-white sm:bg-transparent self-stretch mx-10 py-3 rounded gap-y-2"
+                >
+                    <div class="self-start">
+                        <input
+                            class="checked:bg-blue-400"
+                            id="radioHora1"
+                            name="horaConsulta"
+                            th:field="*{horaConsulta}"
+                            type="radio"
+                            value="9:00"
+                        />
+                        <label class="label" for="radioHora1">09:00</label>
                     </div>
                     <div>
-                        <div>
-                            <input
-                                id="radioHora4"
-                                name="horaConsulta"
-                                th:field="*{horaConsulta}"
-                                type="radio"
-                                value="13:00"
-                            />
-                            <label class="label" for="radioHora4">13:00</label>
-                        </div>
+                        <input
+                            id="radioHora2"
+                            name="horaConsulta"
+                            th:field="*{horaConsulta}"
+                            type="radio"
+                            value="10:00"
+                        />
+                        <label class="label" for="radioHora2">10:00</label>
+                    </div>
+                    <div>
+                        <input
+                            id="radioHora3"
+                            name="horaConsulta"
+                            th:field="*{horaConsulta}"
+                            type="radio"
+                            value="11:00"
+                        />
+                        <label class="label" for="radioHora3">11:00</label>
+                    </div>
+                    <div>
+                        <input
+                            id="radioHora4"
+                            name="horaConsulta"
+                            th:field="*{horaConsulta}"
+                            type="radio"
+                            value="13:00"
+                        />
+                        <label class="label" for="radioHora4">13:00</label>
+                    </div>
 
-                        <div>
-                            <input
-                                id="radioHora5"
-                                name="horaConsulta"
-                                th:field="*{horaConsulta}"
-                                type="radio"
-                                value="14:00"
-                            />
-                            <label class="label" for="radioHora5">14:00</label>
-                        </div>
+                    <div>
+                        <input
+                            id="radioHora5"
+                            name="horaConsulta"
+                            th:field="*{horaConsulta}"
+                            type="radio"
+                            value="14:00"
+                        />
+                        <label class="label" for="radioHora5">14:00</label>
+                    </div>
 
-                        <div>
-                            <input
-                                id="radioHora6"
-                                name="horaConsulta"
-                                th:field="*{horaConsulta}"
-                                type="radio"
-                                value="15:00"
-                            />
-                            <label class="label" for="radioHora6">15:00</label>
-                        </div>
+                    <div>
+                        <input
+                            id="radioHora6"
+                            name="horaConsulta"
+                            th:field="*{horaConsulta}"
+                            type="radio"
+                            value="15:00"
+                        />
+                        <label class="label" for="radioHora6">15:00</label>
                     </div>
                 </div>
                 <div
                     th:replace="~{fragments :: listaErros('horaConsulta')}"
                 ></div>
 
-                <label class="label" for="inputObservacoes">
+                <label class="label mt-3" for="inputObservacoes">
                     Observações
                 </label>
                 <textarea
-                    class="input mb-4 resize-none"
+                    class="input resize-none"
                     rows="3"
                     id="inputObservacoes"
                     name="observacoes"
@@ -153,11 +152,11 @@
                     type="textarea"
                 ></textarea>
 
-                <label class="label" for="formaPagamento">
+                <label class="label mt-3" for="formaPagamento">
                     Forma de Pagamento
                 </label>
                 <select
-                    class="input appearance-none mb-4"
+                    class="input appearance-none"
                     id="formaPagamento"
                     th:field="*{formaPagamento.id}"
                 >
@@ -172,16 +171,16 @@
                     th:replace="~{fragments :: listaErros('formaPagamento.id')}"
                 ></div>
 
-                <div class="mt-3 self-end">
-                    <a
-                        class="self-center mx-1 mb-4 border border-blue-400 bg-white text-blue-400 hover:text-blue-500 hover:border-blue-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        href="/"
-                    >
-                        Cancelar
-                    </a>
-                    <button class="self-center mb-4 primary-btn" type="submit">
-                        Cadastrar
-                    </button>
+                <div
+                    class="flex flex-row self-stretch justify-evenly sm:self-end gap-2 mt-6 mb-4"
+                >
+                    <a class="secondary-btn" href="/"> Cancelar </a>
+
+                    <input
+                        type="submit"
+                        class="primary-btn"
+                        value="Cadastrar"
+                    />
                 </div>
             </form>
         </div>

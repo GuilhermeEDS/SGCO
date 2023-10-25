@@ -16,7 +16,9 @@
         th:fragment="header"
         class="bg-white flex justify-between px-10 py-2 mb-10 border-b-4 border-b-blue-400 shadow-sm items-center"
     >
-        <img class="max-h-10" th:src="@{/images/SGCO.png}" />
+        <a href="/">
+            <img class="max-h-10" th:src="@{/images/SGCO.png}" />
+        </a>
         <a href="/logout" class="link">Sair</a>
     </header>
 

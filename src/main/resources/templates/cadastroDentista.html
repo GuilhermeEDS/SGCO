@@ -22,14 +22,14 @@
 
     <body class="bg-sky-100">
         <header th:replace="~{fragments :: header}"></header>
-        <div class="flex flex-col items-center m-4">
+        <div class="flex flex-col items-center sm:m-4">
             <div class="w-full max-w-lg">
                 <form
                     action="/cadastro/dentista"
                     enctype="utf8"
                     method="POST"
                     th:object="${cadastroDentistaDTO}"
-                    class="flex flex-col bg-white shadow-md px-6 pt-8 pb-8 rounded w-full max-w-lg gap-1"
+                    class="flex flex-col sm:bg-white sm:shadow-md sm:rounded px-6 py-0 sm:py-8 w-full max-w-lg gap-1"
                 >
                     <h1
                         class="font-bold text-2xl text-center text-gray-700 uppercase tracking-wide mb-2"
@@ -37,7 +37,9 @@
                         Cadastro de Dentista
                     </h1>
 
-                    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">
+                    <h2
+                        class="text-gray-600 font-bold text-center uppercase mt-4 mb-1"
+                    >
                         Informações gerais
                     </h2>
 
@@ -85,8 +87,10 @@
                         </div>
                     </div>
 
-                    <div class="flex -mx-2 mt-3">
-                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                    <div
+                        class="flex flex-col gap-3 sm:gap-0 sm:flex-row -mx-2 mt-3"
+                    >
+                        <div class="sm:w-1/2 px-2 flex flex-col gap-1">
                             <label class="label" for="dataNascimento">
                                 Data de Nascimento
                             </label>
@@ -101,7 +105,7 @@
                                 th:replace="~{fragments :: listaErros('pessoaDTO.dataNascimento')}"
                             ></div>
                         </div>
-                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                        <div class="sm:w-1/2 px-2 flex flex-col gap-1">
                             <label class="label" for="genero">Gênero</label>
                             <select
                                 id="genero"
@@ -146,11 +150,14 @@
                     </div>
                     <div th:replace="~{fragments :: listaErros('senha')}"></div>
 
-                    <h2 class="text-gray-600 font-bold uppercase mt-4 mb-1">
+                    <h2
+                        class="text-gray-600 font-bold text-center uppercase mt-4 mb-1"
+                    >
                         Contato
                     </h2>
-                    <div class="flex -mx-2">
-                        <div class="w-1/2 px-2 flex flex-col gap-1">
+
+                    <div class="flex flex-col gap-3 sm:flex-row sm:gap-0 -mx-2">
+                        <div class="sm:w-1/2 px-2 flex flex-col gap-1">
                             <label class="label" for="celular">Celular</label>
                             <input
                                 id="celular"
@@ -164,7 +171,7 @@
                                 th:replace="~{fragments :: listaErros('pessoaDTO.celular')}"
                             ></div>
                         </div>
-                        <div class="w-1/2 px-2 flex flex-col gap-1">
+                        <div class="sm:w-1/2 px-2 flex flex-col gap-1">
                             <label class="label" for="email">E-mail</label>
                             <input
                                 id="email"
@@ -179,17 +186,14 @@
                         </div>
                     </div>
 
-                    <div class="self-end flex gap-2 mt-6 mb-4">
-                        <a
-                            class="border border-blue-400 text-blue-400 hover:text-blue-500 hover:border-blue-500 font-bold py-2 px-4 rounded self-end shadow-sm hover:shadow"
-                            href="/"
-                        >
-                            Voltar
-                        </a>
+                    <div
+                        class="flex flex-row self-stretch justify-evenly sm:self-end gap-2 mt-2"
+                    >
+                        <a class="secondary-btn" href="/">Cancelar</a>
 
                         <input
                             type="submit"
-                            class="primary-btn self-end"
+                            class="primary-btn"
                             value="Cadastrar"
                         />
                     </div>

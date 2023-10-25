@@ -19,9 +19,10 @@
 
     <body class="bg-sky-100" x-data="{ modalVisivel: false, idUsuario : 0 }">
         <header th:replace="~{fragments :: header}"></header>
-        <div class="flex flex-col items-center my-4 justify-center">
+
+        <div class="flex flex-col items-center justify-center sm:my-4 sm:mx-4">
             <div
-                class="bg-white shadow-md px-8 pt-6 pb-8 flex flex-col items-center"
+                class="flex w-full flex-col items-center sm:m-4 px-2 sm:bg-white sm:shadow-md sm:px-8 sm:pt-6 sm:pb-8"
             >
                 <h1
                     class="font-bold text-2xl text-center text-gray-700 uppercase tracking-wide mb-2"
@@ -29,9 +30,13 @@
                     Usuários
                 </h1>
 
-                <table th:replace="~{tabelaUsuarios :: tabela}"></table>
+                <div
+                    class="self-start sm:self-center bg-white rounded w-full relative overflow-x-auto px-1 sm:mx-0"
+                >
+                    <table th:replace="~{tabelaUsuarios :: tabela}"></table>
+                </div>
 
-                <a href="/" class="link"> Voltar </a>
+                <a href="/" class="link mt-2">Voltar</a>
             </div>
         </div>
 

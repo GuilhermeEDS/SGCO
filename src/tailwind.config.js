@@ -4,7 +4,8 @@ module.exports = {
   mode: 'jit',
   content: [
     "./**/*.html",
-    "./**/*.js"
+    "./**/*.js",
+    "./**/style.tailwind.css"
   ],
   theme: {
     extend: {},
