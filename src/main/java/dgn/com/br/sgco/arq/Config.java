@@ -1,4 +1,4 @@
-package dgn.com.br.sgco.config;
+package dgn.com.br.sgco.arq;
 
 import dgn.com.br.sgco.entity.Dentista;
 import dgn.com.br.sgco.entity.Paciente;

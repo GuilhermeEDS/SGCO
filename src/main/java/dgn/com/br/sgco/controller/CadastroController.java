@@ -26,7 +26,7 @@ public class CadastroController {
         CadastroDentistaDTO cadastroDentistaDTO = new CadastroDentistaDTO();
         model.addAttribute("cadastroDentistaDTO", cadastroDentistaDTO);
         model.addAttribute("generos", Genero.values());
-        return "/cadastroDentista";
+        return "dentista/cadastro";
     }
 
     @PostMapping("/cadastro/dentista")
@@ -35,7 +35,7 @@ public class CadastroController {
         if (result.hasErrors()) {
             model.addAttribute("cadastroDentistaDTO", cadastroDentistaDTO);
             model.addAttribute("generos", Genero.values());
-            return "/cadastroDentista";
+            return "dentista/cadastro";
         }
 
         try {
@@ -47,7 +47,7 @@ public class CadastroController {
 
             model.addAttribute("cadastroDentistaDTO", cadastroDentistaDTO);
             model.addAttribute("generos", Genero.values());
-            return "/cadastroDentista";
+            return "dentista/cadastro";
         }
 
         return "redirect:/";
@@ -58,7 +58,7 @@ public class CadastroController {
         CadastroPacienteDTO cadastroPacienteDTO = new CadastroPacienteDTO();
         model.addAttribute("cadastroPacienteDTO", cadastroPacienteDTO);
         model.addAttribute("generos", Genero.values());
-        return "/cadastroPaciente";
+        return "paciente/cadastro";
     }
 
     @PostMapping("/cadastro/paciente")
@@ -67,7 +67,7 @@ public class CadastroController {
         if (result.hasErrors()) {
             model.addAttribute("cadastroPacienteDTO", cadastroPacienteDTO);
             model.addAttribute("generos", Genero.values());
-            return "/cadastroPaciente";
+            return "paciente/cadastro";
         }
 
         try {
@@ -79,7 +79,7 @@ public class CadastroController {
 
             model.addAttribute("cadastroPacienteDTO", cadastroPacienteDTO);
             model.addAttribute("generos", Genero.values());
-            return "/cadastroPaciente";
+            return "paciente/cadastro";
         }
 
         return "/login";

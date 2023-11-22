@@ -40,7 +40,7 @@
             ></td>
             <td
                 class="p-2 text-gray-700"
-                th:text="${usuario.pessoa.dataNascimento}"
+                th:text="${#dates.format(usuario.pessoa.dataNascimento,'dd/MM/yyyy')}"
             ></td>
             <td
                 class="p-2 text-gray-700"
