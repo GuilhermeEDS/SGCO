@@ -4,6 +4,8 @@ import dgn.com.br.sgco.arq.Entidade;
 import dgn.com.br.sgco.enumeration.FormaPagamento;
 import dgn.com.br.sgco.enumeration.TipoAgendamento;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
@@ -31,6 +33,7 @@ public class Agendamento extends Entidade {
 
     private Boolean confirmacao;
 
+    @Enumerated(EnumType.ORDINAL)
     private TipoAgendamento tipo;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

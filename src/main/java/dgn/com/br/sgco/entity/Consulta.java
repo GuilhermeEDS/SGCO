@@ -15,5 +15,7 @@ public class Consulta extends Entidade {
     @PrimaryKeyJoinColumn
     private Agendamento agendamento;
 
+    private float valorProcedimento;
+
     private String descricao;
 }

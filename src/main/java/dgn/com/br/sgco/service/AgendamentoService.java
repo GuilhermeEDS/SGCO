@@ -7,6 +7,7 @@ import dgn.com.br.sgco.entity.Agendamento;
 import dgn.com.br.sgco.entity.Consulta;
 import dgn.com.br.sgco.entity.Dentista;
 import dgn.com.br.sgco.entity.Paciente;
+import dgn.com.br.sgco.enumeration.TipoAgendamento;
 import dgn.com.br.sgco.repository.AgendamentoRepository;
 import dgn.com.br.sgco.repository.ConsultaRepository;
 import dgn.com.br.sgco.repository.DentistaRepository;
@@ -17,7 +18,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Vector;
 
 @Service
 public class AgendamentoService {
@@ -29,6 +35,8 @@ public class AgendamentoService {
 
     @Autowired
     ConsultaRepository consultaRepository;
+
+    String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
     public static boolean semanaAtual(Date data) {
         Calendar calendario = Calendar.getInstance();
@@ -155,4 +163,52 @@ public class AgendamentoService {
 
         return json.toString();
     }
+    
+    public Map<String, Integer[]> porMes(){
+        Calendar calendar = Calendar.getInstance();
+        Date fim = calendar.getTime();
+        calendar.add(Calendar.MONTH, -6);
+        Date inicio = calendar.getTime();
+
+        Iterable<Agendamento> agendamentos = agendamentoRepository.findByMes(inicio, fim);
+        
+        int[][] contador = new int[6][3];
+        for(int i = 0; i < 6; i++){
+            for(int j = 0; j < 3; j++){
+                contador[i][j] = 0;
+            }
+        }
+
+        for(int i = 0; i < 6; i++){
+            for(Agendamento agendamento : agendamentos){
+                Calendar agenCalendar = Calendar.getInstance(); 
+                agenCalendar.setTime(agendamento.getDataConsulta());
+                if(agenCalendar.get(agenCalendar.MONTH) == calendar.get(calendar.MONTH)){
+                    switch (agendamento.getTipo()) {
+                        case ACOMPANHAMENTO:
+                            contador[i][0]++;
+                            break;
+                        case CIRURGIA:
+                            contador[i][1]++;
+                            break;
+                        case CONSULTA:
+                            contador[i][2]++;
+                            break;
+                    }
+                }
+            }
+            calendar.add(Calendar.MONTH, +1);
+        }
+        calendar.add(Calendar.MONTH, -6);
+        Map<String, Integer[]> mesesValores = new LinkedHashMap<>();
+        
+        for(int i = 0; i < 6; i++){
+            calendar.add(Calendar.MONTH, +1);
+            mesesValores.put(meses[calendar.get(calendar.MONTH)], new Integer[]{contador[i][0], contador[i][1], contador[i][2]});
+
+        }
+
+        return mesesValores;
+    }
+
 }

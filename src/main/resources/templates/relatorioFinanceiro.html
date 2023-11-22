@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+
+<head th:replace="~{fragments :: mainHeader('Relatório Financeiro')}"></head>
+
+<body class="bg-sky-100">
+    <header th:replace="~{fragments :: header}"></header>
+
+    <div class="flex flex-col items-center m-4">
+        <div class="border rounded max-w-6xl  w-full flex flex-col px-8 pb-10 pt-13 bg-white shadow-md">
+            <h1 class="font-bold text-xl text-center mt-3 text-gray-700">
+                Relatório Financeiro
+            </h1>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        var ctx = document.getElementById("myChart").getContext("2d");
+
+        var mesesValores = /*[[${mesesValores}]]*/ 'default';
+
+        labels = Object.keys(mesesValores);
+        console.log(mesesValores)
+        var myChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Acompanhamento",
+                        data: Object.values(mesesValores).map(array => array[0]),
+                        backgroundColor: "rgba(255,100,100,1)",
+                    },
+                    {
+                        label: "Cirurgia",
+                        data: Object.values(mesesValores).map(array => array[1]),
+                        backgroundColor: "rgba(100,255,100,1)",
+                    },
+                    {
+                        label: "Consulta",
+                        data: Object.values(mesesValores).map(array => array[2]),
+                        backgroundColor: "rgba(100, 100, 255, 1)",
+                    },
+                ],
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

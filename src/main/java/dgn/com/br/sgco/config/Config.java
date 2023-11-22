@@ -1,15 +1,23 @@
 package dgn.com.br.sgco.config;
 
+import dgn.com.br.sgco.entity.Agendamento;
 import dgn.com.br.sgco.entity.Dentista;
 import dgn.com.br.sgco.entity.Paciente;
 import dgn.com.br.sgco.entity.Pessoa;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.enumeration.Papel;
+import dgn.com.br.sgco.enumeration.TipoAgendamento;
+import dgn.com.br.sgco.repository.AgendamentoRepository;
 import dgn.com.br.sgco.repository.DentistaRepository;
 import dgn.com.br.sgco.repository.PacienteRepository;
 import dgn.com.br.sgco.repository.PessoaRepository;
 import dgn.com.br.sgco.repository.UsuarioRepository;
 import jakarta.servlet.DispatcherType;
+
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -41,6 +49,9 @@ public class Config {
 
     @Autowired
     private AuthProvider authProvider;
+
+    @Autowired
+    AgendamentoRepository agendamentoRepository;
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -123,5 +134,35 @@ public class Config {
         pessoaRepository.save(pessoaPaciente);
         pacienteRepository.save(pacienteAux);
         usuarioRepository.save(paciente);
+
+        //Agendamento 1
+        Agendamento agendamento = new Agendamento();
+        agendamento.setConfirmacao(true);
+        agendamento.setTipo(TipoAgendamento.ACOMPANHAMENTO);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -2);
+        Date data = calendar.getTime();
+        agendamento.setDataConsulta(data);
+        agendamentoRepository.save(agendamento);
+        
+        //Agendamento 2
+        Agendamento agendamento2 = new Agendamento();
+        agendamento2.setConfirmacao(true);
+        agendamento2.setTipo(TipoAgendamento.ACOMPANHAMENTO);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -2);
+        data = calendar.getTime();
+        agendamento2.setDataConsulta(data);
+        agendamentoRepository.save(agendamento2);
+
+        //Agendamento 3
+        Agendamento agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CONSULTA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -2);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
     }
 }
