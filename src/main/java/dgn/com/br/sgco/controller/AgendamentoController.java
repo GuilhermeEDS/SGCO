@@ -41,7 +41,7 @@ public class AgendamentoController {
         model.addAttribute("formasPagamento", FormaPagamento.values());
         model.addAttribute("tiposAgendamento", TipoAgendamento.values());
         model.addAttribute("dentistas", dentistaService.todos());
-        return "agendamento";
+        return "agendamento/index";
     }
 
     @PostMapping("/agendamento")
@@ -55,7 +55,7 @@ public class AgendamentoController {
             model.addAttribute("formasPagamento", FormaPagamento.values());
             model.addAttribute("tiposAgendamento", TipoAgendamento.values());
             model.addAttribute("dentistas", dentistaService.todos());
-            return "agendamento";
+            return "agendamento/index";
         }
 
         Agendamento agendamento = agendamentoService.agendar(agendamentoDto, usuario.getPaciente());
@@ -67,7 +67,7 @@ public class AgendamentoController {
         AgendamentoDentistaDTO agendamentoDTO = new AgendamentoDentistaDTO();
         model.addAttribute("agendamentoDTO", agendamentoDTO);
         model.addAttribute("agendamento", agendamentoService.porId(id).get());
-        return "agendamentoDentista";
+        return "agendamento/dentista";
     }
 
     @PostMapping("/agendamento/{id}")
@@ -76,7 +76,7 @@ public class AgendamentoController {
         if (result.hasErrors()) {
             model.addAttribute("agendamentoDTO", agendamentoDto);
             model.addAttribute("agendamento", agendamentoService.porId(id).get());
-            return "agendamentoDentista";
+            return "agendamento/dentista";
         }
 
         Agendamento agendamento = agendamentoService.confirmarAgendamento(id, agendamentoDto);
@@ -86,7 +86,7 @@ public class AgendamentoController {
     @GetMapping("/agendamento/recusar/{idAgendamento}")
     public String paginaRecusarAgendamentoModal(@PathVariable Long idAgendamento, Model model) {
         model.addAttribute("idAgendamento", idAgendamento);
-        return "recusarAgendamentoModal";
+        return "agendamento/recusarModal";
     }
 
     @PostMapping("/agendamento/recusar/{idAgendamento}")

@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import dgn.com.br.sgco.dto.ConsultaDTO;
 import dgn.com.br.sgco.entity.Consulta;
 import dgn.com.br.sgco.service.UsuarioService;
@@ -32,7 +31,7 @@ public class ConsultaController {
         model.addAttribute("idConsulta", idConsulta);
 
         model.addAttribute("agendamento", consultaService.findConsulta(idConsulta).get().getAgendamento());
-        return "consulta";
+        return "dentista/consulta";
     }
 
     @PostMapping("/consulta/{idConsulta}")

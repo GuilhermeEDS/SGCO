@@ -4,14 +4,11 @@ import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.service.AgendamentoService;
 import dgn.com.br.sgco.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -23,57 +20,26 @@ public class UsuarioController {
     @Autowired
     AgendamentoService agendamentoService;
 
-    @GetMapping("/login")
-    public String paginaLogin(@RequestParam(required = false) String error, Model model) {
-        model.addAttribute("error", error != null);
-
-        return "login";
-    }
-
     @GetMapping("/listagem/usuario")
     public String paginaListagemUsuarios(Model model) {
         Iterable<Usuario> usuarios = usuarioService.todos();
         model.addAttribute("usuarios", usuarios);
 
-        return "listagemUsuarios";
+        return "admin/listagemUsuarios";
     }
 
-    @GetMapping("/")
-    public String index(Model model) throws Exception {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String cpf = auth.getName();
-        Usuario usuario = usuarioService.porCpf(cpf).get();
-
-        model.addAttribute("usuario", usuario);
-
-        switch (usuario.getPapel()) {
-            case ADMIN -> {
-                return "indexAdmin";
-            }
-            case DENTISTA -> {
-                model.addAttribute("consultas",
-                        agendamentoService.porDentistaConfirmadosJson(usuario.getDentista()));
-                model.addAttribute("agendamentos", agendamentoService.porDentistaNaoConfirmados(usuario.getDentista()));
-                return "indexDentista";
-            }
-            default -> {
-                model.addAttribute("agendamentos", agendamentoService.porIdPaciente(usuario.getPaciente().getId()));
-                return "indexPaciente";
-            }
-        }
-    }
 
     @GetMapping("/usuario/remover/{idUsuario}")
     public String paginaRemoverUsuarioModal(@PathVariable Integer idUsuario, Model model) {
         model.addAttribute("idUsuario", idUsuario);
-        return "removerUsuarioModal";
+        return "admin/removerUsuarioModal";
     }
 
     @GetMapping("/usuario/detalhes/{idUsuario}")
     public String paginaDetalhesUsuarioModal(@PathVariable Long idUsuario, Model model) {
         Optional<Usuario> usuario = usuarioService.porId(idUsuario);
         model.addAttribute("usuario", usuario.get());
-        return "detalhesUsuarioModal";
+        return "admin/detalhesUsuarioModal";
     }
 
     @PostMapping("/usuario/remover/{idUsuario}")
@@ -83,6 +49,6 @@ public class UsuarioController {
         Iterable<Usuario> usuarios = usuarioService.todos();
         model.addAttribute("usuarios", usuarios);
 
-        return "tabelaUsuarios";
+        return "admin/tabelaUsuarios";
     }
 }

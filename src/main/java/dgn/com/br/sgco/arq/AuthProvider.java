@@ -1,4 +1,4 @@
-package dgn.com.br.sgco.config;
+package dgn.com.br.sgco.arq;
 
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.repository.UsuarioRepository;
