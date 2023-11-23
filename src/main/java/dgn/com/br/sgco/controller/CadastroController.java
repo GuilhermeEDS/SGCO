@@ -1,5 +1,6 @@
 package dgn.com.br.sgco.controller;
 
+import dgn.com.br.sgco.arq.Mensagens;
 import dgn.com.br.sgco.arq.ValidacaoEntidadeException;
 import dgn.com.br.sgco.dto.CadastroDentistaDTO;
 import dgn.com.br.sgco.dto.CadastroPacienteDTO;
@@ -50,6 +51,10 @@ public class CadastroController {
             return "dentista/cadastro";
         }
 
+        Mensagens mensagens = new Mensagens();
+        mensagens.adicionaSucesso("Dentista cadastrado com sucesso!");
+        model.addAttribute("mensagens", mensagens);
+
         return "redirect:/";
     }
 
@@ -81,6 +86,10 @@ public class CadastroController {
             model.addAttribute("generos", Genero.values());
             return "paciente/cadastro";
         }
+
+        Mensagens mensagens = new Mensagens();
+        mensagens.adicionaSucesso("Cadastrado com sucesso!");
+        model.addAttribute("mensagens", mensagens);
 
         return "/login";
     }

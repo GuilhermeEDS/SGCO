@@ -1,8 +1,8 @@
 package dgn.com.br.sgco.controller;
 
+import dgn.com.br.sgco.arq.Mensagens;
 import dgn.com.br.sgco.dto.AgendamentoDTO;
 import dgn.com.br.sgco.dto.AgendamentoDentistaDTO;
-import dgn.com.br.sgco.entity.Agendamento;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.enumeration.FormaPagamento;
 import dgn.com.br.sgco.enumeration.TipoAgendamento;
@@ -58,7 +58,12 @@ public class AgendamentoController {
             return "agendamento/index";
         }
 
-        Agendamento agendamento = agendamentoService.agendar(agendamentoDto, usuario.getPaciente());
+        agendamentoService.agendar(agendamentoDto, usuario.getPaciente());
+
+        Mensagens mensagens = new Mensagens();
+        mensagens.adicionaSucesso("Agendamento realizado com sucesso!");
+        model.addAttribute("mensagens", mensagens);
+
         return "redirect:/";
     }
 
@@ -71,7 +76,8 @@ public class AgendamentoController {
     }
 
     @PostMapping("/agendamento/{id}")
-    public String confirmarAgendamento(@PathVariable("id") long id, final @Valid AgendamentoDentistaDTO agendamentoDto, @NonNull BindingResult result, Model model) throws ParseException {
+    public String confirmarAgendamento(@PathVariable("id") long id, final @Valid AgendamentoDentistaDTO agendamentoDto,
+            @NonNull BindingResult result, Model model) throws ParseException {
 
         if (result.hasErrors()) {
             model.addAttribute("agendamentoDTO", agendamentoDto);
@@ -79,7 +85,12 @@ public class AgendamentoController {
             return "agendamento/dentista";
         }
 
-        Agendamento agendamento = agendamentoService.confirmarAgendamento(id, agendamentoDto);
+        agendamentoService.confirmarAgendamento(id, agendamentoDto);
+
+        Mensagens mensagens = new Mensagens();
+        mensagens.adicionaSucesso("Agendamento confirmado com sucesso!");
+        model.addAttribute("mensagens", mensagens);
+
         return "redirect:/";
     }
 
@@ -91,9 +102,7 @@ public class AgendamentoController {
 
     @PostMapping("/agendamento/recusar/{idAgendamento}")
     public String removerAgendamento(@PathVariable Long idAgendamento, Model model) {
-
         agendamentoService.recusarAgendamento(idAgendamento);
-
         return "redirect:/";
     }
 }

@@ -18,6 +18,8 @@
     </head>
 
     <body class="bg-sky-100" x-data="{ modalVisivel: false, idUsuario : 0 }">
+        <div th:replace="~{fragments :: toasts}"></div>
+
         <header th:replace="~{fragments :: header}"></header>
 
         <div class="flex flex-col items-center justify-center sm:my-4 sm:mx-4">
@@ -33,7 +35,9 @@
                 <div
                     class="self-start sm:self-center bg-white rounded w-full relative overflow-x-auto px-1 sm:mx-0"
                 >
-                    <table th:replace="~{admin/tabelaUsuarios :: tabela}"></table>
+                    <table
+                        th:replace="~{admin/tabelaUsuarios :: tabela}"
+                    ></table>
                 </div>
 
                 <a href="/" class="link mt-2">Voltar</a>

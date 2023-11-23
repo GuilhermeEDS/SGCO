@@ -32,4 +32,37 @@
             <span th:text="${err}"></span>
         </li>
     </ul>
+
+    <div id="toasts" th:fragment="toasts" th:if="${mensagens != null}">
+        <ul id="sucessos" th:if="${not #lists.isEmpty(mensagens.sucessos)}">
+            <li class="mb-1" th:each="mensagem : ${mensagens.sucessos}">
+                <i
+                    class="bi bi-check-lg bg-lime-300 border-2 border-slate-600 text-slate-600 rounded-full inline px-0.5 mr-1"
+                ></i>
+                <span th:text="${mensagem}"></span>
+            </li>
+        </ul>
+        <ul id="avisos" th:if="${not #lists.isEmpty(mensagens.avisos)}">
+            <li class="mb-1" th:each="mensagem : ${mensagens.avisos}">
+                <i
+                    class="bi bi-exclamation-lg bg-amber-300 border-2 border-slate-600 text-slate-600 rounded-full inline px-0.5 mr-1"
+                ></i>
+                <span th:text="${mensagem}"></span>
+            </li>
+        </ul>
+        <ul id="erros" th:if="${not #lists.isEmpty(mensagens.erros)}">
+            <li class="mb-1" th:each="mensagem : ${mensagens.erros}">
+                <i
+                    class="bi bi-x-lg bg-rose-300 border-2 border-slate-600 text-slate-600 rounded-full inline px-1 mr-1"
+                ></i>
+                <span th:text="${mensagem}"></span>
+            </li>
+        </ul>
+
+        <script>
+            setTimeout(() => {
+                document.getElementById("toasts").classList.add("hidden");
+            }, 5000);
+        </script>
+    </div>
 </div>

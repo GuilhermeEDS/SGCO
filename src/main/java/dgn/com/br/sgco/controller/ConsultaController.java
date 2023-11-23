@@ -7,18 +7,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import dgn.com.br.sgco.arq.Mensagens;
 import dgn.com.br.sgco.dto.ConsultaDTO;
-import dgn.com.br.sgco.entity.Consulta;
-import dgn.com.br.sgco.service.UsuarioService;
 import dgn.com.br.sgco.service.ConsultaService;
 import jakarta.validation.Valid;
 import lombok.NonNull;
 
 @Controller
 public class ConsultaController {
-    @Autowired
-    private UsuarioService usuarioService;
-
     @Autowired
     private ConsultaService consultaService;
 
@@ -38,7 +35,12 @@ public class ConsultaController {
     public String finalizarConsulta(@PathVariable("idConsulta") long idConsulta, final @Valid ConsultaDTO consultaDTO,
             @NonNull BindingResult result, Model model) {
 
-        Consulta consulta = consultaService.salvar(consultaDTO, idConsulta);
+        consultaService.salvar(consultaDTO, idConsulta);
+
+        Mensagens mensagens = new Mensagens();
+        mensagens.adicionaSucesso("Consulta salva com sucesso!");
+        model.addAttribute("mensagens", mensagens);
+
         return "redirect:/";
     }
 }

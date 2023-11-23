@@ -23,6 +23,8 @@
     </head>
 
     <body class="bg-sky-100" x-data="{ modalVisivel: false }">
+        <div th:replace="~{fragments :: toasts}"></div>
+
         <header th:replace="~{fragments :: header}"></header>
 
         <div class="flex items-start justify-evenly">

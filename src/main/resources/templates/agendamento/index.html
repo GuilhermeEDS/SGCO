@@ -3,6 +3,8 @@
     <head th:replace="~{fragments :: mainHeader('Agendamento')}"></head>
 
     <body class="bg-sky-100">
+        <div th:replace="~{fragments :: toasts}"></div>
+
         <header th:replace="~{fragments :: header}"></header>
         <div class="flex flex-col items-center">
             <form
@@ -176,10 +178,7 @@
                 >
                     <a class="secondary-btn" href="/"> Cancelar </a>
 
-                    <input
-                        type="submit"
-                        class="primary-btn"
-                    />
+                    <input type="submit" class="primary-btn" />
                 </div>
             </form>
         </div>

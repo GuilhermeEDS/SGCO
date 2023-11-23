@@ -1,5 +1,6 @@
 package dgn.com.br.sgco.controller;
 
+import dgn.com.br.sgco.arq.Mensagens;
 import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.service.AgendamentoService;
 import dgn.com.br.sgco.service.UsuarioService;
@@ -28,7 +29,6 @@ public class UsuarioController {
         return "admin/listagemUsuarios";
     }
 
-
     @GetMapping("/usuario/remover/{idUsuario}")
     public String paginaRemoverUsuarioModal(@PathVariable Integer idUsuario, Model model) {
         model.addAttribute("idUsuario", idUsuario);
@@ -48,6 +48,10 @@ public class UsuarioController {
 
         Iterable<Usuario> usuarios = usuarioService.todos();
         model.addAttribute("usuarios", usuarios);
+
+        Mensagens mensagens = new Mensagens();
+        mensagens.adicionaSucesso("Usuário removido com sucesso!");
+        model.addAttribute("mensagens", mensagens);
 
         return "admin/tabelaUsuarios";
     }
