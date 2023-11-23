@@ -12,7 +12,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class Consulta extends Entidade {
     @OneToOne
-    @PrimaryKeyJoinColumn
     private Agendamento agendamento;
 
     private float valorProcedimento;

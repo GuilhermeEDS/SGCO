@@ -140,7 +140,7 @@ public class Config {
         agendamento.setConfirmacao(true);
         agendamento.setTipo(TipoAgendamento.ACOMPANHAMENTO);
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, -2);
+        calendar.add(Calendar.MONTH, -1);
         Date data = calendar.getTime();
         agendamento.setDataConsulta(data);
         agendamentoRepository.save(agendamento);
@@ -150,7 +150,7 @@ public class Config {
         agendamento2.setConfirmacao(true);
         agendamento2.setTipo(TipoAgendamento.ACOMPANHAMENTO);
         calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, -2);
+        calendar.add(Calendar.MONTH, -1);
         data = calendar.getTime();
         agendamento2.setDataConsulta(data);
         agendamentoRepository.save(agendamento2);
@@ -160,7 +160,142 @@ public class Config {
         agendamento3.setConfirmacao(true);
         agendamento3.setTipo(TipoAgendamento.CONSULTA);
         calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CIRURGIA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CIRURGIA);
+        calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -2);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CONSULTA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -2);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CIRURGIA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -3);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CONSULTA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -3);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CONSULTA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -3);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CONSULTA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -3);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.ACOMPANHAMENTO);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -4);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CIRURGIA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -4);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CONSULTA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -0);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CONSULTA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -0);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CONSULTA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -0);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CIRURGIA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -0);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.CIRURGIA);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -0);
+        data = calendar.getTime();
+        agendamento3.setDataConsulta(data);
+        agendamentoRepository.save(agendamento3);
+
+        agendamento3 = new Agendamento();
+        agendamento3.setConfirmacao(true);
+        agendamento3.setTipo(TipoAgendamento.ACOMPANHAMENTO);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -0);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
         agendamentoRepository.save(agendamento3);

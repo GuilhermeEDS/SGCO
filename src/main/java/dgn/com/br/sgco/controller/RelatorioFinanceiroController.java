@@ -17,7 +17,7 @@ public class RelatorioFinanceiroController {
     @Autowired
     AgendamentoService agendamentoService;
 
-    @GetMapping("/relatorio")
+    @GetMapping("/relatorioFinanceiro")
     public String dadosFinanceiros(@NonNull Model model) {
         Map<String, Integer[]> mesesValores = new LinkedHashMap<>();
         mesesValores.put("Setembro", new Integer[]{19, 18, 17});

@@ -99,7 +99,8 @@ public class AgendamentoService {
         agendamento.setConfirmacao(true);
 
         Consulta consulta = new Consulta();
-        consultaRepository.save(consulta);
+        consulta.setAgendamento(agendamento);
+        consulta = consultaRepository.save(consulta);
         agendamento.setConsulta(consulta);
 
         return agendamentoRepository.save(agendamento);
@@ -138,21 +139,20 @@ public class AgendamentoService {
 
     public String porDentistaConfirmadosJson(Dentista dentista) throws Exception {
         Iterable<Agendamento> agendamentos = porDentistaConfirmados(dentista);
-
+        SimpleDateFormat sdtd = new SimpleDateFormat("dd");
         SimpleDateFormat sdt = new SimpleDateFormat("HH:mm");
         StringBuilder json = new StringBuilder("[");
-
         for (Agendamento agendamento : agendamentos) {
-            if (semanaAtual(agendamento.getDataConsulta())) {
-                json.append("{\"day\": ").append(agendamento.getWeek())
-                        .append(", \"start\": \"")
+                json.append("{\"dia\": ").append(sdtd.format(agendamento.getDataConsulta()))
+                        .append(", \"horaInicio\": \"")
                         .append(sdt.format(agendamento.getHoraConsulta()))
-                        .append("\", \"end\": \"")
+                        .append("\", \"horaFim\": \"")
                         .append(sdt.format(agendamento.getHoraFim()))
-                        .append("\", \"title\" : \"")
+                        .append("\", \"titulo\" : \"")
                         .append(agendamento.getPaciente().getPessoa().getNome())
-                        .append("\" , \"color\": \"#779ECB\"},");
-            }
+                        .append("\" , \"id\": \"")
+                        .append(agendamento.getConsulta().getId())
+                        .append("\"},");
         }
 
         if (!json.toString().equals("[")) {
@@ -167,7 +167,7 @@ public class AgendamentoService {
     public Map<String, Integer[]> porMes(){
         Calendar calendar = Calendar.getInstance();
         Date fim = calendar.getTime();
-        calendar.add(Calendar.MONTH, -6);
+        calendar.add(Calendar.MONTH, -5);
         Date inicio = calendar.getTime();
 
         Iterable<Agendamento> agendamentos = agendamentoRepository.findByMes(inicio, fim);
@@ -178,7 +178,6 @@ public class AgendamentoService {
                 contador[i][j] = 0;
             }
         }
-
         for(int i = 0; i < 6; i++){
             for(Agendamento agendamento : agendamentos){
                 Calendar agenCalendar = Calendar.getInstance(); 
@@ -198,14 +197,14 @@ public class AgendamentoService {
                 }
             }
             calendar.add(Calendar.MONTH, +1);
+
         }
         calendar.add(Calendar.MONTH, -6);
         Map<String, Integer[]> mesesValores = new LinkedHashMap<>();
-        
         for(int i = 0; i < 6; i++){
-            calendar.add(Calendar.MONTH, +1);
-            mesesValores.put(meses[calendar.get(calendar.MONTH)], new Integer[]{contador[i][0], contador[i][1], contador[i][2]});
 
+            mesesValores.put(meses[calendar.get(calendar.MONTH)], new Integer[]{contador[i][0], contador[i][1], contador[i][2]});
+            calendar.add(Calendar.MONTH, +1);
         }
 
         return mesesValores;
