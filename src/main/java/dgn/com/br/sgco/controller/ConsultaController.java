@@ -7,6 +7,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import dgn.com.br.sgco.arq.Mensagens;
 import dgn.com.br.sgco.dto.ConsultaDTO;
@@ -32,15 +34,15 @@ public class ConsultaController {
     }
 
     @PostMapping("/consulta/{idConsulta}")
-    public String finalizarConsulta(@PathVariable("idConsulta") long idConsulta, final @Valid ConsultaDTO consultaDTO,
+    public RedirectView finalizarConsulta(RedirectAttributes redirectAttributes, @PathVariable("idConsulta") long idConsulta, final @Valid ConsultaDTO consultaDTO,
             @NonNull BindingResult result, Model model) {
 
         consultaService.salvar(consultaDTO, idConsulta);
 
         Mensagens mensagens = new Mensagens();
         mensagens.adicionaSucesso("Consulta salva com sucesso!");
-        model.addAttribute("mensagens", mensagens);
+        redirectAttributes.addFlashAttribute("mensagens", mensagens);
 
-        return "redirect:/";
+        return new RedirectView("/", true);
     }
 }

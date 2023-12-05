@@ -20,6 +20,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.text.ParseException;
 
@@ -45,7 +47,7 @@ public class AgendamentoController {
     }
 
     @PostMapping("/agendamento")
-    public String agendar(final @Valid AgendamentoDTO agendamentoDto, @NonNull BindingResult result, Model model) {
+    public RedirectView agendar(RedirectAttributes redirectAttributes, final @Valid AgendamentoDTO agendamentoDto, @NonNull BindingResult result, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String cpf = auth.getName();
         Usuario usuario = usuarioService.porCpf(cpf).get();
@@ -55,16 +57,18 @@ public class AgendamentoController {
             model.addAttribute("formasPagamento", FormaPagamento.values());
             model.addAttribute("tiposAgendamento", TipoAgendamento.values());
             model.addAttribute("dentistas", dentistaService.todos());
-            return "agendamento/index";
+
+            return new RedirectView("agendamento/index", true);
         }
 
         agendamentoService.agendar(agendamentoDto, usuario.getPaciente());
 
         Mensagens mensagens = new Mensagens();
         mensagens.adicionaSucesso("Agendamento realizado com sucesso!");
-        model.addAttribute("mensagens", mensagens);
 
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute("mensagens", mensagens);
+
+        return new RedirectView("/", true);
     }
 
     @GetMapping("/agendamento/{id}")
@@ -76,22 +80,22 @@ public class AgendamentoController {
     }
 
     @PostMapping("/agendamento/{id}")
-    public String confirmarAgendamento(@PathVariable("id") long id, final @Valid AgendamentoDentistaDTO agendamentoDto,
+    public RedirectView confirmarAgendamento(RedirectAttributes redirectAttributes, @PathVariable("id") long id, final @Valid AgendamentoDentistaDTO agendamentoDto,
             @NonNull BindingResult result, Model model) throws ParseException {
 
         if (result.hasErrors()) {
             model.addAttribute("agendamentoDTO", agendamentoDto);
             model.addAttribute("agendamento", agendamentoService.porId(id).get());
-            return "agendamento/dentista";
+            return new RedirectView("agendamento/dentista", true);
         }
 
         agendamentoService.confirmarAgendamento(id, agendamentoDto);
 
         Mensagens mensagens = new Mensagens();
         mensagens.adicionaSucesso("Agendamento confirmado com sucesso!");
-        model.addAttribute("mensagens", mensagens);
+        redirectAttributes.addFlashAttribute("mensagens", mensagens);
 
-        return "redirect:/";
+        return new RedirectView("/", true);
     }
 
     @GetMapping("/agendamento/recusar/{idAgendamento}")
@@ -101,8 +105,13 @@ public class AgendamentoController {
     }
 
     @PostMapping("/agendamento/recusar/{idAgendamento}")
-    public String removerAgendamento(@PathVariable Long idAgendamento, Model model) {
+    public RedirectView removerAgendamento(RedirectAttributes redirectAttributes, @PathVariable Long idAgendamento, Model model) {
         agendamentoService.recusarAgendamento(idAgendamento);
-        return "redirect:/";
+
+        Mensagens mensagens = new Mensagens();
+        mensagens.adicionaSucesso("Agendamento recusado com sucesso!");
+        redirectAttributes.addFlashAttribute("mensagens", mensagens);
+
+        return new RedirectView("/", true);
     }
 }

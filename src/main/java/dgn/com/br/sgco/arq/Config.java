@@ -14,7 +14,6 @@ import dgn.com.br.sgco.repository.PessoaRepository;
 import dgn.com.br.sgco.repository.UsuarioRepository;
 import jakarta.servlet.DispatcherType;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -75,7 +74,7 @@ public class Config {
             authorize.anyRequest().authenticated();
         });
         http.formLogin(form -> {
-            form.loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/", true);
+            form.loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/login-success", true);
             form.usernameParameter("cpf").passwordParameter("senha");
             form.failureUrl("/login?error=true");
         });
@@ -111,6 +110,7 @@ public class Config {
         pessoaDentista.setCpf("123.456.789-09");
         pessoaDentista.setNome("Dentista");
         pessoaDentista.setEndereco(null);
+        pessoaDentista.setEmail("SGCOSuporte@gmail.com");
         dentista.setPessoa(pessoaDentista);
         Dentista dentistaAux = new Dentista();
         dentistaAux.setPessoa(pessoaDentista);
@@ -125,6 +125,7 @@ public class Config {
         Pessoa pessoaPaciente = new Pessoa();
         pessoaPaciente.setCpf("135.477.713-15");
         pessoaPaciente.setNome("Paciente");
+        pessoaPaciente.setEmail("SGCOSuporte@gmail.com");
         pessoaPaciente.setEndereco(null);
         paciente.setPessoa(pessoaPaciente);
         Paciente pacienteAux = new Paciente();

@@ -1,5 +1,6 @@
 package dgn.com.br.sgco.service;
 
+import dgn.com.br.sgco.arq.EmailSender;
 import dgn.com.br.sgco.arq.ValidacaoEntidadeException;
 import dgn.com.br.sgco.dto.AgendamentoDTO;
 import dgn.com.br.sgco.dto.AgendamentoDentistaDTO;
@@ -35,6 +36,9 @@ public class AgendamentoService {
 
     @Autowired
     ConsultaRepository consultaRepository;
+
+    @Autowired
+    EmailSender emailSender;
 
     String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
@@ -76,7 +80,7 @@ public class AgendamentoService {
         agendamento.setHoraConsulta(agendamentoDto.getHoraConsulta());
         agendamento.setObservacoesPaciente(agendamentoDto.getObservacoesPaciente());
         agendamento.setFormaPagamento(agendamentoDto.getFormaPagamento().toFormaPagamento());
-
+        emailSender.enviarEmail(agendamento.getDentista().getPessoa().getEmail(), "Novo Agendamento", "Viemos por meio deste lhe informar que você tem um novo agendamento, entre em nosso sistema para mais detalhes sobre o agendamento.");
         return agendamentoRepository.save(agendamento);
     }
 
@@ -102,7 +106,7 @@ public class AgendamentoService {
         consulta.setAgendamento(agendamento);
         consulta = consultaRepository.save(consulta);
         agendamento.setConsulta(consulta);
-
+        emailSender.enviarEmail(agendamento.getPaciente().getPessoa().getEmail(), "Agendamento Confirmado", "Viemos por meio deste lhe informar que seu agendamento com o doutor tal foi confirmado para o dia tal.");
         return agendamentoRepository.save(agendamento);
     }
 
@@ -117,7 +121,9 @@ public class AgendamentoService {
 
         Agendamento agendamento = optAgendamento.get();
         agendamento.setConfirmacao(false);
-
+        emailSender.enviarEmail(agendamento.getPaciente().getPessoa().getEmail(), "Agendamento Cancelado", "Viemos por" +
+                " meio deste lhe informar que seu agendamento com o doutor tal foi cancelado para o dia tal, você pode realizar " +
+                "um novo agendamento em nosso sistema.");
         return agendamentoRepository.save(agendamento);
     }
 

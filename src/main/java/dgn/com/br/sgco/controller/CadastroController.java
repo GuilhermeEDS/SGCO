@@ -16,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class CadastroController {
@@ -31,12 +33,12 @@ public class CadastroController {
     }
 
     @PostMapping("/cadastro/dentista")
-    public String cadastrarDentista(final @Valid CadastroDentistaDTO cadastroDentistaDTO, @NonNull BindingResult result,
+    public RedirectView cadastrarDentista(RedirectAttributes redirectAttributes, final @Valid CadastroDentistaDTO cadastroDentistaDTO, @NonNull BindingResult result,
             Model model) {
         if (result.hasErrors()) {
             model.addAttribute("cadastroDentistaDTO", cadastroDentistaDTO);
             model.addAttribute("generos", Genero.values());
-            return "dentista/cadastro";
+            return new RedirectView("dentista/cadastro", true);
         }
 
         try {
@@ -48,14 +50,14 @@ public class CadastroController {
 
             model.addAttribute("cadastroDentistaDTO", cadastroDentistaDTO);
             model.addAttribute("generos", Genero.values());
-            return "dentista/cadastro";
+            return new RedirectView("dentista/cadastro", true);
         }
 
         Mensagens mensagens = new Mensagens();
         mensagens.adicionaSucesso("Dentista cadastrado com sucesso!");
-        model.addAttribute("mensagens", mensagens);
+        redirectAttributes.addFlashAttribute("mensagens", mensagens);
 
-        return "redirect:/";
+        return new RedirectView("/", true);
     }
 
     @GetMapping("/cadastro/paciente")
@@ -67,12 +69,12 @@ public class CadastroController {
     }
 
     @PostMapping("/cadastro/paciente")
-    public String cadastrarPaciente(final @Valid CadastroPacienteDTO cadastroPacienteDTO, @NonNull BindingResult result,
+    public RedirectView cadastrarPaciente(RedirectAttributes redirectAttributes, final @Valid CadastroPacienteDTO cadastroPacienteDTO, @NonNull BindingResult result,
             Model model) {
         if (result.hasErrors()) {
             model.addAttribute("cadastroPacienteDTO", cadastroPacienteDTO);
             model.addAttribute("generos", Genero.values());
-            return "paciente/cadastro";
+            return new RedirectView("paciente/cadastro", true);
         }
 
         try {
@@ -84,13 +86,13 @@ public class CadastroController {
 
             model.addAttribute("cadastroPacienteDTO", cadastroPacienteDTO);
             model.addAttribute("generos", Genero.values());
-            return "paciente/cadastro";
+            return new RedirectView("paciente/cadastro", true);
         }
 
         Mensagens mensagens = new Mensagens();
         mensagens.adicionaSucesso("Cadastrado com sucesso!");
-        model.addAttribute("mensagens", mensagens);
+        redirectAttributes.addFlashAttribute("mensagens", mensagens);
 
-        return "/login";
+        return new RedirectView("/login", true);
     }
 }

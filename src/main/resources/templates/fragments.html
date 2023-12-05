@@ -10,6 +10,12 @@
 
         <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" />
         <link th:href="@{/css/tailwind.css}" rel="stylesheet" />
+
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        />
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
     </head>
 
@@ -58,11 +64,11 @@
                 <span th:text="${mensagem}"></span>
             </li>
         </ul>
-
-        <script>
-            setTimeout(() => {
-                document.getElementById("toasts").classList.add("hidden");
-            }, 5000);
-        </script>
     </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById("toasts").classList.add("hidden");
+        }, 5000);
+    </script>
 </div>
