@@ -23,6 +23,7 @@ public class ConsultaService {
         // validação do opcional
         Consulta consulta = consultaRepository.findById(idConsulta).get();
         consulta.setDescricao(consultaDTO.getDescricao());
+        consulta.setValorProcedimento(consultaDTO.getValorProcedimento());
 
         return consultaRepository.save(consulta);
     }

@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class ConsultaDTO {
     private String descricao;
+    private float valorProcedimento;
 }

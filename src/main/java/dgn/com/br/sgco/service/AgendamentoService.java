@@ -170,25 +170,30 @@ public class AgendamentoService {
         return json.toString();
     }
     
-    public Map<String, Integer[]> porMes(){
+    public Map<String, Float[]> porMes(){
         Calendar calendar = Calendar.getInstance();
         Date fim = calendar.getTime();
         calendar.add(Calendar.MONTH, -5);
         Date inicio = calendar.getTime();
 
+
         Iterable<Agendamento> agendamentos = agendamentoRepository.findByMes(inicio, fim);
         
-        int[][] contador = new int[6][3];
+        float[][] contador = new float[6][3];
+        float[] contadorValores = new float[6];
         for(int i = 0; i < 6; i++){
             for(int j = 0; j < 3; j++){
                 contador[i][j] = 0;
             }
+            contadorValores[i] = 0;
         }
         for(int i = 0; i < 6; i++){
             for(Agendamento agendamento : agendamentos){
                 Calendar agenCalendar = Calendar.getInstance(); 
                 agenCalendar.setTime(agendamento.getDataConsulta());
                 if(agenCalendar.get(agenCalendar.MONTH) == calendar.get(calendar.MONTH)){
+                    contadorValores[i] += agendamento.getConsulta().getValorProcedimento();
+                    //contadorValores[i] += 1;
                     switch (agendamento.getTipo()) {
                         case ACOMPANHAMENTO:
                             contador[i][0]++;
@@ -206,10 +211,11 @@ public class AgendamentoService {
 
         }
         calendar.add(Calendar.MONTH, -6);
-        Map<String, Integer[]> mesesValores = new LinkedHashMap<>();
+        Map<String, Float[]> mesesValores = new LinkedHashMap<>();
         for(int i = 0; i < 6; i++){
 
-            mesesValores.put(meses[calendar.get(calendar.MONTH)], new Integer[]{contador[i][0], contador[i][1], contador[i][2]});
+            mesesValores.put(meses[calendar.get(calendar.MONTH)], new Float[]{contador[i][0], contador[i][1], contador[i][2], contadorValores[i]});
+            //mesesValores.put(meses[calendar.get(calendar.MONTH)], new Float[]{contador[i][0], contador[i][1], contador[i][2]});
             calendar.add(Calendar.MONTH, +1);
         }
 

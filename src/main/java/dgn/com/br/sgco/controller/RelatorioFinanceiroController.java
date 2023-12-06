@@ -19,12 +19,7 @@ public class RelatorioFinanceiroController {
 
     @GetMapping("/relatorioFinanceiro")
     public String dadosFinanceiros(@NonNull Model model) {
-        Map<String, Integer[]> mesesValores = new LinkedHashMap<>();
-        mesesValores.put("Setembro", new Integer[]{19, 18, 17});
-        mesesValores.put("Outubro", new Integer[]{14, 15, 16});
-        mesesValores.put("Novembro", new Integer[]{13, 12, 13});
-        
-        // Adicionando o mapa ao modelo
+
         model.addAttribute("mesesValores", agendamentoService.porMes());
 
         return "relatorioFinanceiro";

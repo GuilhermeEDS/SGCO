@@ -1,6 +1,7 @@
 package dgn.com.br.sgco.arq;
 
 import dgn.com.br.sgco.entity.Agendamento;
+import dgn.com.br.sgco.entity.Consulta;
 import dgn.com.br.sgco.entity.Dentista;
 import dgn.com.br.sgco.entity.Paciente;
 import dgn.com.br.sgco.entity.Pessoa;
@@ -8,6 +9,7 @@ import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.enumeration.Papel;
 import dgn.com.br.sgco.enumeration.TipoAgendamento;
 import dgn.com.br.sgco.repository.AgendamentoRepository;
+import dgn.com.br.sgco.repository.ConsultaRepository;
 import dgn.com.br.sgco.repository.DentistaRepository;
 import dgn.com.br.sgco.repository.PacienteRepository;
 import dgn.com.br.sgco.repository.PessoaRepository;
@@ -15,6 +17,7 @@ import dgn.com.br.sgco.repository.UsuarioRepository;
 import jakarta.servlet.DispatcherType;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +48,16 @@ public class Config {
 
     @Autowired
     PacienteRepository pacienteRepository;
+    
+    @Autowired
+    AgendamentoRepository agendamentoRepository;
+
+    @Autowired
+    ConsultaRepository consultaRepository;
 
     @Autowired
     private AuthProvider authProvider;
 
-    @Autowired
-    AgendamentoRepository agendamentoRepository;
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -89,7 +96,10 @@ public class Config {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authProvider);
-        criarUsuariosPadrao();
+        Iterable<Pessoa> pessoas = pessoaRepository.findAll();
+        if((pessoas instanceof Collection<?>) && ((Collection<?>) pessoas).isEmpty()){
+            criarUsuariosPadrao();
+        }
     }
 
     public void criarUsuariosPadrao() {
@@ -144,7 +154,12 @@ public class Config {
         calendar.add(Calendar.MONTH, -1);
         Date data = calendar.getTime();
         agendamento.setDataConsulta(data);
-        agendamentoRepository.save(agendamento);
+        Consulta consulta = new Consulta();
+        consulta.setValorProcedimento(50);
+        agendamento = agendamentoRepository.save(agendamento);
+        consulta.setAgendamento(agendamento);
+        consultaRepository.save(consulta);
+        //agendamento.setConsulta(consulta);
         
         //Agendamento 2
         Agendamento agendamento2 = new Agendamento();
@@ -154,7 +169,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -1);
         data = calendar.getTime();
         agendamento2.setDataConsulta(data);
-        agendamentoRepository.save(agendamento2);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(50);
+        agendamento2 = agendamentoRepository.save(agendamento2);
+        consulta.setAgendamento(agendamento2);
+        consultaRepository.save(consulta);
 
         //Agendamento 3
         Agendamento agendamento3 = new Agendamento();
@@ -164,7 +183,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -1);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(70);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -173,7 +196,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -1);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(100);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -182,7 +209,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -2);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(100);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -191,7 +222,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -2);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(70);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -200,7 +235,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -3);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(100);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -209,7 +248,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -3);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(70);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -218,7 +261,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -3);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(70);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -227,7 +274,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -3);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(70);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -236,7 +287,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -4);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(50);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -245,7 +300,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -4);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(100);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -254,7 +313,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -0);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(70);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -263,7 +326,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -0);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(70);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -272,7 +339,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -0);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(70);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -281,7 +352,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -0);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(100);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -290,7 +365,11 @@ public class Config {
         calendar.add(Calendar.MONTH, -0);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(100);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
 
         agendamento3 = new Agendamento();
         agendamento3.setConfirmacao(true);
@@ -299,6 +378,10 @@ public class Config {
         calendar.add(Calendar.MONTH, -0);
         data = calendar.getTime();
         agendamento3.setDataConsulta(data);
-        agendamentoRepository.save(agendamento3);
+        consulta = new Consulta();
+        consulta.setValorProcedimento(50);
+        agendamento3 = agendamentoRepository.save(agendamento3);
+        consulta.setAgendamento(agendamento3);
+        consultaRepository.save(consulta);
     }
 }
