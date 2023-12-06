@@ -27,6 +27,12 @@
     background-color: #f0f0f0;
 }
 
+.empty{
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
 .expanded {
     background-color: #d3d3d3;
 }

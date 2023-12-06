@@ -19,7 +19,7 @@ const Calendario = {
     for (let i = 0; i < 7; i++) {
       diasMostrados++;
       const diaSemana = document.createElement('div');
-      diaSemana.classList.add('dia', 'empty');
+      diaSemana.classList.add('empty');
       let feira
       switch (i) {
         case 1:
@@ -43,17 +43,16 @@ const Calendario = {
         default:
           feira = "Domingo";
       }
-      diasCalendario.appendChild(this.createDia(feira));
+      diasCalendario.appendChild(this.createDiaDeSemana(feira));
     }
     if (this.modoVisualizacao === 'mes') {
       const qtdDias = new Date(ano, mes + 1, 0).getDate();
       const primeiroDia = new Date(ano, mes, 1).getDay();
 
-
       for (let i = 0; i < primeiroDia; i++) {
         diasMostrados++;
         const diaVazio = document.createElement('div');
-        diaVazio.classList.add('dia', 'empty');
+        diaVazio.classList.add('empty');
         diasCalendario.appendChild(diaVazio);
       }
 
@@ -62,9 +61,9 @@ const Calendario = {
         diasCalendario.appendChild(this.createDia(dia));
       }
       
-      for (let j = 0; diasMostrados+j < 42 ; j++) {
+      for (let j = 0; diasMostrados+j < 49 ; j++) {
         const diaVazio = document.createElement('div');
-        diaVazio.classList.add('dia', 'empty');
+        diaVazio.classList.add('empty');
         diasCalendario.appendChild(diaVazio);
       }
       
@@ -104,6 +103,13 @@ const Calendario = {
         this.expandirDia(dia);
       });
     }
+    return elementoDia;
+  },
+
+  createDiaDeSemana: function (dia) {
+    const elementoDia = document.createElement('div');
+    elementoDia.classList.add('empty');
+    elementoDia.textContent = dia;
     return elementoDia;
   },
 
