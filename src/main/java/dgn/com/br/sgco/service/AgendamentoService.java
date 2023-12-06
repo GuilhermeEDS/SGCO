@@ -149,7 +149,7 @@ public class AgendamentoService {
         SimpleDateFormat sdt = new SimpleDateFormat("HH:mm");
         StringBuilder json = new StringBuilder("[");
         for (Agendamento agendamento : agendamentos) {
-                json.append("{\"dia\": ").append(sdtd.format(agendamento.getDataConsulta()))
+                json.append("{\"dia\": ").append(sdtd.format(agendamento.getDataConsulta()).replaceFirst ("^0*", ""))
                         .append(", \"horaInicio\": \"")
                         .append(sdt.format(agendamento.getHoraConsulta()))
                         .append("\", \"horaFim\": \"")

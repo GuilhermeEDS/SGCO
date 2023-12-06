@@ -11,5 +11,8 @@ import java.util.Optional;
 
 public interface ConsultaRepository extends CrudRepository<Consulta, Long> {
     @Query("SELECT c FROM Consulta c WHERE c.agendamento.id = ?1 AND c.ativo = true")
-    Optional<Agendamento> findByIdAgendamento(long id);
+    Optional<Consulta> findByIdAgendamento(long id);
+
+    @Query("SELECT c FROM Consulta c WHERE c.agendamento.paciente.pessoa.cpf = ?1 AND c.ativo = true")
+    Optional<Consulta> findAllByPacienteCpf(String cpf);
 }
