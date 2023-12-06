@@ -1,0 +1,45 @@
+<table
+        xmlns:th="http://www.w3.org/1999/xhtml"
+        th:fragment="tabela"
+        id="tabelaConsultas"
+        class="w-full divide-y divide-slate-500"
+>
+  <thead>
+  <tr class="text-slate-500">
+    <th class="p-2 font-normal text-left uppercase">Dentista</th>
+    <th class="p-2 font-normal text-left uppercase">Horário</th>
+    <th class="p-2 font-normal text-left uppercase">Descrição</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr
+          class="odd:bg-white even:bg-slate-100"
+          th:each="consulta : ${consultas}"
+  >
+    <td
+            class="p-2 text-gray-700 font-semibold"
+            th:text="${consulta.getAgendamento().getDentista().getPessoa().getNome()}"
+    ></td>
+    <td
+            class="p-2 text-gray-700 font-semibold"
+            th:text="${#dates.format(consulta.agendamento.getDataConsulta(),'dd/MM/yyyy') + ' ' + #dates.format(consulta.agendamento.getHoraConsulta(),'HH:mm')}"
+    ></td>
+    <td
+            class="p-2 text-gray-700 font-semibold"
+            th:text="${consulta.descricao}"
+    ></td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr th:if="${consultas.isEmpty()}">
+    <td colspan="3" class="p-2 text-gray-700 text-center font-semibold">
+      Sem consultas cadastradas.
+    </td>
+  </tr>
+  <tr class="text-slate-500">
+    <th class="p-2 font-normal text-left uppercase">Dentista</th>
+    <th class="p-2 font-normal text-left uppercase">Horário</th>
+    <th class="p-2 font-normal text-left uppercase">Descrição</th>
+  </tr>
+  </tfoot>
+</table>

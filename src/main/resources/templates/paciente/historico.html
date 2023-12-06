@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt_BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <th:block
+          th:replace="~{fragments :: mainHeader('Histórico')}"
+  />
+
+  <script
+          defer
+          src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+  ></script>
+  <script
+          defer
+          src="https://unpkg.com/htmx.org@1.9.6"
+          integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
+          crossorigin="anonymous"
+  ></script>
+</head>
+
+<body class="bg-sky-100">
+<div th:replace="~{fragments :: toasts}"></div>
+
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="flex flex-col items-center justify-center sm:my-4 sm:mx-4">
+  <div
+          class="flex w-full flex-col items-center sm:m-4 px-2 sm:bg-white sm:shadow-md sm:px-8 sm:pt-6 sm:pb-8"
+  >
+    <h1
+            class="font-bold text-2xl text-center text-gray-700 uppercase tracking-wide mb-2"
+    >
+      Histórico
+    </h1>
+
+    <div
+            class="self-start sm:self-center bg-white rounded w-full relative overflow-x-auto px-1 sm:mx-0"
+    >
+      <table
+              th:replace="~{paciente/tabelaConsultas :: tabela}"
+      ></table>
+    </div>
+
+    <a onclick="history.go(-1)" class="link mt-2">Voltar</a>
+  </div>
+</div>
+
+</body>
+</html>

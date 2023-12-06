@@ -51,6 +51,7 @@ public class MainController {
                 return "dentista/index";
             }
             default -> {
+                model.addAttribute("cpf", cpf);
                 model.addAttribute("agendamentos", agendamentoService.porIdPaciente(usuario.getPaciente().getId()));
                 return "paciente/index";
             }

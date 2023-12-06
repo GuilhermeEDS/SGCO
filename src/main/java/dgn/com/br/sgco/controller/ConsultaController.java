@@ -58,6 +58,6 @@ public class ConsultaController {
     @GetMapping("/consulta/historico/{cpf}")
     public String paginaHistorico(@NonNull Model model, @PathVariable("cpf") String cpf){
         model.addAttribute("consultas", consultaRepository.findAllByPacienteCpf(cpf));
-        return "/paciente/historico/";
+        return "/paciente/historico";
     }
 }

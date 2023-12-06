@@ -6,11 +6,19 @@
         <div th:replace="~{fragments :: toasts}"></div>
 
         <header th:replace="~{fragments :: header}"></header>
+        <div class="flex flex-col items-center m-4">
+            <div
+                    class="border flex flex-col rounded max-w-3xl w-full items-center px-8 pb-5 pt-3 bg-white shadow-md"
+            >
+                <a class="secondary-btn" th:href="'/consulta/historico/' + ${cpf}">Histórico</a>
+            </div>
+        </div>
 
         <div class="flex flex-col items-center m-4">
             <div
                 class="border rounded max-w-3xl w-full flex flex-col px-8 pb-10 pt-3 bg-white shadow-md"
             >
+
                 <h1
                     class="font-bold text-xl text-center mt-3 mb-6 text-gray-700"
                 >

@@ -22,7 +22,9 @@
                 >
                     Informações do Agendamento
                 </h2>
-
+                <div class="flex text-end">
+                    <a class="secondary-btn" th:href="'/consulta/historico/' + ${agendamento.getPaciente().getPessoa().getCpf()}">Histórico</a>
+                </div>
                 <label class="label font-semibold">
                     Tipo de Agendamento:
                     <span
