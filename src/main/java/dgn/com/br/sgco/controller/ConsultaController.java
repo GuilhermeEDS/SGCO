@@ -1,11 +1,7 @@
 package dgn.com.br.sgco.controller;
 
-import dgn.com.br.sgco.entity.Usuario;
 import dgn.com.br.sgco.repository.ConsultaRepository;
-import dgn.com.br.sgco.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,8 +21,6 @@ import lombok.NonNull;
 public class ConsultaController {
     @Autowired
     private ConsultaService consultaService;
-    @Autowired
-    private UsuarioService usuarioService;
     @Autowired
     private ConsultaRepository consultaRepository;
 
