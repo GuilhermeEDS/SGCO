@@ -57,7 +57,6 @@ public class AgendamentoService {
     }
 
     public Agendamento agendar(AgendamentoDTO agendamentoDto, Paciente paciente) {
-
         Optional<Dentista> optDentista = dentistaRepository.findById(agendamentoDto.getIdDentista());
 
         if (agendamentoRepository.findByIdPacienteNotConfirmed(paciente.getId()).isPresent()) {
@@ -106,7 +105,9 @@ public class AgendamentoService {
         consulta.setAgendamento(agendamento);
         consulta = consultaRepository.save(consulta);
         agendamento.setConsulta(consulta);
-        emailSender.enviarEmail(agendamento.getPaciente().getPessoa().getEmail(), "Agendamento Confirmado", "Por meio desta, gostaríamos de confirmar que seu agendamento com o doutor" + consulta.getAgendamento().getDentista().getPessoa().getNome() + "em questão está agendado para o dia " + consulta.getAgendamento().getDataConsulta() +" às "+ consulta.getAgendamento().getHoraConsulta() + ".");
+        SimpleDateFormat sdtd = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdt = new SimpleDateFormat("HH:mm");
+        emailSender.enviarEmail(agendamento.getPaciente().getPessoa().getEmail(), "Agendamento Confirmado", "Por meio desta, gostaríamos de confirmar que seu agendamento com o doutor " + consulta.getAgendamento().getDentista().getPessoa().getNome() + " está agendado para o dia " + sdtd.format(consulta.getAgendamento().getDataConsulta()) +" às "+ sdt.format(consulta.getAgendamento().getHoraConsulta()) + ".");
         return agendamentoRepository.save(agendamento);
     }
 
@@ -121,7 +122,7 @@ public class AgendamentoService {
 
         Agendamento agendamento = optAgendamento.get();
         agendamento.setConfirmacao(false);
-        emailSender.enviarEmail(agendamento.getPaciente().getPessoa().getEmail(), "Agendamento Cancelado", "Por meio desta, desejamos comunicar que o agendamento previamente marcado com o doutor" + agendamento.getDentista().getPessoa().getNome() + " foi cancelado para o dia designado. Fique à vontade para efetuar um novo agendamento por meio do nosso sistema.");
+        emailSender.enviarEmail(agendamento.getPaciente().getPessoa().getEmail(), "Agendamento Cancelado", "Por meio desta, desejamos comunicar que o agendamento previamente marcado com o doutor " + agendamento.getDentista().getPessoa().getNome() + " foi cancelado para o dia designado. Fique à vontade para efetuar um novo agendamento por meio do nosso sistema.");
         return agendamentoRepository.save(agendamento);
     }
 
